@@ -1,0 +1,162 @@
+/**
+ * Design Tokens — SebastienDegodez.github.io
+ * Basé sur le thème Marp Gaia (invert) + custom-default.css
+ * Utilisable en CSS natif ou importable dans Figma via un plugin tokens.
+ *
+ * Source : SebastienDegodez/slide-marp & SebastienDegodez/MCP.Pack
+ */
+
+:root {
+  /* ─────────────────────────────────────────────────────────────
+   * PALETTE DE COULEURS
+   * ───────────────────────────────────────────────────────────── */
+
+  /* Couleurs de base Gaia */
+  --color-light:     #fff8e1;   /* Blanc chaud / Cream — texte sur fond sombre */
+  --color-dark:      #455a64;   /* Bleu-gris ardoise — fond principal (invert) */
+  --color-primary:   #0288d1;   /* Bleu vif — liens, accents, fond gaia variant */
+  --color-secondary: #81d4fa;   /* Bleu clair — highlight, strong en mode sombre */
+
+  /* Couleurs dérivées */
+  --color-dimmed:    #dad8c8;   /* Cream légèrement grisé — footer, blockquote, code bg */
+  --color-stripe:    rgba(255, 248, 225, 0.1); /* Rayure tableau (mode invert) */
+
+  /* Alias sémantiques (mode principal = invert/sombre) */
+  --color-background:        var(--color-dark);      /* #455a64 */
+  --color-foreground:        var(--color-light);     /* #fff8e1 */
+  --color-highlight:         var(--color-secondary); /* #81d4fa */
+  --color-code-bg:           var(--color-dimmed);    /* #dad8c8 */
+  --color-code-text:         var(--color-dark);      /* #455a64 */
+  --color-pre-bg:            var(--color-foreground);/* #fff8e1 */  --color-link:              var(--color-secondary); /* #81d4fa */
+  --color-heading-strong:    var(--color-secondary); /* #81d4fa */
+  --color-muted:             var(--color-dimmed);    /* #dad8c8 */
+
+  /* Variante gaia (slide bleu accent) */
+  --color-gaia-bg:           var(--color-primary);   /* #0288d1 */
+  --color-gaia-fg:           var(--color-light);     /* #fff8e1 */
+  --color-gaia-highlight:    var(--color-secondary); /* #81d4fa */
+  --color-gaia-dimmed:       #cce2de;
+
+  /* ─────────────────────────────────────────────────────────────
+   * FONDS DE PAGE
+   * ───────────────────────────────────────────────────────────── */
+
+  /* Fond principal des slides (invert) */
+  --bg-slide:        var(--color-dark);   /* #455a64 */
+
+  /* Gradient subtil appliqué sur chaque section */
+  --bg-gradient: linear-gradient(
+    135deg,
+    rgba(136, 136, 136, 0)    0%,
+    rgba(136, 136, 136, 0.02) 50%,
+    rgba(255, 255, 255, 0)    50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+
+  /* Image de fond (slides titre / fin) */
+  --bg-image-title: url('https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/bg.jpg');
+  --bg-image-opacity: 0.7; /* opacité appliquée via Marp `![bg opacity:.7]` */
+
+  /* ─────────────────────────────────────────────────────────────
+   * TYPOGRAPHIE
+   * ───────────────────────────────────────────────────────────── */
+
+  /* Familles de police */
+  --font-sans:  Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
+  --font-mono:  'Fira Code', 'Roboto Mono', monospace; /* custom-default remplace Roboto Mono */
+
+  /* Tailles (base 35 px — slides 1280×720) */
+  --font-size-base:   35px;
+  --font-size-h1:     1.8em;   /* ~63px */
+  --font-size-h2:     1.5em;   /* ~52px */
+  --font-size-h3:     1.3em;   /* ~45px */
+  --font-size-h4:     1.1em;   /* ~38px */
+  --font-size-h5:     1em;     /* ~35px */
+  --font-size-h6:     0.9em;   /* ~31px */
+  --font-size-code-inline: 0.8em;  /* ~28px — valeur Gaia native (inline `code`) */
+  --font-size-code-block:  0.6em;  /* ~21px — surcharge MCP.Pack (code dans pre) */
+  --font-size-pre:         0.6em;  /* ~21px — même surcharge custom-default MCP.Pack */
+  --font-size-footer: 66%;     /* ~23px */
+
+  /* Espacement texte */
+  --line-height:     1.35;
+  --letter-spacing:  1.25px;
+
+  /* ─────────────────────────────────────────────────────────────
+   * DIMENSIONS DES SLIDES
+   * ───────────────────────────────────────────────────────────── */
+
+  --slide-width-16-9:  1280px;
+  --slide-height-16-9: 720px;
+  --slide-width-4-3:   960px;
+  --slide-height-4-3:  720px;
+  --slide-padding:     70px;
+
+  /* ─────────────────────────────────────────────────────────────
+   * ARRONDIS & OMBRES
+   * ───────────────────────────────────────────────────────────── */
+
+  /* Avatar / photo de profil */
+  --radius-avatar:  50%;         /* cercle parfait — div#presentation > img */
+  --size-avatar:    5rem;        /* 80px */
+
+  /* Pas de box-shadow défini dans les thèmes source */
+
+  /* ─────────────────────────────────────────────────────────────
+   * ESPACEMENTS
+   * ───────────────────────────────────────────────────────────── */
+
+  --spacing-header-footer-height: 70px;
+  --spacing-header-footer-line:   50px;
+  --spacing-columns-gap:          1rem;
+  --margin-avatar-right:          1.1em;
+
+  /* ─────────────────────────────────────────────────────────────
+   * ICÔNES
+   * ───────────────────────────────────────────────────────────── */
+  /* Font Awesome 6.7.2 */
+  /* @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' */
+}
+
+/* ─────────────────────────────────────────────────────────────────
+ * CLASSES UTILITAIRES DÉRIVÉES DU THÈME
+ * ───────────────────────────────────────────────────────────────── */
+
+/* Carte présentateur */
+.presentation-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presentation-card__avatar {
+  width: var(--size-avatar);
+  height: var(--size-avatar);
+  border-radius: var(--radius-avatar);
+  margin-right: var(--margin-avatar-right);
+  vertical-align: middle;
+}
+
+.presentation-card__name {
+  margin-top: 0;
+  text-align: left;
+  font-size: var(--font-size-h1);
+}
+
+.presentation-card__title {
+  text-align: left;
+  font-size: var(--font-size-h5);
+}
+
+/* Grille 2 colonnes (avantages, features…) */
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing-columns-gap);
+}
+
+/* Slide de fin (QR code centré) */
+.end-card {
+  display: flex;
+  justify-content: center;
+}
