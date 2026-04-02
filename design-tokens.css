@@ -27,8 +27,7 @@
   --color-highlight:         var(--color-secondary); /* #81d4fa */
   --color-code-bg:           var(--color-dimmed);    /* #dad8c8 */
   --color-code-text:         var(--color-dark);      /* #455a64 */
-  --color-pre-bg:            var(--color-foreground);/* #fff8e1 */
-  --color-link:              var(--color-secondary); /* #81d4fa */
+  --color-pre-bg:            var(--color-foreground);/* #fff8e1 */  --color-link:              var(--color-secondary); /* #81d4fa */
   --color-heading-strong:    var(--color-secondary); /* #81d4fa */
   --color-muted:             var(--color-dimmed);    /* #dad8c8 */
 
@@ -74,8 +73,9 @@
   --font-size-h4:     1.1em;   /* ~38px */
   --font-size-h5:     1em;     /* ~35px */
   --font-size-h6:     0.9em;   /* ~31px */
-  --font-size-code:   0.6em;   /* ~21px — valeur MCP.Pack */
-  --font-size-pre:    0.7em;   /* ~24px */
+  --font-size-code-inline: 0.8em;  /* ~28px — valeur Gaia native (inline `code`) */
+  --font-size-code-block:  0.6em;  /* ~21px — surcharge MCP.Pack (code dans pre) */
+  --font-size-pre:         0.6em;  /* ~21px — même surcharge custom-default MCP.Pack */
   --font-size-footer: 66%;     /* ~23px */
 
   /* Espacement texte */

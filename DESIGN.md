@@ -103,8 +103,8 @@ background-image: linear-gradient(
 | `h4` | 1.1 em | ~38 px |
 | `h5` | 1.0 em | ~35 px |
 | `h6` | 0.9 em | ~31 px |
-| Code inline | 0.8 em | ~28 px |
-| Bloc de code | 0.6 em | ~21 px |
+| Code inline | 0.8 em | ~28 px | Gaia natif |
+| Bloc de code (`pre`) | 0.6 em | ~21 px | Surcharge MCP.Pack |
 | Footer / header | 66 % | ~23 px |
 
 ### Espacement texte
@@ -169,7 +169,8 @@ Fond (code inline) : #dad8c8  (--color-dimmed)
 Texte code inline  : #455a64  (--color-dark)
 Fond pre           : #fff8e1  (--color-foreground)
 Police             : Fira Code, monospace
-Font-size pre      : 0.6 em
+Font-size inline   : 0.8 em  (Gaia natif)
+Font-size pre      : 0.6 em  (surcharge MCP.Pack)
 Padding pre        : 0.5 em
 border-radius      : aucun défini
 ```
