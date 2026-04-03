@@ -106,6 +106,28 @@ Couvre DDD, Clean Architecture, tests, conventions de commits et plus.
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
+### Microcks — Codeowner puis Maintainer {.project-card__name}
+
+<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Contribution à un projet CNCF de référence</div>
+
+Progression de **codeowner** à **maintainer** sur [**Microcks**](https://microcks.io/), le projet open source CNCF
+de référence pour le **mocking et testing d'APIs** (REST, gRPC, AsyncAPI, GraphQL).
+Participation active à la roadmap, aux reviews de code et à la gouvernance du projet.
+{: .project-card__desc}
+
+<div class="project-card__tags">
+<span class="tag">CNCF</span> <span class="tag">Java</span> <span class="tag">API Testing</span> <span class="tag">OSS</span> <span class="tag">Maintainer</span>
+</div>
+</div>
+<div class="project-card__side">
+<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+<a class="project-card__link" href="https://microcks.io/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Site</a>
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main" markdown="1">
+
 ### Présentations Marp — slide-marp {.project-card__name}
 
 <div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Partage de connaissance & outillage</div>
@@ -140,6 +162,49 @@ Projets publiés, contributions à l'écosystème et engagement dans la communau
 
 </div>
 <div class="project-list">
+
+<div class="project-card">
+<div class="project-card__main" markdown="1">
+
+### Microcks — Codeowner {.project-card__name}
+
+<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Codeowner reconnu sur un projet CNCF</div>
+
+Obtention du statut de **codeowner** sur [**Microcks**](https://github.com/microcks/microcks),
+le projet CNCF de mocking et testing d'APIs multi-protocoles.
+Première étape d'une implication croissante dans la gouvernance du projet.
+{: .project-card__desc}
+
+<div class="project-card__tags">
+<span class="tag--green tag">Codeowner</span> <span class="tag">CNCF</span> <span class="tag">OSS</span>
+</div>
+</div>
+<div class="project-card__side">
+<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main" markdown="1">
+
+### Microcks — Maintainer {.project-card__name}
+
+<div class="project-card__impact"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Maintainer d'un projet CNCF</div>
+
+Promotion au rôle de **maintainer** sur [**Microcks**](https://github.com/microcks/microcks).
+Participation à la roadmap, aux releases, aux reviews de code et aux décisions de gouvernance
+de ce projet de référence pour le testing d'APIs dans les environnements cloud-native.
+{: .project-card__desc}
+
+<div class="project-card__tags">
+<span class="tag--green tag">Maintainer</span> <span class="tag">CNCF</span> <span class="tag">OSS</span> <span class="tag">Gouvernance</span>
+</div>
+</div>
+<div class="project-card__side">
+<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
+<a class="project-card__link" href="https://microcks.io/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Site</a>
+</div>
+</div>
 
 <div class="project-card">
 <div class="project-card__main" markdown="1">
