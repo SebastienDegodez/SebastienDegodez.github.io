@@ -88,27 +88,6 @@ au sein du projet CNCF [**Microcks**](https://microcks.io/).
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### Présentations Marp — slide-marp {.project-card__name}
-
-<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Partage de connaissance & outillage</div>
-
-Création d'un thème **Marp** personnalisé (Gaia Invert) réutilisable pour toutes les présentations techniques.
-Ce thème est partagé en open source et utilisé comme base de design system pour ce portfolio.
-{: .project-card__desc}
-
-<div class="project-card__tags">
-<span class="tag">Marp</span> <span class="tag">CSS</span> <span class="tag">Design System</span> <span class="tag">OSS</span>
-</div>
-</div>
-<div class="project-card__side">
-<span class="project-card__date">2024</span>
-<a class="project-card__link" href="https://github.com/SebastienDegodez/slide-marp" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
-</div>
-</div>
-
-<div class="project-card">
-<div class="project-card__main" markdown="1">
-
 ### copilot-instructions — Bonnes pratiques GitHub Copilot {.project-card__name}
 
 <div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Qualité & productivité des équipes</div>
@@ -230,26 +209,6 @@ Utilisée par des équipes pour standardiser les workflows de développement IA.
 </div>
 </div>
 
-<div class="project-card">
-<div class="project-card__main" markdown="1">
-
-### Thème Marp Gaia Invert — slide-marp {.project-card__name}
-
-<div class="project-card__impact"><i class="fa-solid fa-palette" aria-hidden="true"></i> Design & outillage communautaire</div>
-
-Thème de présentation **Marp** personnalisé, open source, inspiré du thème Gaia avec des surcharges CSS
-pour le dark mode. Réutilisé comme design system pour ce portfolio.
-{: .project-card__desc}
-
-<div class="project-card__tags">
-<span class="tag--green tag">OSS</span> <span class="tag">Marp</span> <span class="tag">CSS</span>
-</div>
-</div>
-<div class="project-card__side">
-<a class="project-card__link" href="https://github.com/SebastienDegodez/slide-marp" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
-</div>
-</div>
-
 </div>
 </section>
 
@@ -304,25 +263,6 @@ des projets d'entreprise à fort enjeu, avec les pièges à éviter et les bén�
 
 <div class="talk-card__tags">
 <span class="tag--orange tag">Talk interne</span> <span class="tag">Clean Architecture</span> <span class="tag">DDD</span> <span class="tag">.NET</span>
-</div>
-</div>
-</div>
-
-<div class="talk-card">
-<div class="talk-card__icon"><i class="fa-solid fa-presentation-screen" aria-hidden="true"></i></div>
-<div class="talk-card__body" markdown="1">
-
-### Présentation & démo : Marp pour les présentations techniques {.talk-card__title}
-
-**Communauté & équipes** · 2024
-{: .talk-card__meta}
-
-Introduction à **Marp** (Markdown Presentation Ecosystem) pour créer des slides techniques
-élégants à partir de Markdown, avec démonstration du thème custom Gaia Invert.
-{: .talk-card__desc}
-
-<div class="talk-card__tags">
-<span class="tag--orange tag">Demo</span> <span class="tag">Marp</span> <span class="tag">Markdown</span> <span class="tag">Outillage</span>
 </div>
 </div>
 </div>
