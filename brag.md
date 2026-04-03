@@ -42,28 +42,6 @@ Réalisations ayant eu un impact significatif sur les produits, les équipes ou 
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### MCP.Pack — Model Context Protocol Tooling {.project-card__name}
-
-<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Outillage développeur & IA</div>
-
-Conception et développement d'un pack d'outils **.NET** pour le **Model Context Protocol (MCP)**,
-permettant d'intégrer facilement des fonctionnalités IA dans des workflows de développement.
-Publiés en open source, les outils sont accessibles via une [page de présentation dédiée](https://sebastiendegodez.github.io/MCP.Pack/) et un [dépôt GitHub](https://github.com/SebastienDegodez/MCP.Pack).
-{: .project-card__desc}
-
-<div class="project-card__tags">
-<span class="tag">.NET</span> <span class="tag">MCP</span> <span class="tag">AI Tooling</span> <span class="tag">OSS</span> <span class="tag">CLI</span>
-</div>
-</div>
-<div class="project-card__side">
-<span class="project-card__date">2024–2025</span>
-<a class="project-card__link" href="https://sebastiendegodez.github.io/MCP.Pack/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Voir</a>
-</div>
-</div>
-
-<div class="project-card">
-<div class="project-card__main" markdown="1">
-
 ### Solutions entreprise .NET @ AXA France {.project-card__name}
 
 <div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Fiabilité & performance en production</div>
@@ -106,21 +84,24 @@ Couvre DDD, Clean Architecture, tests, conventions de commits et plus.
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### Microcks — Codeowner puis Maintainer {.project-card__name}
+### Microcks — Maintainer & Code Owner (.NET) {.project-card__name}
 
 <div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Contribution à un projet CNCF de référence</div>
 
-Progression de **codeowner** à **maintainer** sur [**Microcks**](https://microcks.io/), le projet open source CNCF
-de référence pour le **mocking et testing d'APIs** (REST, gRPC, AsyncAPI, GraphQL).
-Participation active à la roadmap, aux reviews de code et à la gouvernance du projet.
+**Maintainer officiel** et **Code Owner** (vote de gouvernance validé début 2024) du module
+[**microcks-testcontainers-dotnet**](https://github.com/microcks/microcks-testcontainers-dotnet),
+l'intégration **Testcontainers + Microcks** dans l'écosystème **.NET**.
+Responsable de la vision technique, de la qualité, des revues de PR et de l'évolution du module
+au sein du projet CNCF [**Microcks**](https://microcks.io/).
 {: .project-card__desc}
 
 <div class="project-card__tags">
-<span class="tag">CNCF</span> <span class="tag">Java</span> <span class="tag">API Testing</span> <span class="tag">OSS</span> <span class="tag">Maintainer</span>
+<span class="tag">CNCF</span> <span class="tag">.NET</span> <span class="tag">Testcontainers</span> <span class="tag">OSS</span> <span class="tag">Maintainer</span>
 </div>
 </div>
 <div class="project-card__side">
-<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+<span class="project-card__date">Depuis janv. 2024</span>
+<a class="project-card__link" href="https://github.com/microcks/microcks-testcontainers-dotnet" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
 <a class="project-card__link" href="https://microcks.io/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Site</a>
 </div>
 </div>
@@ -166,42 +147,44 @@ Projets publiés, contributions à l'écosystème et engagement dans la communau
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### Microcks — Codeowner {.project-card__name}
+### microcks-testcontainers-dotnet — Code Owner {.project-card__name}
 
-<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Codeowner reconnu sur un projet CNCF</div>
+<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Code Owner reconnu par la gouvernance Microcks</div>
 
-Obtention du statut de **codeowner** sur [**Microcks**](https://github.com/microcks/microcks),
-le projet CNCF de mocking et testing d'APIs multi-protocoles.
-Première étape d'une implication croissante dans la gouvernance du projet.
+Obtention du statut de **Code Owner** sur [**microcks-testcontainers-dotnet**](https://github.com/microcks/microcks-testcontainers-dotnet)
+à la suite d'un **vote officiel de gouvernance** validé début 2024.
+Porteur de l'intégration **Testcontainers + Microcks** dans l'écosystème .NET.
 {: .project-card__desc}
 
 <div class="project-card__tags">
-<span class="tag--green tag">Codeowner</span> <span class="tag">CNCF</span> <span class="tag">OSS</span>
+<span class="tag--green tag">Code Owner</span> <span class="tag">CNCF</span> <span class="tag">.NET</span> <span class="tag">Testcontainers</span>
 </div>
 </div>
 <div class="project-card__side">
-<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
+<span class="project-card__date">Depuis janv. 2024</span>
+<a class="project-card__link" href="https://github.com/microcks/microcks-testcontainers-dotnet" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
 </div>
 </div>
 
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### Microcks — Maintainer {.project-card__name}
+### microcks-testcontainers-dotnet — Maintainer {.project-card__name}
 
-<div class="project-card__impact"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Maintainer d'un projet CNCF</div>
+<div class="project-card__impact"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Maintainer officiel d'un module CNCF</div>
 
-Promotion au rôle de **maintainer** sur [**Microcks**](https://github.com/microcks/microcks).
-Participation à la roadmap, aux releases, aux reviews de code et aux décisions de gouvernance
-de ce projet de référence pour le testing d'APIs dans les environnements cloud-native.
+**Mainteneur officiel** du module [**microcks-testcontainers-dotnet**](https://github.com/microcks/microcks-testcontainers-dotnet)
+depuis janvier 2024 — communication officielle de l'équipe Microcks annonçant ce rôle.
+Responsable de la vision technique, de la qualité, des revues de PR, du support communauté et de l'évolution du module.
 {: .project-card__desc}
 
 <div class="project-card__tags">
-<span class="tag--green tag">Maintainer</span> <span class="tag">CNCF</span> <span class="tag">OSS</span> <span class="tag">Gouvernance</span>
+<span class="tag--green tag">Maintainer</span> <span class="tag">CNCF</span> <span class="tag">.NET</span> <span class="tag">Gouvernance</span>
 </div>
 </div>
 <div class="project-card__side">
-<a class="project-card__link" href="https://github.com/microcks/microcks" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
+<span class="project-card__date">Depuis janv. 2024</span>
+<a class="project-card__link" href="https://github.com/microcks/microcks-testcontainers-dotnet" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
 <a class="project-card__link" href="https://microcks.io/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Site</a>
 </div>
 </div>
@@ -209,20 +192,21 @@ de ce projet de référence pour le testing d'APIs dans les environnements cloud
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### MCP.Pack — Auteur & Mainteneur {.project-card__name}
+### Aspire + Testcontainers + Microcks — Intégration .NET {.project-card__name}
 
-<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Auteur principal</div>
+<div class="project-card__impact"><i class="fa-solid fa-plug-circle-bolt" aria-hidden="true"></i> Contributions continues à l'écosystème .NET</div>
 
-Création, publication et maintenance du projet [**MCP.Pack**](https://github.com/SebastienDegodez/MCP.Pack) en open source.
-Rédaction de la documentation, gestion des issues, releases et roadmap.
+Contributions régulières depuis 2023 autour de l'intégration **Aspire**, **Testcontainers** et **Microcks**
+dans l'écosystème **.NET** : démonstrations, documentation, projets de référence et participation active
+aux discussions sur l'évolution des outils de **tests contractuels** et mocks dynamiques.
 {: .project-card__desc}
 
 <div class="project-card__tags">
-<span class="tag--green tag">OSS Auteur</span> <span class="tag">.NET</span> <span class="tag">MCP</span>
+<span class="tag--green tag">OSS</span> <span class="tag">.NET</span> <span class="tag">Aspire</span> <span class="tag">Testcontainers</span> <span class="tag">Microcks</span>
 </div>
 </div>
 <div class="project-card__side">
-<a class="project-card__link" href="https://github.com/SebastienDegodez/MCP.Pack" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Repo</a>
+<span class="project-card__date">2023 – aujourd'hui</span>
 </div>
 </div>
 
@@ -284,20 +268,23 @@ Présentations en meetups, conférences et contenus publiés pour la communauté
 <div class="talks-list">
 
 <div class="talk-card">
-<div class="talk-card__icon"><i class="fa-solid fa-video" aria-hidden="true"></i></div>
+<div class="talk-card__icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
 <div class="talk-card__body" markdown="1">
 
-### MCP.Pack — Outiller les développeurs avec le Model Context Protocol {.talk-card__title}
+### Coding with AI — Meetup Software Craft Lille @ SFEIR {.talk-card__title}
 
-**Meetup / Conférence .NET** · 2025
+**Software Craft Lille · SFEIR Lille · Mars 2026** — co-animé avec *François Descamps*
 {: .talk-card__meta}
 
-Présentation de **MCP.Pack**, des cas d'usage du Model Context Protocol dans les workflows **.NET**
-et des possibilités d'intégration avec les assistants IA pour développeurs.
+Comment l'IA (Copilot, Claude…) s'intègre dans les pratiques de développement modernes.
+Présentation des retours d'expérience chez **AXA France** : workflow **TDD en 2 phases** (Synthesize Green —
+l'IA génère le Red, l'humain valide l'intention, l'IA synthétise le Green),
+tests **Outside-In via Gherkin** (le Gherkin comme plan d'action, pas un test par classe),
+et rôle des phases amont (**Event Storming**, **Example Mapping**, **3 Amigos**) comme carburant de l'IA.
 {: .talk-card__desc}
 
 <div class="talk-card__tags">
-<span class="tag--orange tag">Talk</span> <span class="tag">.NET</span> <span class="tag">MCP</span> <span class="tag">LLM</span>
+<span class="tag--orange tag">Meetup</span> <span class="tag">AI</span> <span class="tag">TDD</span> <span class="tag">DDD</span> <span class="tag">Gherkin</span> <span class="tag">.NET</span>
 </div>
 </div>
 </div>
