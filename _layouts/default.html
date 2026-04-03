@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sébastien Degodez — Portfolio</title>
+  <title>{{ page.title }} — Sébastien Degodez</title>
   <link rel="preconnect" href="https://fonts.bunny.net" />
   <link
     href="https://fonts.bunny.net/css?family=Lato:400,700,900|Fira+Code:400,700&display=swap"
@@ -13,6 +13,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   />
+  <link rel="stylesheet" href="/design-tokens.css" />
   <style>
     /* ============================================================
        THEME — Marp Gaia Invert
@@ -301,6 +302,218 @@
       gap: 0.4rem;
       margin-top: 0.25rem;
     }
+    .bento-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-highlight);
+      margin-top: auto;
+    }
+    .bento-card__link:hover { opacity: 0.75; text-decoration: underline; }
+
+    /* ============================================================
+       PAGE HEADER
+       ============================================================ */
+    .page-header {
+      position: relative;
+      padding: 7rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-header__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/bg.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+      z-index: 0;
+    }
+    .page-header__content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .page-header__eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-highlight);
+      margin-bottom: 0.75rem;
+    }
+    .page-header__title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--color-foreground);
+      line-height: 1.1;
+    }
+    .page-header__subtitle {
+      font-size: 1rem;
+      color: var(--color-dimmed);
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    /* ============================================================
+       TOC (Table of Contents)
+       ============================================================ */
+    .toc {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 2rem 0;
+    }
+    .toc__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      list-style: none;
+    }
+    .toc__list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.4em 1em;
+      border: 1px solid var(--color-stripe);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-dimmed);
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
+    }
+    .toc__list a:hover {
+      border-color: var(--color-highlight);
+      color: var(--color-highlight);
+      background: rgba(129, 212, 250, 0.08);
+      text-decoration: none;
+      opacity: 1;
+    }
+
+    /* ============================================================
+       SECTION générique
+       ============================================================ */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section + .section {
+      border-top: 1px solid var(--color-stripe);
+    }
+    .section__header {
+      margin-bottom: 2.5rem;
+    }
+    .section__eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-highlight);
+      margin-bottom: 0.4rem;
+    }
+    .section__title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--color-foreground);
+    }
+    .section__title span { color: var(--color-highlight); }
+    .section__subtitle {
+      color: var(--color-dimmed);
+      font-size: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ============================================================
+       PROJECT CARDS
+       ============================================================ */
+    .project-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--color-stripe);
+      border-radius: var(--radius-card);
+      padding: 1.75rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .project-card:hover {
+      border-color: rgba(129, 212, 250, 0.3);
+      background: rgba(0, 0, 0, 0.35);
+    }
+    .project-card__name {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--color-foreground);
+      margin-bottom: 0.4rem;
+    }
+    .project-card__impact {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #80cbc4;
+      background: rgba(77, 182, 172, 0.12);
+      border: 1px solid rgba(77, 182, 172, 0.25);
+      border-radius: 4px;
+      padding: 0.15em 0.6em;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.3px;
+    }
+    .project-card__desc {
+      font-size: 0.92rem;
+      color: var(--color-dimmed);
+      line-height: 1.6;
+    }
+    .project-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+    }
+    .project-card__side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      min-width: 90px;
+    }
+    .project-card__date {
+      font-size: 0.78rem;
+      color: var(--color-dimmed);
+      white-space: nowrap;
+    }
+    .project-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-highlight);
+    }
+    @media (max-width: 600px) {
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+      .project-card__side {
+        flex-direction: row;
+        align-items: center;
+        min-width: unset;
+      }
+    }
+
+    /* ============================================================
+       TAGS utilitaires
+       ============================================================ */
     .tag {
       font-size: 0.72rem;
       font-weight: 700;
@@ -321,16 +534,97 @@
       color: #ffca28;
       border-color: rgba(255, 167, 38, 0.3);
     }
-    .bento-card__link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3em;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--color-highlight);
-      margin-top: auto;
+
+    /* ============================================================
+       TALKS LIST
+       ============================================================ */
+    .talks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
     }
-    .bento-card__link:hover { opacity: 0.75; text-decoration: underline; }
+    .talk-card {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--color-stripe);
+      border-left: 3px solid var(--color-highlight);
+      border-radius: 0 var(--radius-card) var(--radius-card) 0;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .talk-card:hover {
+      border-left-color: var(--color-primary);
+      background: rgba(0, 0, 0, 0.3);
+    }
+    .talk-card__icon {
+      font-size: 1.3rem;
+      color: var(--color-highlight);
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+    }
+    .talk-card__title {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--color-foreground);
+      margin-bottom: 0.25rem;
+    }
+    .talk-card__meta {
+      font-size: 0.82rem;
+      color: var(--color-dimmed);
+      margin-bottom: 0.5rem;
+    }
+    .talk-card__meta strong {
+      color: var(--color-highlight);
+    }
+    .talk-card__desc {
+      font-size: 0.88rem;
+      color: var(--color-dimmed);
+      line-height: 1.55;
+    }
+    .talk-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    /* ============================================================
+       MENTORING LIST
+       ============================================================ */
+    .mentoring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .mentoring-card {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid var(--color-stripe);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .mentoring-card:hover {
+      border-color: rgba(129, 212, 250, 0.3);
+      background: rgba(0, 0, 0, 0.32);
+    }
+    .mentoring-card__icon {
+      font-size: 1.4rem;
+      color: var(--color-highlight);
+      margin-bottom: 0.75rem;
+    }
+    .mentoring-card__title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--color-foreground);
+      margin-bottom: 0.5rem;
+    }
+    .mentoring-card__desc {
+      font-size: 0.88rem;
+      color: var(--color-dimmed);
+      line-height: 1.55;
+    }
 
     /* ============================================================
        FOOTER
@@ -351,178 +645,15 @@
        NAVIGATION
        ============================================================ -->
   <nav class="site-nav" aria-label="Navigation principale">
-    <a href="index.html" class="active" aria-current="page">
+    <a href="{% link index.md %}"{% if page.url == '/' or page.url == '/index.html' %} class="active" aria-current="page"{% endif %}>
       <i class="fa-solid fa-house" aria-hidden="true"></i> Accueil
     </a>
-    <a href="brag.html">
+    <a href="{% link brag.md %}"{% if page.url contains 'brag' %} class="active" aria-current="page"{% endif %}>
       <i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document
     </a>
   </nav>
 
-  <!-- ============================================================
-       HERO — Executive Summary
-       ============================================================ -->
-  <header class="hero">
-    <div class="hero__bg" role="presentation" aria-hidden="true"></div>
-    <div class="hero__content">
-      <img
-        src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png"
-        alt="Photo de Sébastien Degodez"
-        class="hero__avatar"
-      />
-      <h1>DEGODEZ Sébastien</h1>
-      <p class="hero__role">
-        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-        Software Engineer · AXA France
-      </p>
-      <p class="hero__tagline">
-        Architecte de solutions .NET, contributeur open source &amp; speaker communautaire passionné par les LLMs et les outils pour développeurs.
-      </p>
-      <nav class="hero__links" aria-label="Liens rapides">
-        <a href="brag.html" class="hero__links--cta">
-          <i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document
-        </a>
-        <a href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
-          <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
-        </a>
-        <a href="https://www.linkedin.com/in/sebastien-degodez" target="_blank" rel="noopener">
-          <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
-        </a>
-        <a href="https://twitter.com/seb2goxdev" target="_blank" rel="noopener">
-          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i> seb2goxdev
-        </a>
-      </nav>
-    </div>
-    <div class="hero__scroll-hint" aria-hidden="true">
-      <i class="fa-solid fa-chevron-down"></i>
-      Highlights
-    </div>
-  </header>
-
-  <!-- ============================================================
-       BENTO BOX — Highlights
-       ============================================================ -->
-  <main>
-    <section class="bento-section" id="highlights" aria-labelledby="highlights-title">
-      <div class="bento-section__header">
-        <h2 class="bento-section__title" id="highlights-title">
-          Points <span>forts</span>
-        </h2>
-        <p class="bento-section__subtitle">Vue d'ensemble — rôle actuel, contributions &amp; talks récents.</p>
-      </div>
-
-      <div class="bento-grid">
-
-        <!-- Rôle actuel -->
-        <div class="bento-card bento-card--wide">
-          <div class="bento-card__icon"><i class="fa-solid fa-building" aria-hidden="true"></i></div>
-          <div class="bento-card__label">Rôle actuel</div>
-          <div class="bento-card__title">Software Engineer @ AXA France</div>
-          <div class="bento-card__body">
-            Développement d'applications d'entreprise en .NET, conception de solutions Cloud et accompagnement technique des équipes dans l'adoption de pratiques modernes (Clean Architecture, DDD, tests automatisés).
-          </div>
-          <div class="bento-card__tags">
-            <span class="tag">.NET</span>
-            <span class="tag">C#</span>
-            <span class="tag">Clean Architecture</span>
-            <span class="tag">Azure</span>
-            <span class="tag">DDD</span>
-          </div>
-        </div>
-
-        <!-- Open Source -->
-        <div class="bento-card">
-          <div class="bento-card__icon"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
-          <div class="bento-card__label">Open Source</div>
-          <div class="bento-card__title">MCP.Pack &amp; contributions communautaires</div>
-          <div class="bento-card__body">
-            Auteur de <strong>MCP.Pack</strong>, un pack d'outils pour le protocole MCP (Model Context Protocol). Contributions actives à l'écosystème .NET et aux outils pour développeurs.
-          </div>
-          <div class="bento-card__tags">
-            <span class="tag--green tag">MCP</span>
-            <span class="tag--green tag">OSS</span>
-            <span class="tag--green tag">AI Tooling</span>
-          </div>
-          <a
-            class="bento-card__link"
-            href="https://github.com/SebastienDegodez"
-            target="_blank"
-            rel="noopener"
-          >
-            <i class="fa-brands fa-github" aria-hidden="true"></i> Voir sur GitHub
-          </a>
-        </div>
-
-        <!-- Talks & communauté -->
-        <div class="bento-card">
-          <div class="bento-card__icon"><i class="fa-solid fa-microphone" aria-hidden="true"></i></div>
-          <div class="bento-card__label">Talks récents</div>
-          <div class="bento-card__title">Speaker &amp; animateur communautaire</div>
-          <div class="bento-card__body">
-            Présentations en conférences et meetups sur les thèmes .NET, LLMs, outils pour développeurs et bonnes pratiques d'architecture.
-          </div>
-          <div class="bento-card__tags">
-            <span class="tag--orange tag">Meetup</span>
-            <span class="tag--orange tag">Conférence</span>
-            <span class="tag--orange tag">LLM</span>
-          </div>
-          <a class="bento-card__link" href="brag.html#talks">
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Toutes les présentations
-          </a>
-        </div>
-
-        <!-- Expertise technique -->
-        <div class="bento-card">
-          <div class="bento-card__icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
-          <div class="bento-card__label">Expertise technique</div>
-          <div class="bento-card__title">Stack & domaines de prédilection</div>
-          <div class="bento-card__body">
-            Spécialisé dans les architectures .NET modernes, l'intégration de l'IA générative dans les workflows de développement et la création d'outils CLI/SDK.
-          </div>
-          <div class="bento-card__tags">
-            <span class="tag">.NET 8/9</span>
-            <span class="tag">LLM</span>
-            <span class="tag">CLI</span>
-            <span class="tag">SDK</span>
-          </div>
-        </div>
-
-        <!-- Mentoring -->
-        <div class="bento-card">
-          <div class="bento-card__icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
-          <div class="bento-card__label">Mentoring &amp; Leadership</div>
-          <div class="bento-card__title">Accompagnement &amp; partage de connaissance</div>
-          <div class="bento-card__body">
-            Mentoring de développeurs juniors et mid, animation de guildes techniques, revues de code et accompagnement dans la montée en compétences des équipes.
-          </div>
-          <div class="bento-card__tags">
-            <span class="tag--green tag">Mentoring</span>
-            <span class="tag--green tag">Guilde</span>
-            <span class="tag--green tag">Leadership</span>
-          </div>
-          <a class="bento-card__link" href="brag.html#mentoring">
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> En savoir plus
-          </a>
-        </div>
-
-        <!-- Brag Document CTA -->
-        <div class="bento-card" style="background: rgba(2, 136, 209, 0.12); border-color: rgba(2, 136, 209, 0.35);">
-          <div class="bento-card__icon" style="background: rgba(2,136,209,0.2); color: var(--color-primary);">
-            <i class="fa-solid fa-trophy" aria-hidden="true"></i>
-          </div>
-          <div class="bento-card__label">Réalisations détaillées</div>
-          <div class="bento-card__title">Brag Document complet</div>
-          <div class="bento-card__body">
-            Projets majeurs, contributions open source, talks &amp; publications, mentoring — détaillés par impact et par thème.
-          </div>
-          <a class="bento-card__link" href="brag.html" style="color: var(--color-highlight);">
-            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Consulter le Brag Document
-          </a>
-        </div>
-
-      </div>
-    </section>
-  </main>
+  {{ content }}
 
   <!-- ============================================================
        FOOTER
