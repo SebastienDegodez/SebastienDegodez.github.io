@@ -63,27 +63,6 @@ de la stack technique vers .NET 8/9.
 <div class="project-card">
 <div class="project-card__main" markdown="1">
 
-### copilot-instructions — Bonnes pratiques GitHub Copilot {.project-card__name}
-
-<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Qualité & productivité des équipes</div>
-
-Base de connaissances complète (**174 ★**) de bonnes pratiques, règles de code et automatisations de workflow
-pour le développement assisté par IA avec **GitHub Copilot**.
-Couvre DDD, Clean Architecture, tests, conventions de commits et plus.
-{: .project-card__desc}
-
-<div class="project-card__tags">
-<span class="tag">GitHub Copilot</span> <span class="tag">TypeScript</span> <span class="tag">DDD</span> <span class="tag">Clean Architecture</span> <span class="tag">OSS</span>
-</div>
-</div>
-<div class="project-card__side">
-<a class="project-card__link" href="https://github.com/SebastienDegodez/copilot-instructions" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
-</div>
-</div>
-
-<div class="project-card">
-<div class="project-card__main" markdown="1">
-
 ### Microcks — Maintainer & Code Owner (.NET) {.project-card__name}
 
 <div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Contribution à un projet CNCF de référence</div>
@@ -124,6 +103,27 @@ Ce thème est partagé en open source et utilisé comme base de design system po
 <div class="project-card__side">
 <span class="project-card__date">2024</span>
 <a class="project-card__link" href="https://github.com/SebastienDegodez/slide-marp" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main" markdown="1">
+
+### copilot-instructions — Bonnes pratiques GitHub Copilot {.project-card__name}
+
+<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Qualité & productivité des équipes</div>
+
+Base de connaissances complète (**174 ★**) de bonnes pratiques, règles de code et automatisations de workflow
+pour le développement assisté par IA avec **GitHub Copilot**.
+Couvre DDD, Clean Architecture, tests, conventions de commits et plus.
+{: .project-card__desc}
+
+<div class="project-card__tags">
+<span class="tag">GitHub Copilot</span> <span class="tag">TypeScript</span> <span class="tag">DDD</span> <span class="tag">Clean Architecture</span> <span class="tag">OSS</span>
+</div>
+</div>
+<div class="project-card__side">
+<a class="project-card__link" href="https://github.com/SebastienDegodez/copilot-instructions" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
 </div>
 </div>
 
