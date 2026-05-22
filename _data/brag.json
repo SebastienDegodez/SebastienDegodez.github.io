@@ -1,22 +1,22 @@
 {
   "projects": [
     {
-      "title": "Global Maintainer @ Microcks (CNCF)",
+      "title": "Global Maintainer @ Microcks (CNCF Incubating)",
       "sort_key": 99991240,
       "impact": {
         "icon": "fa-solid fa-crown",
-        "text": "Impact Principal : Gouvernance globale d'un projet CNCF"
+        "text": "Impact Principal : Gouvernance globale d'un projet CNCF Incubating"
       },
       "paragraphs": [
-        "Promotion au statut de Maintainer global de l'organisation Microcks (projet CNCF Sandbox).",
-        "Participation active à la vision technique transverse, à la roadmap globale et à la revue de l'ensemble des composants de l'écosystème.",
-        "Représentation du projet au sein de la communauté CNCF et garant de la cohérence architecturale inter-langages."
+        "Promotion au statut de Maintainer global de l'organisation Microcks, évoluant désormais au niveau 'Incubating' de la Cloud Native Computing Foundation.",
+        "Responsable de la cohérence technologique, de la qualité des releases et de l'alignement de la roadmap pour l'ensemble des composants de l'écosystème.",
+        "Garant de la pérennité du projet pour une communauté de 160+ contributeurs et 30+ adopteurs publics."
       ],
       "tags": [
-        { "label": "Global Maintainer", "class": "tag--orange tag" },
-        { "label": "CNCF Governance", "class": "tag--orange tag" },
-        { "label": "Strategy", "class": "tag" },
-        { "label": "Open Source", "class": "tag" }
+        { "label": "CNCF Incubating", "class": "tag--orange tag" },
+        { "label": "Global Leadership", "class": "tag--orange tag" },
+        { "label": "Project Strategy", "class": "tag" },
+        { "label": "Community Governance", "class": "tag" }
       ],
       "date": "Depuis 2025",
       "links": [
@@ -266,16 +266,16 @@
       "sort_key": 20250101,
       "impact": {
         "icon": "fa-solid fa-crown",
-        "text": "Maintainer global (CNCF Sandbox) : décisionnaire transverse"
+        "text": "Maintainer global (CNCF Incubating) : décisionnaire transverse"
       },
       "paragraphs": [
-        "Un an après avoir rejoint l'aventure en tant que Code Owner, promotion au rang de Maintainer de l'ensemble de l'organisation Microcks.",
-        "Responsable de la validation des évolutions majeures, du mentorat des nouveaux contributeurs et de l'alignement stratégique du projet CNCF."
+        "Un an après avoir rejoint l'aventure en tant que Code Owner, promotion au rang de Maintainer de l'ensemble de l'organisation Microcks (CNCF).",
+        "Décisionnaire sur les évolutions majeures, responsable du mentorat technique et garant du respect des standards CNCF au sein d'un projet en pleine hyper-croissance (2.5M+ downloads)."
       ],
       "tags": [
-        { "label": "Maintainer", "class": "tag--orange tag" },
+        { "label": "Global Maintainer", "class": "tag--orange tag" },
         { "label": "Governance", "class": "tag" },
-        { "label": "CNCF", "class": "tag" }
+        { "label": "CNCF Incubating", "class": "tag" }
       ],
       "date": "Depuis janv. 2025",
       "links": [
