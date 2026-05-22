@@ -6,16 +6,15 @@ title: Accueil
 <!-- HERO — Executive Summary -->
 <header class="hero">
   <div class="hero__bg" role="presentation" aria-hidden="true"></div>
-  <div class="hero__content" markdown="1">
+  <div class="hero__content">
 
-![Photo de Sébastien Degodez](https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png){: .hero__avatar}
+<img class="hero__avatar" src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png" alt="Photo de Sébastien Degodez" />
 
-# DEGODEZ Sébastien
+<h1>DEGODEZ Sébastien</h1>
 
 <p class="hero__role"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Software Engineer · AXA France</p>
 
-*Software Engineer @ AXA France depuis juin 2023. Architecte de solutions .NET, contributeur open source & speaker communautaire passionné par les LLMs et les outils pour développeurs.*
-{: .hero__tagline}
+<p class="hero__tagline"><em>Software Engineer @ AXA France depuis juin 2023. Architecte de solutions .NET, contributeur open source & speaker communautaire passionné par les LLMs et les outils pour développeurs.</em></p>
 
 <nav class="hero__links" aria-label="Liens rapides">
   <a href="{% link brag.md %}" class="hero__links--cta"><i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document</a>
@@ -34,98 +33,36 @@ title: Accueil
 <!-- BENTO BOX — Highlights -->
 <main>
   <section class="bento-section" id="highlights" aria-labelledby="highlights-title">
-    <div class="bento-section__header" markdown="1">
+    {% assign highlights = site.data.homepage.highlights %}
+    <div class="bento-section__header">
 
-## Points <span>forts</span>
-{: #highlights-title .bento-section__title}
+<h2 id="highlights-title" class="bento-section__title">Points <span>forts</span></h2>
 
-Vue d'ensemble — rôle actuel, contributions & talks récents.
-{: .bento-section__subtitle}
+<p class="bento-section__subtitle">{{ highlights.subtitle }}</p>
 
     </div>
 
     <div class="bento-grid">
-
-      <!-- Rôle actuel -->
-      <div class="bento-card bento-card--wide">
-        <div class="bento-card__icon"><i class="fa-solid fa-building" aria-hidden="true"></i></div>
-        <div class="bento-card__label">Rôle actuel</div>
-        <div class="bento-card__title">Software Engineer @ AXA France</div>
-        <div class="bento-card__body" markdown="1">
-Développement d'applications d'entreprise en **.NET**, conception de solutions **Cloud** et accompagnement technique des équipes dans l'adoption de pratiques modernes (Clean Architecture, DDD, tests automatisés).
+      {% for card in highlights.cards %}
+      <div class="bento-card{% if card.wide %} bento-card--wide{% endif %}">
+        <div class="bento-card__icon"><i class="{{ card.icon }}" aria-hidden="true"></i></div>
+        <div class="bento-card__label">{{ card.label }}</div>
+        <div class="bento-card__title">{{ card.title }}</div>
+        <div class="bento-card__body">
+      {{ card.body_html }}
         </div>
+        {% if card.tags and card.tags.size > 0 %}
         <div class="bento-card__tags">
-          <span class="tag">.NET</span>
-          <span class="tag">C#</span>
-          <span class="tag">Clean Architecture</span>
-          <span class="tag">Azure</span>
-          <span class="tag">DDD</span>
+          {% for tag in card.tags %}
+          <span class="{{ tag.class }}">{{ tag.text }}</span>
+          {% endfor %}
         </div>
+        {% endif %}
+        {% if card.link %}
+        <a class="bento-card__link" href="{{ card.link.href }}"{% if card.link.external %} target="_blank" rel="noopener"{% endif %}><i class="{{ card.link.icon }}" aria-hidden="true"></i> {{ card.link.text }}</a>
+        {% endif %}
       </div>
-
-      <!-- Open Source -->
-      <div class="bento-card">
-        <div class="bento-card__icon"><i class="fa-brands fa-github" aria-hidden="true"></i></div>
-        <div class="bento-card__label">Open Source</div>
-        <div class="bento-card__title">MCP.Pack & contributions communautaires</div>
-        <div class="bento-card__body" markdown="1">
-Auteur de [**MCP.Pack**](https://github.com/SebastienDegodez/MCP.Pack), un serveur MCP pour **.NET** autour de la gestion de paquets NuGet. Contributions actives à l'écosystème .NET et aux outils pour développeurs.
-        </div>
-        <div class="bento-card__tags">
-          <span class="tag--green tag">MCP</span>
-          <span class="tag--green tag">OSS</span>
-          <span class="tag--green tag">AI Tooling</span>
-        </div>
-        <a class="bento-card__link" href="https://github.com/SebastienDegodez" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> Voir sur GitHub</a>
-      </div>
-
-      <!-- Talks & communauté -->
-      <div class="bento-card">
-        <div class="bento-card__icon"><i class="fa-solid fa-microphone" aria-hidden="true"></i></div>
-        <div class="bento-card__label">Talks récents</div>
-        <div class="bento-card__title">Speaker & animateur communautaire</div>
-        <div class="bento-card__body" markdown="1">
-Présentations en conférences et meetups sur les thèmes **.NET**, **LLMs**, outils pour développeurs et bonnes pratiques d'architecture.
-        </div>
-        <div class="bento-card__tags">
-          <span class="tag--orange tag">Meetup</span>
-          <span class="tag--orange tag">Conférence</span>
-          <span class="tag--orange tag">LLM</span>
-        </div>
-        <a class="bento-card__link" href="{% link brag.md %}#talks"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Toutes les présentations</a>
-      </div>
-
-      <!-- Expertise technique -->
-      <div class="bento-card">
-        <div class="bento-card__icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
-        <div class="bento-card__label">Expertise technique</div>
-        <div class="bento-card__title">Stack & domaines de prédilection</div>
-        <div class="bento-card__body" markdown="1">
-Spécialisé dans les architectures **.NET** modernes, l'intégration de l'**IA générative** dans les workflows de développement et la création d'outils CLI/SDK.
-        </div>
-        <div class="bento-card__tags">
-          <span class="tag">.NET 8/9</span>
-          <span class="tag">LLM</span>
-          <span class="tag">CLI</span>
-          <span class="tag">SDK</span>
-        </div>
-      </div>
-
-      <!-- Mentoring -->
-      <div class="bento-card">
-        <div class="bento-card__icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
-        <div class="bento-card__label">Mentoring & Leadership</div>
-        <div class="bento-card__title">Accompagnement & partage de connaissance</div>
-        <div class="bento-card__body" markdown="1">
-Mentoring de développeurs juniors et mid, animation de guildes techniques, revues de code et accompagnement dans la montée en compétences des équipes.
-        </div>
-        <div class="bento-card__tags">
-          <span class="tag--green tag">Mentoring</span>
-          <span class="tag--green tag">Guilde</span>
-          <span class="tag--green tag">Leadership</span>
-        </div>
-        <a class="bento-card__link" href="{% link brag.md %}#mentoring"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> En savoir plus</a>
-      </div>
+      {% endfor %}
 
       <!-- Brag Document CTA -->
       <div class="bento-card" style="background: rgba(2, 136, 209, 0.12); border-color: rgba(2, 136, 209, 0.35);">
@@ -134,7 +71,7 @@ Mentoring de développeurs juniors et mid, animation de guildes techniques, revu
         </div>
         <div class="bento-card__label">Réalisations détaillées</div>
         <div class="bento-card__title">Brag Document complet</div>
-        <div class="bento-card__body" markdown="1">
+        <div class="bento-card__body">
 Projets majeurs, contributions open source, talks & publications, mentoring — détaillés par impact et par thème.
         </div>
         <a class="bento-card__link" href="{% link brag.md %}" style="color: var(--color-highlight);"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Consulter le Brag Document</a>

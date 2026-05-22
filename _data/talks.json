@@ -1,0 +1,58 @@
+[
+  {
+    "sort_key": 20260530,
+    "icon": "fa-solid fa-robot",
+    "title": "Coding with AI - Meetup @ HoppR",
+    "meta": "HoppR · Mai 2026",
+    "description": "Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA, jusqu'à la création de son propre workflow agentic.",
+    "report_url": "https://www.linkedin.com/posts/sebastien-degodez_softwareengineering-cleancode-tdd-ugcPost-7462974846533296130-dIA_",
+    "category": "Meetup",
+    "tags": ["AI", "GitHub Agentic Workflow", "TDD"]
+  },
+  {
+    "sort_key": 20260520,
+    "icon": "fa-solid fa-robot",
+    "title": "Coding with AI - Meetup @ Intérial Mutuelle",
+    "meta": "Intérial Mutuelle · Mai 2026",
+    "description": "Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA, jusqu'à la création de son propre workflow agentic.",
+    "report_url": "https://www.linkedin.com/posts/sebastien-degodez_softwareengineering-cleancode-tdd-ugcPost-7462974846533296130-dIA_",
+    "category": "Meetup",
+    "tags": ["AI", "GitHub Agentic Workflow", "Qualite"]
+  },
+  {
+    "sort_key": 20260410,
+    "icon": "fa-solid fa-dumbbell",
+    "title": "Object Calisthenics avec l'IA - BBL interne AXA",
+    "meta": "AXA France (interne) · Avril 2026",
+    "description": "BBL dedie aux principes Object Calisthenics pour ameliorer la lisibilite, la maintenabilite et la robustesse du code metier, avec exemples concrets d'application dans des contextes .NET orientes domaine. Nous avons aussi montre en quoi l'IA genere du code plus pertinent, plus stable et plus facile a guider quand ces principes sont respectes.",
+    "category": "BBL",
+    "tags": ["Object Calisthenics", "Clean Code", ".NET"]
+  },
+  {
+    "sort_key": 20260310,
+    "icon": "fa-solid fa-people-group",
+    "title": "Coding with AI - Meetup Software Craft Lille @ SFEIR",
+    "meta": "Software Craft Lille · SFEIR Lille · Mars 2026",
+    "description": "Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.",
+    "category": "Meetup",
+    "tags": ["AI", "TDD", "DDD", "Gherkin", ".NET"]
+  },
+  {
+    "sort_key": 20241210,
+    "icon": "fa-solid fa-chalkboard-user",
+    "title": "Clean Architecture & DDD en .NET - Retour d'experience @ AXA",
+    "meta": "Groupes de travail techniques internes · 2024-2025",
+    "description": "Partage d'experience sur l'adoption de la Clean Architecture et du Domain-Driven Design dans des projets d'entreprise a fort enjeu, avec les pieges a eviter et les benefices observes.",
+    "category": "Talk interne",
+    "tags": ["Clean Architecture", "DDD", ".NET"]
+  },
+  {
+    "sort_key": 20200101,
+    "icon": "fa-solid fa-chart-line",
+    "title": "L'ObservaBLT avec la suite Elastic - BBL @ ArcelorMittal",
+    "meta": "ArcelorMittal (interne) · 2020",
+    "description": "Presentation interne sur l'observabilite avec la suite Elastic: integration des logs, metriques et traces via OpenTelemetry en .NET et en Java, instrumentation RUM avec Angular, puis mise en place d'alertes exploitables pour le run.",
+    "category": "BBL",
+    "tags": ["Observabilite", "Elastic", "OpenTelemetry", ".NET", "Java", "Angular", "RUM", "Alerting"]
+  }
+]

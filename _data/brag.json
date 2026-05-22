@@ -1,0 +1,301 @@
+{
+  "projects": [
+    {
+      "title": "Solutions entreprise .NET @ AXA France",
+      "sort_key": 99991231,
+      "impact": {
+        "icon": "fa-solid fa-arrow-trend-up",
+        "text": "Impact : Fiabilité & performance en production"
+      },
+      "paragraphs": [
+        "Développement et maintenance d'applications d'entreprise critiques en .NET & Java au sein d'AXA France.",
+        "Mise en place d'architectures Clean Architecture / DDD, amélioration de la couverture de tests et modernisation de la stack technique vers .NET 10+."
+      ],
+      "tags": [
+        { "label": ".NET 10+", "class": "tag" },
+        { "label": "Java", "class": "tag" },
+        { "label": "Clean Architecture", "class": "tag" },
+        { "label": "DDD", "class": "tag" }
+      ],
+      "date": "En cours",
+      "links": []
+    },
+    {
+      "title": "Automatisation des ponts GENESIS @ ArcelorMittal France",
+      "sort_key": 20150101,
+      "impact": {
+        "icon": "fa-solid fa-industry",
+        "text": "Impact : automatisation des flux produits en environnement industriel"
+      },
+      "paragraphs": [
+        "Mise en place d'une solution .NET pour le programme GENESIS (GENeric Stockyard Informatic System).",
+        "Objectif : gérer les produits et piloter leur manipulation par des ponts automatiques afin d'améliorer la fiabilité opérationnelle."
+      ],
+      "tags": [
+        { "label": "ArcelorMittal", "class": "tag" },
+        { "label": "Industrie", "class": "tag" },
+        { "label": ".NET", "class": "tag" },
+        { "label": "GENESIS", "class": "tag" },
+        { "label": "Automatisation", "class": "tag" }
+      ],
+      "date": "2015",
+      "links": [
+        {
+          "url": "https://www.linkedin.com/in/sebastien-degodez/",
+          "label": "Profil",
+          "icon": "fa-brands fa-linkedin"
+        }
+      ]
+    },
+    {
+      "title": "Plateforme d'observabilité @ ArcelorMittal France",
+      "sort_key": 20190101,
+      "impact": {
+        "icon": "fa-solid fa-chart-line",
+        "text": "Impact : visibilité transverse avec Logs, APM et Traces"
+      },
+      "paragraphs": [
+        "Lead de la mise en place d'une solution d'observabilité couvrant les Logs, l'APM et les Traces.",
+        "Coordination technique avec les équipes Elastic Suite pour cadrer l'architecture et accélérer l'adoption à l'échelle de l'entreprise."
+      ],
+      "tags": [
+        { "label": "ArcelorMittal", "class": "tag" },
+        { "label": "Observabilité", "class": "tag" },
+        { "label": "Elastic", "class": "tag" },
+        { "label": "APM", "class": "tag" },
+        { "label": "Traces", "class": "tag" },
+        { "label": "Leadership", "class": "tag" }
+      ],
+      "date": "2019",
+      "links": [
+        {
+          "url": "https://www.linkedin.com/in/sebastien-degodez/",
+          "label": "Profil",
+          "icon": "fa-brands fa-linkedin"
+        }
+      ]
+    },
+    {
+      "title": "Centre de Services DevOps @ ArcelorMittal France",
+      "sort_key": 20200101,
+      "impact": {
+        "icon": "fa-solid fa-people-group",
+        "text": "Impact : transformation des pratiques d'ingénierie à l'échelle entreprise"
+      },
+      "paragraphs": [
+        "Participation au Centre de Services DevOps pour fournir aux équipes les outils et standards de mise en œuvre du DevOps.",
+        "Accompagnement de plusieurs équipes sur Kubernetes, Microservices, DDD, Clean Architecture, Outside-In TDD et Event Storming.",
+        "Contribution active à la définition des architectures en collaboration avec les architectes."
+      ],
+      "tags": [
+        { "label": "ArcelorMittal", "class": "tag" },
+        { "label": "DevOps", "class": "tag" },
+        { "label": "Kubernetes", "class": "tag--orange tag" },
+        { "label": "Microservices", "class": "tag" },
+        { "label": "DDD", "class": "tag" },
+        { "label": "Clean Architecture", "class": "tag" },
+        { "label": "Outside-In TDD", "class": "tag" },
+        { "label": "Event Storming", "class": "tag" }
+      ],
+      "date": "DevOps transverse",
+      "links": [
+        {
+          "url": "https://www.linkedin.com/in/sebastien-degodez/",
+          "label": "Profil",
+          "icon": "fa-brands fa-linkedin"
+        }
+      ]
+    },
+    {
+      "title": "Maintainer & Code Owner (.NET) @ Microcks",
+      "sort_key": 20240101,
+      "impact": {
+        "icon": "fa-solid fa-arrow-trend-up",
+        "text": "Impact : Contribution à un projet CNCF de référence"
+      },
+      "paragraphs": [
+        "Maintainer officiel et Code Owner (vote de gouvernance validé début 2024) du module microcks-testcontainers-dotnet ainsi que microcks-aspire, l'intégration Testcontainers + Microcks dans l'écosystème .NET.",
+        "Responsable de la vision technique, de la qualité, des revues de PR et de l'évolution du module au sein du projet CNCF Microcks.",
+        "Référencé également dans la liste officielle des maintainers du projet parent: MAINTAINERS.md."
+      ],
+      "tags": [
+        { "label": "CNCF", "class": "tag--orange tag" },
+        { "label": "Maintainer", "class": "tag--orange tag" },
+        { "label": ".NET", "class": "tag" },
+        { "label": "Java", "class": "tag" },
+        { "label": "Testcontainers", "class": "tag" },
+        { "label": "OSS", "class": "tag" },
+        { "label": "Gouvernance", "class": "tag" },
+        { "label": "Aspire", "class": "tag" },
+        { "label": "Microcks", "class": "tag" }
+      ],
+      "date": "Depuis janv. 2024",
+      "links": [
+        {
+          "url": "https://github.com/microcks/",
+          "label": "GitHub Microcks",
+          "icon": "fa-brands fa-github"
+        },
+        {
+          "url": "https://microcks.io/",
+          "label": "Site",
+          "icon": "fa-solid fa-arrow-up-right-from-square"
+        },
+        {
+          "url": "https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers",
+          "label": "MAINTAINERS.md",
+          "icon": "fa-solid fa-list"
+        }
+      ]
+    },
+    {
+      "title": "Copilot Instructions — Bonnes pratiques GitHub Copilot",
+      "sort_key": 20250101,
+      "impact": {
+        "icon": "fa-solid fa-arrow-trend-up",
+        "text": "Impact : Qualité & productivité des équipes"
+      },
+      "paragraphs": [
+        "Base de connaissances complète (+175 étoiles) de bonnes pratiques, règles de code et automatisations de workflow pour le développement assisté par IA avec GitHub Copilot.",
+        "Couvre DDD, Clean Architecture, tests, conventions de commits et plus."
+      ],
+      "tags": [
+        { "label": "GitHub Copilot", "class": "tag--orange tag" },
+        { "label": "TypeScript", "class": "tag" },
+        { "label": "DDD", "class": "tag" },
+        { "label": "Clean Architecture", "class": "tag" },
+        { "label": "OSS", "class": "tag" }
+      ],
+      "links": [
+        {
+          "url": "https://github.com/SebastienDegodez/copilot-instructions",
+          "label": "GitHub Copilot Instructions",
+          "icon": "fa-brands fa-github"
+        }
+      ]
+    }
+  ],
+  "opensource": [
+    {
+      "title": "microcks-testcontainers-dotnet — Code Owner",
+      "sort_key": 20240101,
+      "impact": {
+        "icon": "fa-solid fa-code-branch",
+        "text": "Code Owner reconnu par la gouvernance Microcks"
+      },
+      "paragraphs": [
+        "Obtention du statut de Code Owner sur microcks-testcontainers-dotnet à la suite d'un vote officiel de gouvernance validé début 2024.",
+        "Porteur de l'intégration Testcontainers + Microcks dans l'écosystème .NET.",
+        "Appartenance confirmée à la liste des maintainers officiels Microcks: MAINTAINERS.md."
+      ],
+      "tags": [
+        { "label": "Code Owner", "class": "tag--orange tag" },
+        { "label": "CNCF", "class": "tag" },
+        { "label": ".NET", "class": "tag" },
+        { "label": "Testcontainers", "class": "tag" }
+      ],
+      "date": "Depuis janv. 2024",
+      "links": [
+        {
+          "url": "https://github.com/microcks/microcks-testcontainers-dotnet",
+          "label": "GitHub Microcks",
+          "icon": "fa-brands fa-github"
+        },
+        {
+          "url": "https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers",
+          "label": "MAINTAINERS.md",
+          "icon": "fa-solid fa-list"
+        }
+      ]
+    },
+    {
+      "title": "Module Testcontainers .NET — Kafka",
+      "sort_key": 20241215,
+      "impact": {
+        "icon": "fa-solid fa-code-branch",
+        "text": "Contributions au module officiel Testcontainers .NET pour Kafka"
+      },
+      "paragraphs": [
+        "Ajout de fonctionnalités et améliorations pour le module Testcontainers .NET pour Kafka.",
+        "En particulier, contributions autour de la gestion d'un network privé pour Kafka, permettant une meilleure isolation et fiabilité des tests d'intégration utilisant Kafka dans des environnements .NET."
+      ],
+      "tags": [
+        { "label": "Contribution", "class": "tag--orange tag" },
+        { "label": "Open Source", "class": "tag" },
+        { "label": ".NET", "class": "tag" },
+        { "label": "Kafka", "class": "tag" },
+        { "label": "Testcontainers", "class": "tag" }
+      ],
+      "date": "15 Décembre 2024",
+      "links": [
+        {
+          "url": "https://github.com/testcontainers/testcontainers-dotnet/pull/1316",
+          "label": "PR #1316",
+          "icon": "fa-brands fa-github"
+        }
+      ]
+    },
+    {
+      "title": "microsoft/apm — Contribution & Code Review",
+      "sort_key": 20260101,
+      "impact": {
+        "icon": "fa-solid fa-code-review",
+        "text": "Contribution directe et relectures régulières de pull requests"
+      },
+      "paragraphs": [
+        "Contribution open source au repository microsoft/apm avec la pull request #83.",
+        "Participation régulière aux revues de code (code review) sur les pull requests du projet pour maintenir la qualité et la cohérence technique."
+      ],
+      "tags": [
+        { "label": "Contribution", "class": "tag--orange tag" },
+        { "label": "Code Review", "class": "tag" },
+        { "label": "Open Source", "class": "tag" },
+        { "label": "microsoft/apm", "class": "tag" },
+        { "label": "Python", "class": "tag" }
+      ],
+      "date": "2026",
+      "links": [
+        {
+          "url": "https://github.com/microsoft/apm/pull/83",
+          "label": "PR #83",
+          "icon": "fa-brands fa-github"
+        },
+        {
+          "url": "https://github.com/microsoft/apm/pulls",
+          "label": "Pull Requests",
+          "icon": "fa-solid fa-list-check"
+        }
+      ]
+    }
+  ],
+  "mentoring": [
+    {
+      "icon": "fa-solid fa-user-graduate",
+      "title": "Mentoring développeurs juniors & mid",
+      "paragraphs": [
+        "Accompagnement individuel de développeurs dans leur montée en compétences : revues de code régulières, pair programming, conseils sur la carrière et les bonnes pratiques."
+      ]
+    },
+    {
+      "icon": "fa-solid fa-people-arrows",
+      "title": "Animation de groupes de travail techniques",
+      "paragraphs": [
+        "Animation de groupes de travail et communautés de pratique internes sur les thèmes .NET, DDD, Event Sourcing, Clean Architecture et tests automatisés — partage de ressources, retours d'expérience et veille technologique."
+      ]
+    },
+    {
+      "icon": "fa-solid fa-code-pull-request",
+      "title": "Culture de la revue de code",
+      "paragraphs": [
+        "Promotion et mise en place d'une culture de revue de code bienveillante et constructive, avec définition de standards et de critères de qualité partagés au sein des équipes, en lien avec une culture produit autour du DDD, de l'Event Sourcing et du design orienté domaine."
+      ]
+    },
+    {
+      "icon": "fa-solid fa-book-open-reader",
+      "title": "Veille & partage de ressources",
+      "paragraphs": [
+        "Curation et diffusion régulière d'articles, talks et outils pertinents pour l'écosystème .NET, contribuant à la montée en compétences collective des équipes."
+      ]
+    }
+  ]
+}

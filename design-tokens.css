@@ -1,6 +1,6 @@
 /**
  * Design Tokens — SebastienDegodez.github.io
- * Basé sur le thème Marp Gaia (invert) + custom-default.css
+ * Thème Tech Glass inspiré des présentations meetup
  * Utilisable en CSS natif ou importable dans Figma via un plugin tokens.
  *
  * Source : SebastienDegodez/slide-marp & SebastienDegodez/MCP.Pack
@@ -11,15 +11,15 @@
    * PALETTE DE COULEURS
    * ───────────────────────────────────────────────────────────── */
 
-  /* Couleurs de base Gaia */
-  --color-light:     #fff8e1;   /* Blanc chaud / Cream — texte sur fond sombre */
-  --color-dark:      #455a64;   /* Bleu-gris ardoise — fond principal (invert) */
-  --color-primary:   #0288d1;   /* Bleu vif — liens, accents, fond gaia variant */
-  --color-secondary: #81d4fa;   /* Bleu clair — highlight, strong en mode sombre */
+  /* Couleurs de base Tech Glass */
+  --color-light:     #eef6ff;
+  --color-dark:      #0f1722;
+  --color-primary:   #24b5ff;
+  --color-secondary: #7fd3ff;
 
   /* Couleurs dérivées */
-  --color-dimmed:    #dad8c8;   /* Cream légèrement grisé — footer, blockquote, code bg */
-  --color-stripe:    rgba(255, 248, 225, 0.1); /* Rayure tableau (mode invert) */
+  --color-dimmed:    #b7c6d8;
+  --color-stripe:    rgba(127, 211, 255, 0.16);
 
   /* Alias sémantiques (mode principal = invert/sombre) */
   --color-background:        var(--color-dark);      /* #455a64 */
@@ -31,17 +31,36 @@
   --color-heading-strong:    var(--color-secondary); /* #81d4fa */
   --color-muted:             var(--color-dimmed);    /* #dad8c8 */
 
-  /* Variante gaia (slide bleu accent) */
-  --color-gaia-bg:           var(--color-primary);   /* #0288d1 */
-  --color-gaia-fg:           var(--color-light);     /* #fff8e1 */
-  --color-gaia-highlight:    var(--color-secondary); /* #81d4fa */
-  --color-gaia-dimmed:       #cce2de;
+  /* Variante slide accent */
+  --color-gaia-bg:           var(--color-primary);
+  --color-gaia-fg:           var(--color-light);
+  --color-gaia-highlight:    var(--color-secondary);
+  --color-gaia-dimmed:       #c8d8e6;
+
+  /* Accent secondaire technique (inspire des slides meetup) */
+  --color-tech-mint:         #80cbc4;
+
+  /* ─────────────────────────────────────────────────────────────
+   * TOKENS GLASS V2
+   * ───────────────────────────────────────────────────────────── */
+
+  --glass-bg:                rgba(17, 28, 40, 0.88);
+  --glass-bg-strong:         rgba(12, 22, 33, 0.94);
+  --glass-border:            rgba(127, 211, 255, 0.26);
+  --glass-border-strong:     rgba(127, 211, 255, 0.4);
+  --glass-highlight:         rgba(238, 246, 255, 0.12);
+  --glass-shadow:            0 18px 60px rgba(0, 0, 0, 0.42);
+  --glass-shadow-hover:      0 24px 70px rgba(0, 0, 0, 0.55);
+  --glass-blur:              14px;
+
+  --motion-fast:             160ms ease;
+  --motion-medium:           260ms ease;
 
   /* ─────────────────────────────────────────────────────────────
    * FONDS DE PAGE
    * ───────────────────────────────────────────────────────────── */
 
-  /* Fond principal des slides (invert) */
+  /* Fond principal des pages */
   --bg-slide:        var(--color-dark);   /* #455a64 */
 
   /* Gradient subtil appliqué sur chaque section */
@@ -63,7 +82,7 @@
 
   /* Familles de police */
   --font-sans:  Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
-  --font-mono:  'Fira Code', 'Roboto Mono', monospace; /* custom-default remplace Roboto Mono */
+  --font-mono:  'Fira Code', 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
 
   /* Tailles (base 35 px — slides 1280×720) */
   --font-size-base:   35px;
@@ -159,4 +178,16 @@
 .end-card {
   display: flex;
   justify-content: center;
+}
+
+/*
+ * Fallback utilitaire quand backdrop-filter n'est pas disponible.
+ * A utiliser sur les surfaces glass du layout.
+ */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface-fallback {
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border-strong);
+    box-shadow: var(--glass-shadow);
+  }
 }

@@ -1,0 +1,83 @@
+{
+  "highlights": {
+    "subtitle": "Vue d'ensemble — rôle actuel, contributions & talks récents.",
+    "cards": [
+      {
+        "wide": true,
+        "icon": "fa-solid fa-building",
+        "label": "Rôle actuel",
+        "title": "Software Engineer @ AXA France",
+        "body_html": "Développement d'applications d'entreprise en <strong>.NET</strong>, conception de solutions <strong>Cloud</strong> et accompagnement technique des équipes dans l'adoption de pratiques modernes (Clean Architecture, DDD, tests automatisés).",
+        "tags": [
+          { "text": ".NET", "class": "tag" },
+          { "text": "C#", "class": "tag" },
+          { "text": "Clean Architecture", "class": "tag" },
+          { "text": "Azure", "class": "tag" },
+          { "text": "DDD", "class": "tag" }
+        ]
+      },
+      {
+        "icon": "fa-brands fa-github",
+        "label": "Open Source",
+        "title": "Microcks Maintainer",
+        "body_html": "Maintainer et Code Owner de <a href=\"https://github.com/microcks/\" target=\"_blank\" rel=\"noopener\"><strong>microcks</strong></a> produit CNCF. Contributions continues sur les tests contractuels, l'expérience développeur et l'outillage qualité. Référencé comme maintainer officiel du projet parent dans <a href=\"https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers\" target=\"_blank\" rel=\"noopener\"><strong>MAINTAINERS.md</strong></a>.",
+        "tags": [
+          { "text": "Microcks", "class": "tag--orange tag" },
+          { "text": "CNCF", "class": "tag--orange tag" },
+          { "text": "OSS", "class": "tag--orange tag" },
+          { "text": ".NET", "class": "tag--orange tag" }
+        ],
+        "link": {
+          "href": "https://github.com/microcks/",
+          "text": "Microcks",
+          "icon": "fa-brands fa-github",
+          "external": true
+        }
+      },
+      {
+        "icon": "fa-solid fa-microphone",
+        "label": "Talks & communauté",
+        "title": "Speaker & animateur communautaire",
+        "body_html": "Présentations en conférences et meetups sur les thèmes <strong>.NET</strong>, <strong>LLMs</strong>, outils pour développeurs et bonnes pratiques d'architecture.",
+        "tags": [
+          { "text": "Meetup", "class": "tag--orange tag" },
+          { "text": "Conférence", "class": "tag--orange tag" },
+          { "text": "LLM", "class": "tag--orange tag" }
+        ],
+        "link": {
+          "href": "/brag.html#talks",
+          "text": "Toutes les présentations",
+          "icon": "fa-solid fa-arrow-right"
+        }
+      },
+      {
+        "icon": "fa-solid fa-code",
+        "label": "Expertise technique",
+        "title": "Stack & domaines de prédilection",
+        "body_html": "Spécialisé dans les architectures <strong>.NET</strong> modernes, l'intégration de l'<strong>IA générative</strong> dans les workflows de développement et la création d'outils CLI/SDK.",
+        "tags": [
+          { "text": ".NET 10+", "class": "tag" },
+          { "text": "LLM", "class": "tag" },
+          { "text": "CLI", "class": "tag" },
+          { "text": "SDK", "class": "tag" }
+        ]
+      },
+      {
+        "icon": "fa-solid fa-people-group",
+        "label": "Mentoring",
+        "title": "Accompagnement & partage de connaissance",
+        "body_html": "Mentoring de développeurs juniors et mid, animation de groupes de travail techniques, revues de code et accompagnement dans la montée en compétences des équipes.",
+        "tags": [
+          { "text": "Mentoring", "class": "tag--orange tag" },
+          { "text": "Groupes de travail", "class": "tag--orange tag" },
+          { "text": "Leadership", "class": "tag--orange tag" }
+        ],
+        "link": {
+          "href": "/brag.html#mentoring",
+          "text": "En savoir plus",
+          "icon": "fa-solid fa-arrow-right"
+        }
+      }
+    ]
+  }
+}

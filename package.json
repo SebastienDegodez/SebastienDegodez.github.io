@@ -1,0 +1,14 @@
+{
+  "name": "sebastiendegodez-github-io",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local regression checks for sebastiendegodez.github.io",
+  "scripts": {
+    "test:site": "node --test tests/site-regression.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "js-yaml": "^4.1.0"
+  }
+}

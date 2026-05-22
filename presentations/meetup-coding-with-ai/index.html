@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coder avec l'IA — Meetup Demo</title>
+  <style>
+    :root {
+      --bg: #0b1117;
+      --panel: rgba(16, 25, 34, 0.92);
+      --panel-soft: rgba(255, 255, 255, 0.03);
+      --text: #d7ffe3;
+      --muted: #8ab39c;
+      --accent: #00ff41;
+      --accent-2: #86f7a9;
+      --danger: #ff7b72;
+      --success: #7ee787;
+      --line: rgba(0, 255, 65, 0.14);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
+      --slide-pad: clamp(1rem, 4vw, 3.5rem);
+    }
+    html, body { margin: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+    html { scroll-snap-type: y mandatory; }
+    body { font-family: "JetBrains Mono", "SFMono-Regular", Menlo, monospace; }
+    .deck { width: 100%; }
+    .slide {
+      width: 100vw; height: 100vh; height: 100dvh; overflow: hidden; scroll-snap-align: start;
+      position: relative; display: grid; place-items: stretch; box-sizing: border-box;
+      padding: var(--slide-pad);
+      background: radial-gradient(circle at 80% 10%, rgba(0,255,65,.07), transparent 28%), linear-gradient(180deg, #0b1117, #05090d 100%);
+    }
+    .slide::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,.9), rgba(0,0,0,.35) 72%, transparent 100%);
+      opacity: .45;
+    }
+    .slide-content {
+      position: relative; z-index: 1; height: 100%; max-height: 100%; overflow: hidden;
+      display: grid; gap: clamp(.85rem, 2vw, 1.4rem);
+      align-items: center;
+    }
+    .hero .slide-content, .slide-content.hero { grid-template-columns: 1.05fr .95fr; }
+    .split .slide-content, .slide-content.split { grid-template-columns: 1fr 1fr; }
+    .stack .slide-content, .slide-content.stack { grid-template-columns: 1fr; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .45rem .8rem; border-radius: 999px; background: rgba(255,255,255,.05);
+      color: var(--accent-2); font-size: clamp(.68rem, 1vw, .9rem); letter-spacing: .16em; text-transform: uppercase;
+      border: 1px solid rgba(0,255,65,.18);
+    }
+    h1, h2, h3 { margin: 0; letter-spacing: -.05em; }
+    h1 { font-size: clamp(2.2rem, 5.5vw, 4.8rem); line-height: .92; }
+    h2 { font-size: clamp(1.5rem, 4vw, 3rem); line-height: 1.02; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.7rem); line-height: 1.1; }
+    p, li, td { font-size: clamp(.82rem, 1.35vw, 1.06rem); line-height: 1.55; }
+    .lede { color: var(--muted); max-width: 40rem; }
+    .panel {
+      background: var(--panel); border: 1px solid rgba(0,255,65,.22); border-radius: 1.35rem; box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .panel .head { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .9rem 1rem; border-bottom: 1px solid rgba(0,255,65,.12); color: var(--accent-2); letter-spacing: .14em; text-transform: uppercase; font-size: .76rem; }
+    .panel .body { padding: 1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+    .card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.05); border-radius: 1rem; padding: .9rem 1rem; overflow: hidden; }
+    .small { font-size: .78rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+    .bullets { margin: 0; padding-left: 1.1rem; display: grid; gap: .55rem; }
+    .bullets li { color: #effff4; }
+    .list-tight { gap: .35rem; }
+    .code { margin: 0; padding: 1rem; background: #05090d; border-radius: 1rem; border: 1px solid rgba(0,255,65,.16); color: #d7ffe3; overflow: hidden; font-size: clamp(.72rem, 1.1vw, .92rem); line-height: 1.55; white-space: pre-wrap; }
+    .del { color: var(--danger); }
+    .add { color: var(--success); }
+    .quote { font-size: clamp(1.1rem, 2.2vw, 2rem); line-height: 1.3; max-width: 24ch; }
+    .badge { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .7rem; border-radius: 999px; background: rgba(0,255,65,.08); border: 1px solid rgba(0,255,65,.18); color: var(--accent); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; }
+    .img { width: 100%; max-height: min(50vh, 420px); object-fit: contain; border-radius: 1rem; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.02); }
+    .caption { color: var(--muted); font-size: .82rem; margin-top: .5rem; }
+    .sequence-track { display: flex; gap: .45rem; align-items: stretch; flex-wrap: wrap; }
+    .sequence-node {
+      flex: 1 1 0; min-width: 0; display: grid; gap: .25rem; align-content: start;
+      padding: .65rem .7rem; border-radius: 1rem; background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .sequence-node strong { color: var(--accent-2); font-size: .65rem; letter-spacing: .13em; text-transform: uppercase; }
+    .sequence-node span { color: #effff4; font-size: .76rem; line-height: 1.35; }
+    .sequence-arrow { flex: 0 0 .9rem; display: grid; place-items: center; color: var(--accent); font-size: 1.1rem; opacity: .95; }
+    .human-node { border-color: rgba(255,176,0,.4); background: rgba(255,176,0,.06); }
+    .human-node strong { color: #ffb000; }
+    .chrome {
+      position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      padding: .7rem .9rem; border: 1px solid rgba(0,255,65,.16); border-radius: 999px;
+      background: rgba(5,9,13,.82); backdrop-filter: blur(8px); color: var(--text);
+    }
+    .chrome b { color: var(--accent); }
+    .dots { display: flex; gap: .35rem; }
+    .dot { width: .48rem; height: .48rem; border-radius: 50%; background: rgba(215,255,227,.2); }
+    .dot.active { background: var(--accent); box-shadow: 0 0 16px rgba(0,255,65,.45); }
+    .hint { color: var(--muted); font-size: .78rem; }
+    .logo-corner { position: absolute; z-index: 2; max-height: clamp(3rem, 12vh, 5rem); width: auto; opacity: .92; }
+    .logo-top-left { top: var(--slide-pad); left: var(--slide-pad); }
+    .logo-top-right { top: var(--slide-pad); right: var(--slide-pad); }
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity 380ms ease, transform 380ms ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem; }
+    .cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+    .role { font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--accent); margin-bottom: .3rem; }
+    .example { font-style: italic; color: var(--muted); font-size: .88rem; margin-top: .6rem; padding: .5rem .7rem; border-left: 2px solid rgba(0,255,65,.3); }
+    @media (max-width: 900px) {
+      .slide-content.hero, .slide-content.split { grid-template-columns: 1fr; }
+      .sequence-arrow { display: none; }
+      .sequence-node { flex-basis: calc(50% - .23rem); }
+      .chrome { border-radius: 20px; }
+      .hint { display: none; }
+    }
+    @media (max-height: 700px) {
+      .slide { padding: clamp(.75rem, 3vw, 1.8rem); }
+    }
+    @media (max-height: 600px) {
+      .chrome { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" id="deck"></main>
+  <div class="chrome" aria-live="polite">
+    <div><b>Coder avec l'IA</b> <span class="hint">← → · molette · swipe</span></div>
+    <div class="dots" id="dots"></div>
+    <div id="counter">1 / 16</div>
+  </div>
+
+  <script>
+    const slides = [
+      // ─── SLIDE TITLE: Opening ───
+      /*
+        Meetup : https://www.meetup.com/fr-fr/software-craftsmanship-lille/events/312878038/
+        Talk : Coding with AI : Intégrer Copilot sans sacrifier la qualité
+        Date : 20260520
+        Abstract : GitHub Copilot est puissant, mais l'utilisez-vous à 100 % de ses capacités,
+        notamment en TDD et BDD ? Lors de cette session, nous irons au-delà de la simple
+        autocomplétion. Au travers d'un savant mélange de slides et de démos, nous verrons
+        comment l'IA peut assister la phase de développement post-Three Amigos et accélérer
+        l'écriture de vos tests unitaires sans renier sur la qualité de vos tests.
+        François Descamps — AXA France depuis 2015-2016 · Principal Engineer · déploiement
+        de github copilot (750+ licences) · GenAI dans le delivery · NPS 93 · WAU/MAU 93%
+        Sébastien Degodez — passionné DDD & Clean Architecture · AXA France depuis 2023
+        · contributeur Microcks et APM
+      */
+      {
+        kind: 'title',
+        title: 'Coding with AI',
+        subtitle: 'Intégrer Copilot sans sacrifier la qualité',
+        speakers: '<div class="grid-2" style="gap:1.2rem;width:100%;max-width:42rem"><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">François Descamps</strong><br><span class="small" style="margin-top:.3rem;display:block">Principal Engineer</span></div><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">Sébastien Degodez</strong><br><span class="small" style="margin-top:.3rem;display:block">AI Engineer</span></div></div>',
+        meta: '20 mai 2026 &nbsp;·&nbsp; Meetup Interiale',
+        logoLeft: '<img class="logo-corner logo-top-left" src="assets/logo-axa.svg" alt="AXA" />',
+        logoRight: '<img class="logo-corner logo-top-right" src="assets/github-copilot.png" alt="GitHub Copilot" style="background:transparent;" />'
+      },
+      // ─── SLIDE 1b: Maturité des pratiques ───
+      {
+        kind: 'centered-quote',
+        bgImage: './assets/images/image80.png',
+        bgOpacity: 0.25,
+        quote: '« Nos expérimentations démontrent que la maturité des pratiques d\'ingénierie est le levier essentiel pour limiter les risques induits par l\'IA. »'
+        // Notes: L'IA bouge tous les jours, nous avons mis la conférence à jour déjà plusieurs fois et au final, elle ne ressemble plus à la présentation de novembre donnée dans sa première version à notre Summit tech de Séville.
+        // C'est d'ailleurs un principe chez AXA France — il est crucial d'être à la fois créatif et discipliné dans le déploiement de Copilot et de l'IA en général.
+        // Maîtrise du déterminisme : tests automatisés robustes (unitaires, intégration, bout en bout) pour valider le comportement du code IA de manière déterministe.
+        // Gouvernance des standards : architecture claire, règles strictes (nommage, linters, revues) — empêche l'IA d'introduire de la dette technique ou des patterns incohérents.
+        // Sécurité par conception : contraintes de sécurité dès la conception, scan systématique du code généré.
+        // En résumé : tests automatisés + architecture/standards + sécurité = le filet de sécurité face à l'IA.
+        // Mais avant de se plonger dans la démo, nous allons vérifier que vous connaissez le kung fu, pardon GitHub Copilot.
+      },
+      // ─── SLIDE 1c: Je connais Copilot ───
+      {
+        kind: 'centered-title',
+        title: '"Je connais Copilot"',
+        subtitle: '🤚 Levez la main &mdash; baissez-la quand vous ne savez plus',
+        image: 'assets/kung-fu.gif'
+        // Notes: Pour vérifier votre connaissance de copilot, procédons à un petit jeu.
+        // Tout le monde lève la main, vous la gardez tout le temps en l'air et dès que vous ne connaissez pas la réponse, vous baissez la main.
+        // Exemple : Qui est reconnaissant pour l'accueil de Sfeir aujourd'hui ? / Qui connaît la 7ième décimale de Pi ? (π = 3,14159265... c'est 6)
+        // Vraies questions : Qui connaît les 3 différents modes du chat copilot ?
+        // Qui sait ce que sont les "copilot instructions" ?
+        // Qui sait ce qu'est une primitive au sens copilot ?
+        // Qui sait ce qu'est une premium request ?
+        // Qui sait que copilot n'utilise pas toute la taille possible de tokens qu'il peut envoyer à un modèle ?
+        // Qui sait ce qu'est le "Fill in the middle" ?
+        // Qui sait ce qu'est le "0/1/few shots prompting" ?
+        // Qui sait ce qu'est un custom agent ? Et un handoff ?
+        // Qui sait ce qu'est une skill ? Qui sait ce qu'est un subagent ?
+        // Prévoir des stickers.
+        // Quand vous maîtrisez ces choses, vous êtes un Context Engineer (Ingénieur de Contexte).
+        // Le contexte = toutes les informations, instructions, fichiers, règles, historique de chat et exemples que l'agent utilise.
+        // Le contexte est limité en taille : les éléments les plus utiles doivent être sélectionnés.
+        // ASTUCE : Vous voyez "Summary" => vous avez atteint la limite du contexte.
+      },
+      // ─── SLIDE 2a: Les 4 Primitives Copilot ───
+      {
+        kind: 'stack',
+        kicker: 'Copilot · Primitives',
+        title: 'Les 4 Primitives Copilot',
+        content: '<div class="grid4 reveal">'
+          + '<div class="card"><div class="role">Le Cadre</div><h3>📋 Instructions</h3><p>Règles globales permanentes — le <strong>« Comment »</strong>. Définissent le comportement de l\'agent dans tout contexte.</p></div>'
+          + '<div class="card"><div class="role">Les Outils</div><h3>🔧 Skills</h3><p>Capacités modulaires spécialisées — le <strong>« Ce que le système peut faire »</strong>. APIs, CLI, personas métier.</p></div>'
+          + '<div class="card"><div class="role">L\'Entrée Contextuelle</div><h3>💬 Prompts</h3><p>Déclencheur immédiat et contextuel — le <strong>« Ce qu\'il faut faire maintenant »</strong>.</p></div>'
+          + '<div class="card"><div class="role">L\'Orchestrateur</div><h3>🤖 Agents</h3><p>Entité autonome — le <strong>« Qui agit »</strong>. Combine Instructions + Skills + Prompts pour résoudre des tâches complexes.</p></div>'
+          + '</div>'
+        // Notes: Instructions = config haut niveau / "règles du jeu" — directives globales (ex: .github/copilot-instructions.md). Définissent le "Comment".
+        // Skills = capacités modulaires (lire_un_fichier, exécuter_tests, appel_API). Définissent "Ce que" le système peut faire. J'aime les appeler des personas spécialisés.
+        // Prompts = déclencheur immédiat en langage naturel (ex: "Trouve le bug dans cette fonction"). Définissent "Ce qu'il faut faire maintenant".
+        // Agents = entité autonome combinant les trois précédentes. Reçoit un Prompt, utilise ses Skills, respecte les Instructions pour accomplir une tâche complexe. Définit "Qui agit".
+      },
+      // ─── SLIDE 2b: Instructions ───
+      {
+        kind: 'split',
+        kicker: 'Primitive 1',
+        title: 'Instructions',
+        left: '<div class="reveal"><ul class="bullets">'
+          + '<li><b>❓ What is it?</b><ul class="bullets" style="margin-top:.4rem"><li>Fichiers dans la base de code qui enrichissent le prompt IA</li><li>Définissent règles, style de code, outils, comportement de l\'assistant</li></ul></li>'
+          + '<li style="margin-top:.6rem"><b>⚡ Which Priority?</b><ul class="bullets" style="margin-top:.4rem"><li>Priorité sur les prompts utilisateur</li><li>L\'assistant doit les respecter systématiquement</li></ul></li>'
+          + '<li style="margin-top:.6rem"><b>🎯 Purpose?</b><ul class="bullets" style="margin-top:.4rem"><li>Appliquer les règles de sécurité</li><li>Imposer les conventions de formatage</li><li>Garantir des règles de fonctionnement cohérentes</li></ul></li>'
+          + '</ul></div>',
+        right: '<div class="reveal"><img class="img" src="assets/instructions.png" alt="Instructions diagram" style="max-height:min(60vh,480px)" /></div>'
+        // Notes: Ce sont des fichiers présents dans votre base de code pour enrichir le prompt que vous écrivez dans le chat.
+        // Priorité : elles priment sur les prompts utilisateur — l'assistant doit impérativement les suivre.
+        // Éviter le "Code Spaghetti" : fixe des règles dès le départ, Copilot ne proposera pas de solutions "sales" ou obsolètes.
+        // Apprentissage par l'exemple : forces l'IA à coder selon les standards de l'entreprise — tutorat passif pour le junior.
+        // Exemples concrets : bibliothèques (pas Axios → fetch), nommage (I majuscule pour interfaces TS), JSDoc, tests .spec.ts Vitest.
+        // Placement : globales (IDE settings) ou locales (.github/copilot-instructions.md) — la 2ème est partagée via Git.
+        // Pro-tip : les instructions réduisent les hallucinations mais ne remplacent pas la relecture (Code Review).
+      },
+      // ─── SLIDE 2c: Skills ───
+      {
+        kind: 'split',
+        kicker: 'Primitive 2',
+        title: 'Skill',
+        left: '<div class="reveal"><p style="color:var(--accent-2);font-weight:700;margin-bottom:.7rem">Une capacité encapsulée et actionnable</p>'
+          + '<ul class="bullets"><li>🔍 <b>Skill GitHub</b> → rechercher les PRs ouvertes, les issues</li><li>📋 <b>Skill Jira</b> → récupérer les critères d\'acceptation d\'un ticket</li><li>📚 <b>Skill Documentation</b> → interroger le Design System interne</li><li>🧠 <b>Tool Calling</b> : l\'agent décide <em>quand</em> invoquer un skill selon le contexte</li></ul>'
+          + '<blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted)">Copilot passe du générateur de code à un <b>assistant connecté à l\'écosystème</b></blockquote>'
+          + '</div>',
+        right: '<div class="reveal"><img class="img" src="assets/skill.png" alt="Skill diagram" style="max-height:min(55vh,440px)" /></div>'
+        // Notes: Un LLM brut est comme un "cerveau" enfermé dans une boîte. Les Skills sont les mains de ce cerveau.
+        // Ce n'est pas de la génération de texte — c'est l'exécution d'une fonction réelle (requête API REST, commande terminal, BDD).
+        // Tool Calling : l'IA analyse le prompt, détermine si elle a besoin d'infos externes, sélectionne la Skill, formate les paramètres, exécute, ingère le résultat.
+        // En résumé : les Skills transforment Copilot d'un générateur statique en assistant dynamique dans l'écosystème de l'entreprise.
+      },
+      // ─── SLIDE 2d: Fill in the Middle ───
+      {
+        kind: 'split',
+        kicker: 'Concept clé',
+        title: 'Fill in the Middle',
+        left: '<div class="reveal"><p style="color:var(--accent-2);font-weight:700;margin-bottom:.7rem">FIM — Complétion au milieu du fichier</p>'
+          + '<ul class="bullets"><li>Le curseur peut être <b>n\'importe où</b> dans le fichier</li><li>Copilot analyse le code <b>avant ET après</b> la position</li><li><b>Cohérence des variables</b> garantie</li><li><b>Évite les doublons</b> de logique</li><li>Idéal pour le <b>refactoring</b> et l\'insertion de blocs (<code>try/catch</code>, validations…)</li></ul>'
+          + '</div>',
+        right: '<div class="reveal"><pre class="code">function calculerTotal(panier) {\n  const tva = 0.20;\n  <span class="del">// 🔴 Sans FIM → ignorant return</span>\n  <span class="add">// ✅ Avec FIM → Copilot génère :</span>\n  const total = panier.reduce(\n    (acc, item) =&gt; acc + item.prix, 0\n  );\n  return total * (1 + tva);\n}</pre><blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted);font-size:.9rem">Copilot voit le <code>return total</code> <b>après</b> le curseur → génère exactement la bonne variable</blockquote></div>'
+        // Notes: Technique permettant à Copilot de compléter du code non seulement à la fin, mais aussi au milieu ou au début.
+        // D'ordinaire les modèles lisent de haut en bas — sans FIM, il ignore ce qui est juste en dessous du curseur.
+        // Avec FIM : si return total * (1+tva) existe déjà, Copilot comprend qu'il doit créer la variable total au milieu.
+        // Idéal pour insérer des try/catch, conditions if autour de blocs existants.
+      },
+      // ─── SLIDE 2e: 0/1/Few-Shot Prompting ───
+      {
+        kind: 'stack',
+        kicker: 'Concept clé',
+        title: '0 / 1 / Few-Shot Prompting',
+        content: '<p class="lede reveal" style="margin-bottom:.5rem">Mettez des <b>instructions et des exemples</b> dans le contexte pour guider l\'IA</p>'
+          + '<div class="grid-3 reveal">'
+          + '<div class="card"><span class="badge">Zero-Shot</span><h3 style="margin-top:.5rem">Instruction directe</h3><p>Sans exemple — l\'IA s\'appuie sur ses <b>connaissances préexistantes</b>.</p><p class="example">"Écris une fonction Python qui calcule la factorielle d\'un nombre."</p></div>'
+          + '<div class="card"><span class="badge">One-Shot</span><h3 style="margin-top:.5rem">Un exemple fourni</h3><p>Clarifie les attentes : <b>style, nommage, format</b> de retour. L\'IA calque sa réponse sur l\'exemple donné.</p></div>'
+          + '<div class="card"><span class="badge">Few-Shot</span><h3 style="margin-top:.5rem">Deux exemples ou plus</h3><p>Reconnaissance de <b>patterns</b> · tâches complexes · réponses plus précises et cohérentes.</p></div>'
+          + '</div>'
+        // Notes: Zero-shot = aucun exemple, juste une instruction. L'IA puise dans ses connaissances d'entraînement.
+        // One-shot = un exemple pour clarifier le style attendu, le format de retour, le nommage.
+        // Few-shot = 2+ exemples pour les patterns complexes — l'IA reconnaît la structure et la répète.
+        // Application directe dans Copilot : mettre des exemples dans copilot-instructions.md ou dans le prompt = few-shot implicite.
+      },
+      // ─── SLIDE 0: Écosystème workflows IA ───
+      {
+        kind: 'split',
+        kicker: 'Contexte · 2026',
+        title: 'L\'écosystème des workflows IA.',
+        left: '<div class="panel"><div class="head"><span>Approches</span><span>landscape</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">Superpowers</span>  skills + discipline\n             workflow rigid/flexible\n\n<span class="add">BMAD</span>         multi-agent orchestration\n             role-based personas\n\n<span class="add">Genesis</span>      design-first modules\n             8-step agentic primitives\n\n<span class="add">Custom</span>       .agent.md + SKILL.md\n             VS Code / Claude Code</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Point commun</span><span>constat</span></div><div class="body"><ul class="bullets"><li>L\'IA seule ne suffit pas</li><li>Il faut un <b>workflow structuré</b></li><li>Les <b>skills</b> = contexte injecté</li><li>Les <b>agents</b> = spécialistes orchestrés</li><li>L\'<b>humain</b> reste décisionnaire</li></ul><p class="lede" style="margin-top:.8rem">Aujourd\'hui: on montre ce que ça donne en pratique sur un vrai projet .NET.</p></div></div>'
+      },
+      // ─── SLIDE 1: Le paradoxe ───
+      {
+        kind: 'split',
+        kicker: 'Le paradoxe',
+        title: 'L\'IA compile. Ça ne suffit pas.',
+        left: '<p class="quote reveal">Le vrai sujet n\'est pas la génération.<br>C\'est la <b>cohérence architecturale</b> et la capacité à <b>prouver le comportement</b>.</p>',
+        right: '<div class="panel"><div class="head"><span>Question</span><span>audience</span></div><div class="body"><ul class="bullets"><li>Qui a déjà vu un code "bon à compiler" mais faux métier ?</li><li>Qui a déjà perdu du temps à corriger après coup ?</li><li>Qui veut voir un workflow qui limite ces erreurs ?</li></ul></div></div>'
+      },
+      // ─── SLIDE 2: C'est quoi un Skill ? ───
+      {
+        kind: 'split',
+        kicker: 'Concept clé',
+        title: 'Un Skill = du contexte compressé.',
+        left: '<div class="panel"><div class="head"><span>SKILL.md</span><span>structure</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5">---\nname: outside-in-tdd\ndescription: Use when writing\n  tests from the outside-in\n---\n\n<span class="add">## Iron Rules</span>\n  - Start at Application layer\n  - Domain emerges by necessity\n  - No dirty-green\n\n<span class="add">## Checklist</span>\n  \u25a1 Wishful Thinking first\n  \u25a1 True RED on behavior\n  \u25a1 SYNTHESIZE clean code</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Pourquoi</span><span>ça change tout</span></div><div class="body"><ul class="bullets"><li>Chargé <b>au bon moment</b> par l\'agent</li><li>Réduit le bruit et les tokens</li><li>Encode la <b>discipline</b> du craft</li><li>Évolue avec le projet (versionné en git)</li></ul><p class="lede" style="margin-top:.8rem">Sans skill: l\'IA invente.<br>Avec skill: l\'IA applique<br>une méthode éprouvée.</p></div></div>'
+      },
+      // ─── SLIDE 3: Mon Gherkin de départ ───
+      {
+        kind: 'split',
+        kicker: 'Phase 1 · PLAN',
+        title: 'Mon Gherkin de départ.',
+        left: '<div class="panel"><div class="head"><span>Prompt</span><span>gherkin-gate</span></div><div class="body"><p class="lede">Je donne mon .feature à l\'agent.<br>Il valide, brainstorm, améliore.</p><pre class="code"><span class="add">@gherkin-gate</span>\n\nVoici mon fichier .feature.\nValide les scénarios, identifie\nles cas limites manquants,\net propose une version améliorée.</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>features/eligibilite.feature</span><span>403a344</span></div><div class="body"><pre class="code"># language: fr\nFonctionnalité: Éligibilité\n\nScénario: Refus voiture mineur\n  Étant donné un conducteur né le "10/10/2010"\n  Et nous sommes le "01/01/2026"\n  Et le véhicule est une "Voiture"\n  Quand je demande une éligibilité\n  Alors la demande est refusée ...\n\nScénario: Trottinette 16 ans\n  Étant donné un conducteur âgé de 16 ans\n  ...\n\nScénario: Refus moto puissante\n  Étant donné un conducteur avec 2 ans\n  ...</pre></div></div>'
+      },
+      // ─── SLIDE 2: Avant / Après (git diff) ───
+      {
+        kind: 'code',
+        kicker: '3 Amigos avec l\'IA · commit 403a344 → 0a82358',
+        title: 'Le diff qui change tout.',
+        code: '<span class="del">- Scénario: Refus voiture mineur</span>\n<span class="del">-   Étant donné un conducteur né le "10/10/2010"</span>\n<span class="del">-   Et nous sommes le "01/01/2026"</span>\n\n<span class="add">+ Contexte:</span>\n<span class="add">+   Étant donné nous sommes le "01/01/2026"</span>\n\n<span class="add">+ Plan du Scénario: Vérification de l\'âge minimum</span>\n<span class="add">+   Étant donné un conducteur âgé de &lt;age&gt; ans</span>\n<span class="add">+   Et le véhicule est une "&lt;vehicule&gt;"</span>\n<span class="add">+   Quand je demande une éligibilité</span>\n<span class="add">+   Alors la demande est &lt;resultat&gt;</span>\n\n<span class="add">+   Exemples: Conducteurs mineurs refusés</span>\n<span class="add">+     | 17 | Voiture | refusée ... |</span>\n<span class="add">+     | 16 | Moto    | refusée ... |</span>\n<span class="add">+   Exemples: Conducteurs majeurs acceptés</span>\n<span class="add">+     | 18 | Voiture | acceptée |</span>'
+      },
+      // ─── SLIDE 3: Skill discovering-bdd-scenarios ───
+      {
+        kind: 'split',
+        kicker: 'Skill 1 · discovering-bdd-scenarios',
+        title: 'Découvrir ce qu\'on ne sait pas.',
+        left: '<div class="panel"><div class="head"><span>Example Mapping</span><span>3 Amigos</span></div><div class="body"><pre class="code"><span class="add">[Yellow] Story: Éligibilité</span>\n  |\n  +-- [Blue] Rule: 18+ pour voiture\n  |     +-- [Green] 17yo → refused\n  |     +-- [Green] 18yo → accepted\n  |     +-- <span class="del">[Red] 18yo exact ?</span>\n  |\n  +-- [Blue] Rule: 16+ électrique\n        +-- [Green] 16yo scooter → ok\n        +-- <span class="del">[Red] Moto élec: 16 ou 18 ?</span></pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Objectif</span><span>avant le code</span></div><div class="body"><ul class="bullets"><li>Surface les règles métiers cachées</li><li>Force les exemples concrets</li><li>Les <span style="color:var(--danger)">Red Cards</span> = questions ouvertes</li><li>Évite de coder sur des hypothèses</li></ul><p class="lede" style="margin-top:.8rem">Per rule: 2-3 Green cards<br>happy path · boundary · error path</p></div></div>'
+      },
+      // ─── SLIDE 4: Skill designing-bdd-scenarios ───
+      {
+        kind: 'split',
+        kicker: 'Skill 2 · designing-bdd-scenarios',
+        title: 'Structurer en Gherkin exécutable.',
+        left: '<div class="panel"><div class="head"><span>Règles</span><span>structure</span></div><div class="body"><pre class="code"><span class="add">Background: shared Given only</span>\n<span class="add">Outline + Examples: boundaries</span>\n<span class="add">Group by intent: accepted/refused</span>\n\n<span class="del">❌ POST /api/eligibility returns 200</span>\n<span class="add">✅ Eligibility request is accepted</span>\n\n<span class="del">❌ EligibilityHandler returns rejected</span>\n<span class="add">✅ Driver refused: too young</span></pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Résultat</span><span>commit 0a82358</span></div><div class="body"><ul class="bullets"><li>1 scenario = 1 behavior</li><li>Déclaratif, pas impératif</li><li>Exemples concrets (17 ans, pas "mineur")</li><li>3-5 steps max par scénario</li><li>Spec leakage éliminé</li></ul><p class="lede" style="margin-top:.8rem">Prompt IA bien plus stable.<br>Plan de tests prêt à exécuter.</p></div></div>'
+      },
+      // ─── SLIDE 5: TDD Wishful + True RED ───
+      {
+        kind: 'split',
+        kicker: 'Phase 2 · CODE · red-synthesize-green',
+        title: 'Wishful → True RED.',
+        left: '<div class="panel"><div class="head"><span>① Wishful Thinking</span><span>Application</span></div><div class="body"><pre class="code"><span class="add">// Application layer — handler n\'existe pas</span>\nvar result = handler.Handle(query);\n\n<span class="del">// CS0234: type does not exist</span>\n<span class="add">→ Discovery: on sait quelle API créer</span></pre><p class="lede" style="margin-top:.6rem">Ce n\'est <b>pas</b> un RED.<br>C\'est de l\'information discovery.</p></div></div>',
+        right: '<div class="panel"><div class="head"><span>② True RED</span><span>Application → Domain</span></div><div class="body"><pre class="code"><span class="add">// Le handler existe, le test s\'exécute</span>\nvar query = new CheckEligibilityQuery(\n    DateOfBirth: Today.AddYears(-17),\n    VehicleType: VehicleType.Car);\n\nvar result = handler.Handle(query);\n<span class="del">Assert.False(result.IsEligible);</span>\n<span class="del">// ✗ Expected: False — Got: True</span></pre><p class="lede" style="margin-top:.6rem">Le vrai RED: échec <b>comportemental</b>.</p></div></div>'
+      },
+      // ─── SLIDE 6: SYNTHESIZE GREEN ───
+      {
+        kind: 'split',
+        kicker: 'red-synthesize-green · ③ GREEN',
+        title: 'Le Domain émerge.',
+        left: '<div class="panel"><div class="head"><span>Application</span><span>Handler</span></div><div class="body"><pre class="code">public EligibilityViewModel Handle(\n    CheckEligibilityQuery query)\n{\n  var driver = new Driver(\n      query.DateOfBirth,\n      query.LicenseYears);\n  var vehicle = new Vehicle(\n      query.VehicleType,\n      query.Power);\n\n  return <span class="add">_policy.Evaluate</span>(\n      driver, vehicle, today)\n    .Match(...);\n}</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Domain</span><span>EligibilityPolicy</span></div><div class="body"><pre class="code">public EligibilityResult Evaluate(\n    Driver driver,\n    Vehicle vehicle,\n    DateOnly today)\n{\n  <span class="add">if (driver.Age(today)</span>\n      <span class="add">&lt; vehicle.MinimumAge())</span>\n    return EligibilityResult\n      .Refused("Conducteur trop jeune");\n\n  <span class="add">return EligibilityResult.Accepted();</span>\n}</pre><p class="lede" style="margin-top:.6rem"><span class="badge">✓ 1 passed</span></p></div></div>'
+      },
+      // ─── SLIDE 9: Outside-In TDD ───
+      {
+        kind: 'split',
+        kicker: 'Outside-In TDD',
+        title: 'On part du comportement observable.',
+        left: '<div class="panel"><div class="head"><span>Principe</span><span>évolution du TDD</span></div><div class="body"><ul class="bullets"><li>Le test démarre dans <b>Application</b></li><li>Le Domain <b>émerge</b> par nécessité</li><li>Pas de dirty-green intermédiaire</li><li>SYNTHESIZE = code propre en un jet</li></ul><p class="lede" style="margin-top:.8rem">On garde le TDD classique.<br>On améliore sa lisibilité<br>et sa robustesse avec l\'IA.</p></div></div>',
+        right: '<div class="reveal"><img class="img" src="assets/outside-in-tdd.png" alt="Outside-In TDD" style="max-height:min(60vh, 480px);" /><div class="caption">Application → Domain → Infrastructure. Le design émerge depuis l\'extérieur.</div></div>'
+      },
+      // ─── SLIDE 10: Clean Architecture — vrai code ───
+      {
+        kind: 'split',
+        kicker: 'Clean Architecture · le vrai code',
+        title: 'Où vit chaque fichier.',
+        left: '<div class="panel"><div class="head"><span>📁 Structure</span><span>MonAssurance</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">src/\n├─ <span style="color:var(--muted)">MonAssurance.Api/</span>\n│  └─ Eligibility/EligibilityEndpoints.cs\n│\n├─ <span style="color:var(--accent-2)">MonAssurance.Application/</span>\n│  └─ Eligibility/Queries/\n│     ├─ CheckEligibilityQuery.cs\n│     └─ CheckEligibilityQueryHandler.cs\n│\n└─ <span style="color:var(--accent)">MonAssurance.Domain/</span>\n   └─ Eligibility/\n      ├─ Driver.cs · Vehicle.cs\n      ├─ <b>EligibilityPolicy.cs</b>\n      └─ EligibilityResult.cs\n\ntests/MonAssurance.UnitTests/Eligibility/\n├─ <span style="color:var(--accent-2)">Application/</span>\n│  └─ <b>CheckEligibilityQueryHandlerTests</b> <span class="badge">8</span>\n└─ <span style="color:var(--accent)">Domain/</span>\n   └─ <b>EligibilityPolicyTests</b> <span class="badge">9</span></pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Application · HandlerTests</span><span>8 tests</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">[Fact]\npublic void Handle_WhenDriverIs17AndHasCar\n    _ReturnsRefused()\n{\n  var handler = BuildHandler(Today);\n  var query = new CheckEligibilityQuery(\n      DateOfBirth: Today.AddYears(-17),\n      VehicleType: VehicleType.Car, ...);\n\n  var result = handler.Handle(query);\n\n  <span class="del">Assert.False(result.IsEligible);</span>\n  Assert.Equal("Conducteur trop jeune",\n      result.RejectionReason);\n}</pre></div></div><div class="panel" style="margin-top:.5rem"><div class="head"><span>Domain · PolicyTests</span><span>9 tests</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">[Fact]\npublic void Evaluate_WhenDriverTurns18Today\n    _ReturnsAccepted()\n{\n  var driver = new Driver(\n      Today.AddYears(-18), licenseYears: 2);\n  var vehicle = new Vehicle(\n      VehicleType.Car, power: null);\n  var result = _policy.Evaluate(\n      driver, vehicle, Today);\n  var ok = result.Match(\n      onAccepted: () =&gt; true,\n      onRefused: _ =&gt; false);\n  <span class="add">Assert.True(ok);</span>\n}</pre></div></div>'
+      },
+      // ─── SLIDE 8: Pourquoi 2 niveaux de tests ? ───
+      {
+        kind: 'split',
+        kicker: 'Skill · clean-architecture-testing',
+        title: 'Pourquoi tester aussi le Domain ?',
+        left: '<div class="panel"><div class="head"><span>The Iron Rule</span><span>skill</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">Default = Application-level test.</span>\nDo NOT write Domain tests by default.\n\nExtract a Domain test ONLY when:\n<span class="add">1. Complex invariants</span>\n   OR large edge-case matrix\n<span class="add">2. AND extracted into a reusable</span>\n   Policy / Domain Service / Spec\n\n<span class="del">NEVER test:</span>\n  - Constructors\n  - Simple value objects\n  - Getters / setters / DTOs</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>EligibilityPolicy</span><span>qualifie ✓</span></div><div class="body"><ul class="bullets"><li>Matrice de cas limites complexe:<br><span style="color:var(--accent-2)">17/18 ans · 15/16 ans · 100/101 ch</span></li><li>Extraite en Policy réutilisable</li><li>9 [Fact] couvrent toutes les frontières</li></ul><p class="lede" style="margin-top:.6rem">Application test = "ça marche de bout en bout"<br>Domain test = "chaque frontière métier est verrouillée"</p></div></div>'
+      },
+      // ─── SLIDE 9: Review ───
+      {
+        kind: 'split',
+        kicker: 'Phase 3 · REVIEW · craft-discipline',
+        title: 'Le garde-fou avant "Done".',
+        left: '<div class="panel"><div class="head"><span>Finding</span><span>test assertion</span></div><div class="body"><pre class="code"><span class="del">- result.Match(</span>\n<span class="del">-   onAccepted: () =&gt; true,</span>\n<span class="del">-   onRefused: _ =&gt;</span>\n<span class="del">-     throw new Exception());</span>\n\n<span class="add">+ var ok = result.Match(</span>\n<span class="add">+   onAccepted: () =&gt; true,</span>\n<span class="add">+   onRefused: _ =&gt; false);</span>\n<span class="add">+ Assert.True(ok);</span></pre><p class="lede" style="margin-top:.6rem">Match sans Assert = faux positif potentiel.</p></div></div>',
+        right: '<div class="panel"><div class="head"><span>craft-discipline vérifie</span><span>avant commit</span></div><div class="body"><ul class="bullets"><li>tests, build, analyse statique</li><li>pas de mock inadapté en Domain</li><li>conventions métier + commit propre</li><li>assertions explicites et lisibles</li></ul><p class="lede" style="margin-top:.8rem">Sans ce step:<br>— "ça marche chez moi" en prod<br>— régressions silencieuses<br>— perte de confiance</p></div></div>'
+      },
+      // ─── SLIDE 13: SDLC Parfait ───
+      {
+        kind: 'stack',
+        kicker: 'Vision',
+        title: 'Imaginer le SDLC parfait.',
+        content: '<div class="reveal"><div class="sequence-track" style="margin-bottom:.8rem;"><div class="sequence-node"><strong>DISCOVER</strong><span>triage · priorité</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISCUSS</strong><span>stories · AC</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DESIGN</strong><span>ADR · contrats</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISTILL</strong><span>Gherkin · plan</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DELIVER</strong><span>TDD · code</span></div></div><div class="sequence-track"><div class="sequence-node human-node"><strong>👤 Humain</strong><span>arbitre à chaque phase</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Agent spécialiste</strong><span>produit les artefacts</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Agent reviewer</strong><span>4 lenses adversariales</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Skills</strong><span>contexte chargé au bon moment</span></div></div><div class="grid-2" style="margin-top:.9rem;"><div class="card"><p class="small">Pattern Agent + Reviewer</p><ul class="bullets list-tight"><li>1 spécialiste + 1 reviewer par phase</li><li>retry auto, escalade si blocage</li><li>l\'humain arbitre, jamais by-passé</li></ul></div><div class="card"><p class="small">Skills par phase</p><ul class="bullets list-tight"><li>DISCOVER: triage, search protocol</li><li>DESIGN: patterns, ADR, contrats</li><li>DISTILL: BDD, test-design-mandates</li><li>DELIVER: outside-in, RSG, craft</li></ul></div></div></div>'
+      },
+      // ─── SLIDE 10: Et dans le futur ? ───
+      {
+        kind: 'split',
+        kicker: 'Et dans le futur ?',
+        title: 'GitHub Agentic Workflows.',
+        left: '<div class="panel"><div class="head"><span>github/gh-aw</span><span>2026</span></div><div class="body"><ul class="bullets"><li>Workflows définis en <b>markdown</b></li><li>Multi-engine: Copilot, Claude, Codex</li><li>Triggers: issues, PRs, push, schedule</li><li>5 couches de sécurité:<ul style="margin-top:.4rem;font-size:.9em"><li>① Tokens en lecture seule</li><li>② Zéro secrets dans l\'agent</li><li>③ Firewall réseau (container isolé)</li><li>④ Safe outputs — agent propose, job applique</li><li>⑤ Détection de menaces IA avant tout write</li></ul></li></ul><p class="lede" style="margin-top:.7rem"><span class="badge">Continuous AI</span></p></div></div>',
+        right: '<div class="panel"><div class="head"><span>Évolutions</span><span>ce qu\'on imagine</span></div><div class="body"><ul class="bullets"><li>Pipeline SDLC complet orchestré par agents</li><li>Review adversariale automatique à chaque phase</li><li>Améliorations livrées chaque matin, prêtes à review</li><li>Autoloop: optimisation mesurable en continu</li></ul><p class="lede" style="margin-top:.7rem">L\'IA orchestre,<br>l\'humain supervise et arbitre.</p></div></div>'
+      },
+      // ─── SLIDE 11: Conclusion ───
+      {
+        kind: 'split',
+        kicker: 'Conclusion',
+        title: 'Discipline workflow + discipline code.',
+        left: '<p class="quote reveal">Le process ne cache pas les bugs. Il les fait apparaître plus tôt et plus clairement.</p><div style="margin-top:1.2rem"><span class="badge">Plan → Code</span> <span class="badge">Skills = contexte</span> <span class="badge">Review = filet</span></div>',
+        right: '<div class="panel"><div class="head"><span>Repo</span><span>essayez</span></div><div class="body"><p class="lede">Les commits, la spec, le journal et les skills sont dans le repo.</p><img class="img" src="assets/devops-ia.png" alt="SDLC workflow" style="max-height:min(28vh, 220px);" /></div></div>'
+      }
+    ];
+
+    const deck = document.getElementById('deck');
+    const dots = document.getElementById('dots');
+    const counter = document.getElementById('counter');
+
+    function slideMarkup(slide, index) {
+      const slideEl = document.createElement('section');
+      slideEl.className = 'slide';
+      slideEl.dataset.index = index;
+      if (slide.bgImage) {
+        var bgEl = document.createElement('div');
+        bgEl.style.cssText = 'position:absolute;inset:0;background-image:url(\'' + slide.bgImage + '\');background-size:cover;background-position:center;opacity:' + (slide.bgOpacity != null ? slide.bgOpacity : 0.25) + ';z-index:0;pointer-events:none;';
+        slideEl.appendChild(bgEl);
+      }
+      let inner = '';
+      const heading = '<div class="kicker reveal">' + (slide.kicker || '') + '</div><h2 class="reveal">' + slide.title + '</h2>';
+
+      if (slide.kind === 'title') {
+        inner = (slide.logoLeft || '')
+          + (slide.logoRight || '')
+          + '<div class="slide-content stack" style="justify-items:center;text-align:center;row-gap:clamp(.9rem,2.2vh,1.8rem)">'
+          + '<div class="kicker reveal">' + slide.meta + '</div>'
+          + '<h1 class="reveal" style="font-size:clamp(2.6rem,7vw,5.8rem);letter-spacing:-.04em;line-height:.9">' + slide.title + '</h1>'
+          + '<p class="lede reveal" style="font-size:clamp(1rem,1.8vw,1.5rem);max-width:none;color:var(--accent-2)">' + slide.subtitle + '</p>'
+          + '<div class="reveal" style="margin-top:clamp(.4rem,1.5vh,.8rem);width:100%;display:flex;justify-content:center">' + slide.speakers + '</div>'
+          + '</div>';
+      } else if (slide.kind === 'split') {
+        inner = '<div class="slide-content split"><div>' + heading + slide.left + '</div><div class="reveal">' + slide.right + '</div></div>';
+      } else if (slide.kind === 'code') {
+        inner = '<div class="slide-content stack">' + heading + '<pre class="code reveal">' + slide.code + '</pre></div>';
+      } else if (slide.kind === 'image') {
+        inner = '<div class="slide-content stack">' + heading + '<div class="reveal"><img class="img" src="' + slide.image + '" alt="' + slide.title + '" /><div class="caption">' + slide.caption + '</div></div></div>';
+      } else if (slide.kind === 'stack') {
+        inner = '<div class="slide-content stack">' + heading + slide.content + '</div>';
+      } else if (slide.kind === 'centered-quote') {
+        inner = '<div class="slide-content stack" style="justify-items:center;text-align:center;align-content:center;height:100%"><blockquote class="reveal" style="font-size:clamp(1.1rem,2.2vw,1.8em);font-style:italic;font-weight:700;line-height:1.4;max-width:80%;border:none;background:none;padding:0;color:var(--accent-2);">' + slide.quote + '</blockquote></div>';
+      } else if (slide.kind === 'centered-title') {
+        inner = '<div class="slide-content stack" style="justify-items:center;text-align:center;align-content:center;height:100%;row-gap:clamp(.8rem,2vh,1.4rem)">'
+          + '<h1 class="reveal" style="font-size:clamp(2rem,5vw,4.2rem);letter-spacing:-.04em;line-height:.95">' + slide.title + '</h1>'
+          + '<p class="reveal lede" style="font-size:clamp(1rem,2.2vw,1.7rem);color:var(--accent-2);max-width:none;margin-top:.6rem">' + slide.subtitle + '</p>'
+          + (slide.image ? '<div class="reveal" style="margin-top:.4rem"><img src="' + slide.image + '" alt="" style="max-height:min(38vh,320px);border-radius:1rem;object-fit:contain;" /></div>' : '')
+          + '</div>';
+      }
+      slideEl.innerHTML = inner;
+      return slideEl;
+    }
+
+    slides.forEach(function(slide, index) {
+      deck.appendChild(slideMarkup(slide, index));
+      var dot = document.createElement('span');
+      dot.className = 'dot' + (index === 0 ? ' active' : '');
+      dots.appendChild(dot);
+    });
+
+    var sections = Array.from(document.querySelectorAll('.slide'));
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.reveal').forEach(function(el, i) {
+            setTimeout(function() { el.classList.add('in'); }, i * 80);
+          });
+          document.querySelectorAll('.dot').forEach(function(dot, idx) { dot.classList.toggle('active', idx === Number(entry.target.dataset.index)); });
+          counter.textContent = (Number(entry.target.dataset.index) + 1) + ' / ' + sections.length;
+        }
+      });
+    }, { threshold: 0.58 });
+
+    sections.forEach(function(section) { io.observe(section); });
+
+    var lock = false;
+    function go(delta) {
+      if (lock) return;
+      lock = true;
+      var current = sections.findIndex(function(s) { var r = s.getBoundingClientRect(); return r.top >= -10 && r.top < window.innerHeight / 2; });
+      var next = Math.min(sections.length - 1, Math.max(0, current + delta));
+      sections[next].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      setTimeout(function() { lock = false; }, 420);
+    }
+
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+      if (e.key === 'Home') { e.preventDefault(); sections[0].scrollIntoView({ behavior: 'smooth' }); }
+      if (e.key === 'End') { e.preventDefault(); sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' }); }
+    }, { passive: false });
+
+    var wheel = 0;
+    window.addEventListener('wheel', function(e) {
+      wheel += e.deltaY;
+      if (Math.abs(wheel) > 70) { e.preventDefault(); go(wheel > 0 ? 1 : -1); wheel = 0; }
+    }, { passive: false });
+
+    var touchY = null;
+    window.addEventListener('touchstart', function(e) { touchY = e.changedTouches[0].clientY; }, { passive: true });
+    window.addEventListener('touchend', function(e) {
+      if (touchY == null) return;
+      var diff = e.changedTouches[0].clientY - touchY;
+      if (Math.abs(diff) > 36) go(diff < 0 ? 1 : -1);
+      touchY = null;
+    }, { passive: true });
+  </script>
+</body>
+</html>

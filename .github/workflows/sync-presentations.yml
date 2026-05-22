@@ -1,0 +1,62 @@
+name: Sync Presentations
+
+on:
+  workflow_dispatch:
+    inputs:
+      meetup_ref:
+        description: "Ref for meetup-coding-with-ai (branch/tag/sha)"
+        required: false
+        default: "main"
+      skraft_ref:
+        description: "Ref for skraft-plugin (branch/tag/sha)"
+        required: false
+        default: "main"
+  schedule:
+    - cron: "17 5 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout website repository
+        uses: actions/checkout@v4
+
+      - name: Checkout meetup-coding-with-ai
+        uses: actions/checkout@v4
+        with:
+          repository: SebastienDegodez/meetup-coding-with-ai
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.meetup_ref || 'main' }}
+          token: ${{ secrets.REPO_READ_TOKEN }}
+          path: sources/meetup-coding-with-ai
+
+      - name: Checkout skraft-plugin
+        uses: actions/checkout@v4
+        with:
+          repository: SebastienDegodez/skraft-plugin
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.skraft_ref || 'main' }}
+          token: ${{ secrets.REPO_READ_TOKEN }}
+          path: sources/skraft-plugin
+
+      - name: Sync presentations
+        run: |
+          bash scripts/sync-presentations.sh
+        env:
+          SOURCE_ROOT: ${{ github.workspace }}/sources
+          STRICT_SYNC: "true"
+
+      - name: Commit and push if changed
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add presentations _data/presentations.yml
+          git commit -m "chore: sync presentations"
+          git push

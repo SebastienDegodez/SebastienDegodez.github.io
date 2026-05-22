@@ -1,0 +1,538 @@
+I"xU<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header__bg" role="presentation" aria-hidden="true"></div>
+  <div class="page-header__content">
+    <p class="page-header__eyebrow"><i class="fa-solid fa-trophy" aria-hidden="true"></i> Réalisations &amp; Impact</p>
+    <h1 class="page-header__title">Brag Document</h1>
+    <p class="page-header__subtitle">Projets majeurs, contributions open source, conférences &amp; publications, mentoring — organisés par impact et thème, pas par date.</p>
+  </div>
+</header>
+
+<!-- TABLE DES MATIÈRES -->
+<nav class="toc" aria-label="Sections">
+  <ul class="toc__list">
+    <li><a href="#projects"><i class="fa-solid fa-rocket" aria-hidden="true"></i> Projets majeurs</a></li>
+    <li><a href="#opensource"><i class="fa-brands fa-github" aria-hidden="true"></i> Open Source &amp; Communauté</a></li>
+    <li><a href="#talks"><i class="fa-solid fa-microphone" aria-hidden="true"></i> Talks &amp; Publications</a></li>
+    <li><a href="#mentoring"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Mentoring &amp; Leadership</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ── PROJETS MAJEURS ─────────────────────────────────── -->
+<section class="section" id="projects" aria-labelledby="projects-title">
+<div class="section__header">
+
+      <p class="section__eyebrow"><i class="fa-solid fa-rocket" aria-hidden="true"></i> Impact produit &amp; technique</p>
+
+      <h2 id="projects-title" class="section__title">Projets <span>majeurs</span></h2>
+
+      <p class="section__subtitle">Réalisations ayant eu un impact significatif sur les produits, les équipes ou les organisations.</p>
+    </div>
+<div class="project-list">
+
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Solutions entreprise .NET @ AXA France</h3>
+<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Fiabilité &amp; performance en production</div>
+
+<p>Développement et maintenance d'applications d'entreprise critiques en .NET &amp; Java au sein d'AXA France.</p>
+
+<p>Mise en place d'architectures Clean Architecture / DDD, amélioration de la couverture de tests et modernisation de la stack technique vers .NET 10+.</p>
+
+<div class="project-card__tags">
+
+<span class="tag">.NET 10+</span>
+
+<span class="tag">Java</span>
+
+<span class="tag">Clean Architecture</span>
+
+<span class="tag">DDD</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">En cours</span>
+
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Copilot Instructions — Bonnes pratiques GitHub Copilot</h3>
+<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Qualité &amp; productivité des équipes</div>
+
+<p>Base de connaissances complète (+175 étoiles) de bonnes pratiques, règles de code et automatisations de workflow pour le développement assisté par IA avec GitHub Copilot.</p>
+
+<p>Couvre DDD, Clean Architecture, tests, conventions de commits et plus.</p>
+
+<div class="project-card__tags">
+
+<span class="tag--green tag">GitHub Copilot</span>
+
+<span class="tag">TypeScript</span>
+
+<span class="tag">DDD</span>
+
+<span class="tag">Clean Architecture</span>
+
+<span class="tag">OSS</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+
+<a class="project-card__link" href="https://github.com/SebastienDegodez/copilot-instructions" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub Copilot Instructions</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Maintainer &amp; Code Owner (.NET) @ Microcks</h3>
+<div class="project-card__impact"><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i> Impact : Contribution à un projet CNCF de référence</div>
+
+<p>Maintainer officiel et Code Owner (vote de gouvernance validé début 2024) du module microcks-testcontainers-dotnet ainsi que microcks-aspire, l'intégration Testcontainers + Microcks dans l'écosystème .NET.</p>
+
+<p>Responsable de la vision technique, de la qualité, des revues de PR et de l'évolution du module au sein du projet CNCF Microcks.</p>
+
+<p>Référencé également dans la liste officielle des maintainers du projet parent: MAINTAINERS.md.</p>
+
+<div class="project-card__tags">
+
+<span class="tag--green tag">CNCF</span>
+
+<span class="tag--green tag">Maintainer</span>
+
+<span class="tag">.NET</span>
+
+<span class="tag">Java</span>
+
+<span class="tag">Testcontainers</span>
+
+<span class="tag">OSS</span>
+
+<span class="tag">Gouvernance</span>
+
+<span class="tag">Aspire</span>
+
+<span class="tag">Microcks</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">Depuis janv. 2024</span>
+
+
+<a class="project-card__link" href="https://github.com/microcks/" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub Microcks</a>
+
+<a class="project-card__link" href="https://microcks.io/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Site</a>
+
+<a class="project-card__link" href="https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers" target="_blank" rel="noopener"><i class="fa-solid fa-list" aria-hidden="true"></i> MAINTAINERS.md</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Centre de Services DevOps @ ArcelorMittal France</h3>
+<div class="project-card__impact"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Impact : transformation des pratiques d'ingénierie à l'échelle entreprise</div>
+
+<p>Participation au Centre de Services DevOps pour fournir aux équipes les outils et standards de mise en œuvre du DevOps.</p>
+
+<p>Accompagnement de plusieurs équipes sur Kubernetes, Microservices, DDD, Clean Architecture, Outside-In TDD et Event Storming.</p>
+
+<p>Contribution active à la définition des architectures en collaboration avec les architectes.</p>
+
+<div class="project-card__tags">
+
+<span class="tag">ArcelorMittal</span>
+
+<span class="tag">DevOps</span>
+
+<span class="tag--green tag">Kubernetes</span>
+
+<span class="tag">Microservices</span>
+
+<span class="tag">DDD</span>
+
+<span class="tag">Clean Architecture</span>
+
+<span class="tag">Outside-In TDD</span>
+
+<span class="tag">Event Storming</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">DevOps transverse</span>
+
+
+<a class="project-card__link" href="https://www.linkedin.com/in/sebastien-degodez/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> Profil</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Plateforme d'observabilité @ ArcelorMittal France</h3>
+<div class="project-card__impact"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Impact : visibilité transverse avec Logs, APM et Traces</div>
+
+<p>Lead de la mise en place d'une solution d'observabilité couvrant les Logs, l'APM et les Traces.</p>
+
+<p>Coordination technique avec les équipes Elastic Suite pour cadrer l'architecture et accélérer l'adoption à l'échelle de l'entreprise.</p>
+
+<div class="project-card__tags">
+
+<span class="tag">ArcelorMittal</span>
+
+<span class="tag">Observabilité</span>
+
+<span class="tag">Elastic</span>
+
+<span class="tag">APM</span>
+
+<span class="tag">Traces</span>
+
+<span class="tag">Leadership</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">2019</span>
+
+
+<a class="project-card__link" href="https://www.linkedin.com/in/sebastien-degodez/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> Profil</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Automatisation des ponts GENESIS @ ArcelorMittal France</h3>
+<div class="project-card__impact"><i class="fa-solid fa-industry" aria-hidden="true"></i> Impact : automatisation des flux produits en environnement industriel</div>
+
+<p>Mise en place d'une solution .NET pour le programme GENESIS (GENeric Stockyard Informatic System).</p>
+
+<p>Objectif : gérer les produits et piloter leur manipulation par des ponts automatiques afin d'améliorer la fiabilité opérationnelle.</p>
+
+<div class="project-card__tags">
+
+<span class="tag">ArcelorMittal</span>
+
+<span class="tag">Industrie</span>
+
+<span class="tag">.NET</span>
+
+<span class="tag">GENESIS</span>
+
+<span class="tag">Automatisation</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">2015</span>
+
+
+<a class="project-card__link" href="https://www.linkedin.com/in/sebastien-degodez/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> Profil</a>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+<!-- ── OPEN SOURCE & COMMUNAUTÉ ───────────────────────── -->
+<section class="section" id="opensource" aria-labelledby="opensource-title">
+<div class="section__header">
+
+      <p class="section__eyebrow"><i class="fa-brands fa-github" aria-hidden="true"></i> Open Source &amp; Communauté</p>
+
+      <h2 id="opensource-title" class="section__title">Contributions <span>open source</span></h2>
+
+      <p class="section__subtitle">Projets publiés, contributions à l'écosystème et engagement dans la communauté .NET.</p>
+    </div>
+<div class="project-list">
+
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>microsoft/apm — Contribution &amp; Code Review</h3>
+<div class="project-card__impact"><i class="fa-solid fa-code-review" aria-hidden="true"></i> Contribution directe et relectures régulières de pull requests</div>
+
+<p>Contribution open source au repository microsoft/apm avec la pull request #83.</p>
+
+<p>Participation régulière aux revues de code (code review) sur les pull requests du projet pour maintenir la qualité et la cohérence technique.</p>
+
+<div class="project-card__tags">
+
+<span class="tag--green tag">Contribution</span>
+
+<span class="tag">Code Review</span>
+
+<span class="tag">Open Source</span>
+
+<span class="tag">microsoft/apm</span>
+
+<span class="tag">Python</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">2026</span>
+
+
+<a class="project-card__link" href="https://github.com/microsoft/apm/pull/83" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> PR #83</a>
+
+<a class="project-card__link" href="https://github.com/microsoft/apm/pulls" target="_blank" rel="noopener"><i class="fa-solid fa-list-check" aria-hidden="true"></i> Pull Requests</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>Module Testcontainers .NET — Kafka</h3>
+<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Contributions au module officiel Testcontainers .NET pour Kafka</div>
+
+<p>Ajout de fonctionnalités et améliorations pour le module Testcontainers .NET pour Kafka.</p>
+
+<p>En particulier, contributions autour de la gestion d'un network privé pour Kafka, permettant une meilleure isolation et fiabilité des tests d'intégration utilisant Kafka dans des environnements .NET.</p>
+
+<div class="project-card__tags">
+
+<span class="tag--green tag">Contribution</span>
+
+<span class="tag">Open Source</span>
+
+<span class="tag">.NET</span>
+
+<span class="tag">Kafka</span>
+
+<span class="tag">Testcontainers</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">15 Décembre 2024</span>
+
+
+<a class="project-card__link" href="https://github.com/testcontainers/testcontainers-dotnet/pull/1316" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> PR #1316</a>
+
+</div>
+</div>
+
+<div class="project-card">
+<div class="project-card__main">
+<h3>microcks-testcontainers-dotnet — Code Owner</h3>
+<div class="project-card__impact"><i class="fa-solid fa-code-branch" aria-hidden="true"></i> Code Owner reconnu par la gouvernance Microcks</div>
+
+<p>Obtention du statut de Code Owner sur microcks-testcontainers-dotnet à la suite d'un vote officiel de gouvernance validé début 2024.</p>
+
+<p>Porteur de l'intégration Testcontainers + Microcks dans l'écosystème .NET.</p>
+
+<p>Appartenance confirmée à la liste des maintainers officiels Microcks: MAINTAINERS.md.</p>
+
+<div class="project-card__tags">
+
+<span class="tag--green tag">Code Owner</span>
+
+<span class="tag">CNCF</span>
+
+<span class="tag">.NET</span>
+
+<span class="tag">Testcontainers</span>
+
+</div>
+</div>
+<div class="project-card__side">
+
+<span class="project-card__date">Depuis janv. 2024</span>
+
+
+<a class="project-card__link" href="https://github.com/microcks/microcks-testcontainers-dotnet" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub Microcks</a>
+
+<a class="project-card__link" href="https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers" target="_blank" rel="noopener"><i class="fa-solid fa-list" aria-hidden="true"></i> MAINTAINERS.md</a>
+
+</div>
+</div>
+
+
+</div>
+</section>
+
+<!-- ── TALKS & PUBLICATIONS ──────────────────────────── -->
+<section class="section" id="talks" aria-labelledby="talks-title">
+<div class="section__header">
+
+      <p class="section__eyebrow"><i class="fa-solid fa-microphone" aria-hidden="true"></i> Conférences &amp; Partage</p>
+
+      <h2 id="talks-title" class="section__title">Talks &amp; <span>Publications</span></h2>
+
+      <p class="section__subtitle">Présentations en meetups, conférences et contenus publiés pour la communauté.</p>
+    </div>
+<div class="talks-list">
+
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>Coding with AI - Meetup @ HoppR</h3>
+<p class="talk-card__meta"><strong>HoppR · Mai 2026</strong></p>
+<p class="talk-card__desc">Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA, jusqu'à la création de son propre workflow agentic.</p>
+
+<p class="talk-card__meta">
+  <a class="project-card__link" href="https://www.linkedin.com/posts/sebastien-degodez_softwareengineering-cleancode-tdd-ugcPost-7462974846533296130-dIA_" target="_blank" rel="noopener">
+    <i class="fa-brands fa-linkedin" aria-hidden="true"></i> Retour d'expérience (LinkedIn)
+  </a>
+</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">Meetup</span>
+<span class="tag">AI</span><span class="tag">GitHub Agentic Workflow</span><span class="tag">TDD</span>
+</div>
+</div>
+</div>
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-robot" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>Coding with AI - Meetup @ Intérial Mutuelle</h3>
+<p class="talk-card__meta"><strong>Intérial Mutuelle · Mai 2026</strong></p>
+<p class="talk-card__desc">Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA, jusqu'à la création de son propre workflow agentic.</p>
+
+<p class="talk-card__meta">
+  <a class="project-card__link" href="https://www.linkedin.com/posts/sebastien-degodez_softwareengineering-cleancode-tdd-ugcPost-7462974846533296130-dIA_" target="_blank" rel="noopener">
+    <i class="fa-brands fa-linkedin" aria-hidden="true"></i> Retour d'expérience (LinkedIn)
+  </a>
+</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">Meetup</span>
+<span class="tag">AI</span><span class="tag">GitHub Agentic Workflow</span><span class="tag">Qualite</span>
+</div>
+</div>
+</div>
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-dumbbell" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>Object Calisthenics avec l'IA - BBL interne AXA</h3>
+<p class="talk-card__meta"><strong>AXA France (interne) · Avril 2026</strong></p>
+<p class="talk-card__desc">BBL dedie aux principes Object Calisthenics pour ameliorer la lisibilite, la maintenabilite et la robustesse du code metier, avec exemples concrets d'application dans des contextes .NET orientes domaine. Nous avons aussi montre en quoi l'IA genere du code plus pertinent, plus stable et plus facile a guider quand ces principes sont respectes.</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">BBL</span>
+<span class="tag">Object Calisthenics</span><span class="tag">Clean Code</span><span class="tag">.NET</span>
+</div>
+</div>
+</div>
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-people-group" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>Coding with AI - Meetup Software Craft Lille @ SFEIR</h3>
+<p class="talk-card__meta"><strong>Software Craft Lille · SFEIR Lille · Mars 2026</strong></p>
+<p class="talk-card__desc">Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes. Presentation des retours d'experience chez AXA France: workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">Meetup</span>
+<span class="tag">AI</span><span class="tag">TDD</span><span class="tag">DDD</span><span class="tag">Gherkin</span><span class="tag">.NET</span>
+</div>
+</div>
+</div>
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>Clean Architecture &amp; DDD en .NET - Retour d'experience @ AXA</h3>
+<p class="talk-card__meta"><strong>Groupes de travail techniques internes · 2024-2025</strong></p>
+<p class="talk-card__desc">Partage d'experience sur l'adoption de la Clean Architecture et du Domain-Driven Design dans des projets d'entreprise a fort enjeu, avec les pieges a eviter et les benefices observes.</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">Talk interne</span>
+<span class="tag">Clean Architecture</span><span class="tag">DDD</span><span class="tag">.NET</span>
+</div>
+</div>
+</div>
+
+<div class="talk-card">
+<div class="talk-card__icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
+<div class="talk-card__body">
+<h3>L'ObservaBLT avec la suite Elastic - BBL @ ArcelorMittal</h3>
+<p class="talk-card__meta"><strong>ArcelorMittal (interne) · 2020</strong></p>
+<p class="talk-card__desc">Presentation interne sur l'observabilite avec la suite Elastic: integration des logs, metriques et traces via OpenTelemetry en .NET et en Java, instrumentation RUM avec Angular, puis mise en place d'alertes exploitables pour le run.</p>
+
+<div class="talk-card__tags">
+<span class="tag--orange tag">BBL</span>
+<span class="tag">Observabilite</span><span class="tag">Elastic</span><span class="tag">OpenTelemetry</span><span class="tag">.NET</span><span class="tag">Java</span><span class="tag">Angular</span><span class="tag">RUM</span><span class="tag">Alerting</span>
+</div>
+</div>
+</div>
+
+
+</div>
+</section>
+
+<!-- ── MENTORING & LEADERSHIP ─────────────────────────── -->
+<section class="section" id="mentoring" aria-labelledby="mentoring-title">
+<div class="section__header">
+
+      <p class="section__eyebrow"><i class="fa-solid fa-people-group" aria-hidden="true"></i> Impact humain &amp; organisationnel</p>
+
+      <h2 id="mentoring-title" class="section__title">Mentoring &amp; <span>Leadership</span></h2>
+
+      <p class="section__subtitle">Accompagnement des équipes, transmission de compétences et animation de la culture technique.</p>
+    </div>
+<div class="mentoring-grid">
+
+<div class="mentoring-card">
+<p class="mentoring-card__icon"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></p>
+<h3>Mentoring développeurs juniors &amp; mid</h3>
+
+<p>Accompagnement individuel de développeurs dans leur montée en compétences : revues de code régulières, pair programming, conseils sur la carrière et les bonnes pratiques.</p>
+
+</div>
+
+<div class="mentoring-card">
+<p class="mentoring-card__icon"><i class="fa-solid fa-people-arrows" aria-hidden="true"></i></p>
+<h3>Animation de groupes de travail techniques</h3>
+
+<p>Animation de groupes de travail et communautés de pratique internes sur les thèmes .NET, DDD, Event Sourcing, Clean Architecture et tests automatisés — partage de ressources, retours d'expérience et veille technologique.</p>
+
+</div>
+
+<div class="mentoring-card">
+<p class="mentoring-card__icon"><i class="fa-solid fa-code-pull-request" aria-hidden="true"></i></p>
+<h3>Culture de la revue de code</h3>
+
+<p>Promotion et mise en place d'une culture de revue de code bienveillante et constructive, avec définition de standards et de critères de qualité partagés au sein des équipes, en lien avec une culture produit autour du DDD, de l'Event Sourcing et du design orienté domaine.</p>
+
+</div>
+
+<div class="mentoring-card">
+<p class="mentoring-card__icon"><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i></p>
+<h3>Veille &amp; partage de ressources</h3>
+
+<p>Curation et diffusion régulière d'articles, talks et outils pertinents pour l'écosystème .NET, contribuant à la montée en compétences collective des équipes.</p>
+
+</div>
+
+
+</div>
+</section>
+
+</main>
+:ET
