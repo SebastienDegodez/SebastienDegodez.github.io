@@ -12,9 +12,9 @@ title: Accueil
 
 <h1>DEGODEZ Sébastien</h1>
 
-<p class="hero__role"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Software Engineer · AXA France</p>
+<p class="hero__role"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Tech Lead · AXA France</p>
 
-<p class="hero__tagline"><em>Software Engineer @ AXA France depuis juin 2023. Architecte de solutions .NET, contributeur open source & speaker communautaire passionné par les LLMs et les outils pour développeurs.</em></p>
+<p class="hero__tagline"><em>Tech Lead & Software Engineer @ AXA France depuis juin 2023. Architecte de solutions .NET, contributeur open source & speaker communautaire passionné par les LLMs et les outils pour développeurs.</em></p>
 
 <nav class="hero__links" aria-label="Liens rapides">
   <a href="{% link brag.md %}" class="hero__links--cta"><i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document</a>

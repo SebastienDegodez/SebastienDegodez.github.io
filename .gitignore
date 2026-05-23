@@ -10,6 +10,13 @@
 *.userosscache
 *.sln.docstates
 
+# Jekyll generated files
+_site/
+.sass-cache/
+.jekyll-cache
+.jekyll-metadata/
+vendor/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -410,3 +417,4 @@ apm_modules/
 
 # Design exploration / previews
 .ecc-design/
+.jekyll-cache/Jekyll/Cache/Jekyll--Converters--Markdown/8f/50f7b44d22be4ad870591e2743af4a7f081f41ac3ea8b187fd9b740fc6948f

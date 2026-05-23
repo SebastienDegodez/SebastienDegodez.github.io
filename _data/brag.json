@@ -2,10 +2,12 @@
   "projects": [
     {
       "title": "Global Maintainer @ Microcks (CNCF Incubating)",
-      "sort_key": 99991240,
+      "logo": "https://microcks.io/images/logo/microcks-logo-blue_hu_3d5c4ab173b0c06a.webp",
+      "sort_key": 99990301,
       "impact": {
         "icon": "fa-solid fa-crown",
-        "text": "Impact Principal : Gouvernance globale d'un projet CNCF Incubating"
+        "text": "Impact Principal : Gouvernance globale d'un projet CNCF Incubating",
+        "type": "principal"
       },
       "paragraphs": [
         "Promotion au statut de Maintainer global de l'organisation Microcks, évoluant désormais au niveau 'Incubating' de la Cloud Native Computing Foundation.",
@@ -13,12 +15,20 @@
         "Garant de la pérennité du projet pour une communauté de 160+ contributeurs et 30+ adopteurs publics."
       ],
       "tags": [
-        { "label": "CNCF Incubating", "class": "tag--orange tag" },
-        { "label": "Global Leadership", "class": "tag--orange tag" },
-        { "label": "Project Strategy", "class": "tag" },
-        { "label": "Community Governance", "class": "tag" }
+        {
+          "label": "Open Source & CNCF",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Project Strategy",
+          "class": "tag"
+        },
+        {
+          "label": "Community Governance",
+          "class": "tag"
+        }
       ],
-      "date": "Depuis 2025",
+      "date": "Depuis Mars 2026",
       "links": [
         {
           "url": "https://github.com/microcks/microcks/blob/master/MAINTAINERS.md",
@@ -29,82 +39,146 @@
     },
     {
       "title": "Reference Cards Microservices @ AXA France",
-      "sort_key": 99991230,
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg",
+      "sort_key": 20240901,
       "impact": {
         "icon": "fa-solid fa-map-location-dot",
-        "text": "Impact Staff : Standardisation architecturelle AXA France"
+        "text": "Impact Staff : Standardisation architecturelle AXA France",
+        "type": "staff"
       },
       "paragraphs": [
         "Co-conception et rédaction des 'Reference Cards Microservices' adoptées à l'échelle d'AXA France.",
-        "Outil d'aide à la décision stratégique utilisé par l'ensemble des développeurs et architectes de l'entreprise pour valider l'adhérence aux patterns microservices.",
-        "Réduction de l'ambiguïté conceptuelle et alignement des pratiques d'architecture sur tout le périmètre France."
+        "Outil d'aide à la décision stratégique apportant un alignement fort sur les modèles microservices pour un réseau de plus de 40 architectes.",
+        "Réduction de l'ambiguïté conceptuelle et standardisation des pratiques d'architecture sur tout le périmètre France."
       ],
       "tags": [
-        { "label": "Enterprise Standard", "class": "tag--orange tag" },
-        { "label": "Microservices", "class": "tag" },
-        { "label": "Architecture", "class": "tag" },
-        { "label": "Decision Support", "class": "tag" }
+        {
+          "label": "Architecture & Standards",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Microservices",
+          "class": "tag"
+        },
+        {
+          "label": "Architecture",
+          "class": "tag"
+        },
+        {
+          "label": "Decision Support",
+          "class": "tag"
+        }
       ],
-      "date": "Depuis 2024",
-      "links": []
+      "date": "Septembre 2024",
+      "links": [
+
+      ]
     },
     {
       "title": "GitHub Copilot Scale-out @ AXA France",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg",
       "sort_key": 99991220,
       "impact": {
         "icon": "fa-solid fa-robot",
-        "text": "Impact Staff : Partenariat stratégique & adoption IA"
+        "text": "Impact Staff : Activation DevEx & IA pour 700 développeurs",
+        "type": "staff"
       },
       "paragraphs": [
-        "Partenaire clé du Principal Engineer sur le déploiement de GitHub Copilot pour les équipes de développement.",
-        "Accompagnement terrain, création de guides de bonnes pratiques et mesure de l'impact sur la productivité et la qualité du code.",
-        "Évangélisation des techniques de 'AI-Assisted Development' pour transformer l'expérience développeur (DevEx)."
+        "Partenaire clé du Principal Engineer sur le déploiement de GitHub Copilot avec plus de 700 licences déployées à l'échelle.",
+        "",
+        "Accompagnement terrain par la création d'instructions, de skills et d'agents spécialisés (.NET, Clean Architecture, DDD) pour maximiser la pertinence des suggestions.",
+        "Évangélisation des techniques de 'AI-Assisted Development' pour démultiplier la productivité et transformer l'expérience développeur."
       ],
       "tags": [
-        { "label": "AI Strategy", "class": "tag--orange tag" },
-        { "label": "GitHub Copilot", "class": "tag--orange tag" },
-        { "label": "Developer Experience", "class": "tag" },
-        { "label": "Leadership", "class": "tag" }
+        {
+          "label": "DevEx & IA",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Developer Experience",
+          "class": "tag"
+        },
+        {
+          "label": "Leadership",
+          "class": "tag"
+        }
       ],
-      "date": "Depuis 2025",
-      "links": []
+      "date": "Depuis 2024",
+      "links": [
+
+      ]
     },
     {
       "title": "Ingénierie Logicielle & Clean Architecture @ AXA France",
-      "sort_key": 99991210,
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/94/AXA_Logo.svg",
+      "sort_key": 20230901,
       "impact": {
         "icon": "fa-solid fa-arrow-trend-up",
-        "text": "Impact : Robustesse des systèmes critiques"
+        "text": "Impact Staff : Transformation progressive sur 10 squads (3 produits)",
+        "type": "staff"
       },
       "paragraphs": [
-        "Direction technique sur le développement d'applications d'entreprise critiques en .NET 10+.",
-        "Garant de l'application des principes Clean Architecture et DDD pour assurer une maintenabilité à long terme et une forte couverture de tests."
+        "Conduite d'une transformation progressive des pratiques d'ingénierie (.NET 10+) sur un périmètre critique de 10 squads (3 produits). Accompagnement sur mesure pour moderniser un existant fortement « legacy » vers la Clean Architecture et le DDD, au rythme des contraintes de chaque équipe.",
+        "Mentorat de 4 Tech Leads (TL) via un accompagnement continu et la revue de leurs propres Pull Requests pour ancrer fortement les pratiques Clean Architecture et DDD au sein de leur leadership technique.",
+        "Positionnement en tant que référent technique transverse (« Glue Work ») : relais proactif auprès des développeurs membres des squads en cas d'absence des TL, pour fluidifier les développements et maintenir le niveau d'exigence."
       ],
       "tags": [
-        { "label": ".NET 10+", "class": "tag" },
-        { "label": "Clean Architecture", "class": "tag" },
-        { "label": "DDD", "class": "tag" }
+        {
+          "label": ".NET 10+",
+          "class": "tag"
+        },
+        {
+          "label": "Clean Architecture",
+          "class": "tag"
+        },
+        {
+          "label": "DDD",
+          "class": "tag"
+        }
       ],
-      "date": "En cours",
-      "links": []
+      "date": "Septembre 2023",
+      "links": [
+
+      ]
     },
     {
       "title": "Automatisation des ponts GENESIS @ ArcelorMittal France",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Arcelormittal-logo.svg",
       "sort_key": 20150101,
       "impact": {
         "icon": "fa-solid fa-industry",
-        "text": "Impact : automatisation des flux produits en environnement industriel"
+        "text": "Impact : Sécurisation et fiabilisation des opérations industrielles critiques liées au supply chain.",
+        "type": "other"
       },
       "paragraphs": [
-        "Mise en place d'une solution .NET pour le programme GENESIS (GENeric Stockyard Informatic System).",
-        "Objectif : gérer les produits et piloter leur manipulation par des ponts automatiques afin d'améliorer la fiabilité opérationnelle."
+        "Conception de la solution logicielle de pilotage .NET (programme GENESIS : GENeric Stockyard Information System) gérant l’automatisation des ponts roulants sur des environnements complexes.",
+        "Amélioration des flux produits augmentant la fiabilité et la sécurité de bout-en-bout des processus industriels sur les chaînes de stockage."
       ],
       "tags": [
-        { "label": "ArcelorMittal", "class": "tag" },
-        { "label": "Industrie", "class": "tag" },
-        { "label": ".NET", "class": "tag" },
-        { "label": "GENESIS", "class": "tag" },
-        { "label": "Automatisation", "class": "tag" }
+        {
+          "label": "Architecture & Standards",
+          "class": "tag tag--orange"
+        },
+        {
+          "label": "ArcelorMittal",
+          "class": "tag"
+        },
+        {
+          "label": "Industrie",
+          "class": "tag"
+        },
+        {
+          "label": ".NET",
+          "class": "tag"
+        },
+        {
+          "label": "GENESIS",
+          "class": "tag"
+        },
+        {
+          "label": "Automatisation",
+          "class": "tag"
+        }
       ],
       "date": "2015",
       "links": [
@@ -117,22 +191,46 @@
     },
     {
       "title": "Plateforme d'observabilité @ ArcelorMittal France",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Arcelormittal-logo.svg",
       "sort_key": 20190101,
       "impact": {
         "icon": "fa-solid fa-chart-line",
-        "text": "Impact : visibilité transverse avec Logs, APM et Traces"
+        "text": "Impact Staff : Démocratisation de l'observabilité transverse",
+        "type": "staff"
       },
       "paragraphs": [
-        "Lead de la mise en place d'une solution d'observabilité couvrant les Logs, l'APM et les Traces.",
-        "Coordination technique avec les équipes Elastic Suite pour cadrer l'architecture et accélérer l'adoption à l'échelle de l'entreprise."
+        "Lead de la mise en place d'une solution d'observabilité complète (Logs, APM, Traces), apportant une visibilité systémique sur la performance et le comportement des applications.",
+        "Coordination stratégique avec les équipes expertes internes et le partenaire Elastic pour unifier l'architecture, anticiper les problématiques de montée en charge et garantir une adoption cohérente sur l’ensemble de l'entreprise."
       ],
       "tags": [
-        { "label": "ArcelorMittal", "class": "tag" },
-        { "label": "Observabilité", "class": "tag" },
-        { "label": "Elastic", "class": "tag" },
-        { "label": "APM", "class": "tag" },
-        { "label": "Traces", "class": "tag" },
-        { "label": "Leadership", "class": "tag" }
+        {
+          "label": "Architecture & Standards",
+          "class": "tag tag--orange"
+        },
+        {
+          "label": "ArcelorMittal",
+          "class": "tag"
+        },
+        {
+          "label": "Observabilité",
+          "class": "tag"
+        },
+        {
+          "label": "Elastic",
+          "class": "tag"
+        },
+        {
+          "label": "APM",
+          "class": "tag"
+        },
+        {
+          "label": "Traces",
+          "class": "tag"
+        },
+        {
+          "label": "Leadership",
+          "class": "tag"
+        }
       ],
       "date": "2019",
       "links": [
@@ -144,60 +242,105 @@
       ]
     },
     {
-      "title": "Standard 'Fast-Track' DevOps @ ArcelorMittal France",
+      "title": "Platform Engineering & Fast-Track DevOps @ ArcelorMittal France",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Arcelormittal-logo.svg",
       "sort_key": 20200102,
       "impact": {
         "icon": "fa-solid fa-gauge-high",
-        "text": "Impact Staff : Livraison de features en 2 jours (10+ équipes)"
+        "text": "Impact Staff : Déploiement d'un IDP & Sécurisation à l'échelle",
+        "type": "staff"
       },
       "paragraphs": [
-        "Conception et déploiement d'un standard 'Fast-Track' permettant le passage de l'idée à la production en 2 jours.",
-        "Accompagnement terrain de plus de 10 équipes produit sur les stacks Microservices, Kubernetes et Outside-In TDD."
+        "Mise en place d'un standard 'Fast-Track' sur 3 ans : migration progressive vers Kubernetes et automatisation GitOps réduisant radicalement le time-to-market.",
+        "Cocréation d'un Portail Développeur (IDP - Internal Developer Portal) gérant le provisionnement 'zero-touch' des hébergements Kubernetes et l'initialisation des architectures via templates certifiés.",
+        "Référent développement Sécurité en collaboration directe avec le Responsable Cybersécurité ArcelorMittal France, garantissant une intégration DevSecOps en profondeur (CI/CD, tests intégrés)."
       ],
       "tags": [
-        { "label": "Time-to-Market", "class": "tag--orange tag" },
-        { "label": "DevOps", "class": "tag" },
-        { "label": "Kubernetes", "class": "tag" },
-        { "label": "Outside-In TDD", "class": "tag" }
+        {
+          "label": "Architecture & Standards",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Kubernetes",
+          "class": "tag"
+        },
+        {
+          "label": "GitOps",
+          "class": "tag"
+        }
       ],
       "date": "2020-2023",
-      "links": []
+      "links": [
+
+      ]
     },
     {
-      "title": "Gouvernance Architecturelle & Craft @ ArcelorMittal France",
+      "title": "Jump-Starts Craft & Architecture @ ArcelorMittal France",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Arcelormittal-logo.svg",
       "sort_key": 20200101,
       "impact": {
         "icon": "fa-solid fa-shield-halved",
-        "text": "Impact Staff : Standardisation de la maintenabilité (DDD/Clean Arch)"
+        "text": "Impact Staff : Accompagnement immersif sur 10+ équipes (De l'idée à la Prod)",
+        "type": "staff"
       },
       "paragraphs": [
-        "Établissement de la Clean Architecture et du DDD comme pivots de la stratégie logicielle à l'échelle de l'entreprise.",
-        "Réduction drastique de la dette technique sur les systèmes critiques par l'infusion des pratiques de design orienté domaine."
+        "Création d'un format de mentorat immersif (« Jump-Starts », sessions de 2 à 3 jours) embarquant les équipes de l'Event Storming jusqu'au déploiement continu.",
+        "Positionnement de l'Event Sourcing, de CQRS, des Projections et de la Clean Architecture comme solutions standardisées face à la complexité métier émergente.",
+        "Empowerment massif via l'artisanat logiciel (Software Craftsmanship, Outside-in TDD) transformant la culture de livraison logicielle au sein des équipes."
       ],
       "tags": [
-        { "label": "Governance", "class": "tag--orange tag" },
-        { "label": "Clean Architecture", "class": "tag" },
-        { "label": "DDD", "class": "tag" }
+        {
+          "label": "Communauté & Mentoring",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Event Sourcing",
+          "class": "tag"
+        },
+        {
+          "label": "CQRS",
+          "class": "tag"
+        },
+        {
+          "label": "DDD",
+          "class": "tag"
+        }
       ],
       "date": "2020-2023",
-      "links": []
+      "links": [
+
+      ]
     },
     {
       "title": "Code Owner: microcks-testcontainers-dotnet",
+      "logo": "https://microcks.io/images/logo/microcks-logo-blue_hu_3d5c4ab173b0c06a.webp",
       "sort_key": 20240102,
       "impact": {
         "icon": "fa-solid fa-code-branch",
-        "text": "Impact Staff : Gouvernance sur un projet CNCF Sandbox"
+        "text": "Impact Staff : Gouvernance sur un projet CNCF Sandbox",
+        "type": "staff"
       },
       "paragraphs": [
         "Code Owner officiel (vote de gouvernance validé) du module d'intégration Testcontainers pour l'écosystème .NET.",
         "Responsable de la qualité, des revues de PR et de la roadmap technique du module."
       ],
       "tags": [
-        { "label": "CNCF", "class": "tag--orange tag" },
-        { "label": "Code Owner", "class": "tag" },
-        { "label": "Testcontainers", "class": "tag" },
-        { "label": "OSS", "class": "tag" }
+        {
+          "label": "Open Source & CNCF",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Code Owner",
+          "class": "tag"
+        },
+        {
+          "label": "Testcontainers",
+          "class": "tag"
+        },
+        {
+          "label": "OSS",
+          "class": "tag"
+        }
       ],
       "date": "Depuis janv. 2024",
       "links": [
@@ -210,21 +353,32 @@
     },
     {
       "title": "microcks-aspire — .NET Aspire Integration",
-      "sort_key": 20240101,
+      "logo": "https://microcks.io/images/logo/microcks-logo-blue_hu_3d5c4ab173b0c06a.webp",
+      "sort_key": 20241101,
       "impact": {
         "icon": "fa-solid fa-bolt",
-        "text": "Impact Staff : Innovation sur la DevEx .NET moderne"
+        "text": "Impact Staff : Innovation sur la DevEx .NET moderne",
+        "type": "staff"
       },
       "paragraphs": [
         "Conception et développement de l'intégration native Microcks pour .NET Aspire.",
         "Simplification drastique des tests d'API pour les architectures Cloud Native en intégrant le mocking et la validation de contrat directement dans le cycle de vie Aspire."
       ],
       "tags": [
-        { "label": ".NET Aspire", "class": "tag--orange tag" },
-        { "label": "DevEx", "class": "tag" },
-        { "label": "Cloud Native", "class": "tag" }
+        {
+          "label": "DevEx & IA",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "DevEx",
+          "class": "tag"
+        },
+        {
+          "label": "Cloud Native",
+          "class": "tag"
+        }
       ],
-      "date": "2024",
+      "date": "Novembre 2024",
       "links": [
         {
           "url": "https://github.com/microcks/microcks-aspire",
@@ -235,22 +389,39 @@
     },
     {
       "title": "Copilot Instructions — Bonnes pratiques GitHub Copilot",
-      "sort_key": 20250101,
+      "sort_key": 20250520,
       "impact": {
         "icon": "fa-solid fa-arrow-trend-up",
-        "text": "Impact : Qualité & productivité des équipes"
+        "text": "Impact Staff : Influence Open Source & Création de standards de DevEx IA",
+        "type": "staff"
       },
       "paragraphs": [
         "Base de connaissances complète (+175 étoiles) de bonnes pratiques, règles de code et automatisations de workflow pour le développement assisté par IA avec GitHub Copilot.",
         "Couvre DDD, Clean Architecture, tests, conventions de commits et plus."
       ],
       "tags": [
-        { "label": "GitHub Copilot", "class": "tag--orange tag" },
-        { "label": "TypeScript", "class": "tag" },
-        { "label": "DDD", "class": "tag" },
-        { "label": "Clean Architecture", "class": "tag" },
-        { "label": "OSS", "class": "tag" }
+        {
+          "label": "DevEx & IA",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "TypeScript",
+          "class": "tag"
+        },
+        {
+          "label": "DDD",
+          "class": "tag"
+        },
+        {
+          "label": "Clean Architecture",
+          "class": "tag"
+        },
+        {
+          "label": "OSS",
+          "class": "tag"
+        }
       ],
+      "date": "Mai 2025",
       "links": [
         {
           "url": "https://github.com/SebastienDegodez/copilot-instructions",
@@ -262,79 +433,38 @@
   ],
   "opensource": [
     {
-      "title": "Global Maintainer — Microcks Organization",
-      "sort_key": 20250101,
-      "impact": {
-        "icon": "fa-solid fa-crown",
-        "text": "Maintainer global (CNCF Incubating) : décisionnaire transverse"
-      },
-      "paragraphs": [
-        "Un an après avoir rejoint l'aventure en tant que Code Owner, promotion au rang de Maintainer de l'ensemble de l'organisation Microcks (CNCF).",
-        "Décisionnaire sur les évolutions majeures, responsable du mentorat technique et garant du respect des standards CNCF au sein d'un projet en pleine hyper-croissance (2.5M+ downloads)."
-      ],
-      "tags": [
-        { "label": "Global Maintainer", "class": "tag--orange tag" },
-        { "label": "Governance", "class": "tag" },
-        { "label": "CNCF Incubating", "class": "tag" }
-      ],
-      "date": "Depuis janv. 2025",
-      "links": [
-        {
-          "url": "https://github.com/microcks/microcks/blob/master/MAINTAINERS.md",
-          "label": "MAINTAINERS.md",
-          "icon": "fa-solid fa-list"
-        }
-      ]
-    },
-    {
-      "title": "microcks-testcontainers-dotnet — Code Owner",
-      "sort_key": 20240101,
-      "impact": {
-        "icon": "fa-solid fa-code-branch",
-        "text": "Code Owner reconnu par la gouvernance Microcks"
-      },
-      "paragraphs": [
-        "Obtention du statut de Code Owner sur microcks-testcontainers-dotnet à la suite d'un vote officiel de gouvernance validé début 2024.",
-        "Porteur de l'intégration Testcontainers + Microcks dans l'écosystème .NET.",
-        "Appartenance confirmée à la liste des maintainers officiels Microcks: MAINTAINERS.md."
-      ],
-      "tags": [
-        { "label": "Code Owner", "class": "tag--orange tag" },
-        { "label": "CNCF", "class": "tag" },
-        { "label": ".NET", "class": "tag" },
-        { "label": "Testcontainers", "class": "tag" }
-      ],
-      "date": "Depuis janv. 2024",
-      "links": [
-        {
-          "url": "https://github.com/microcks/microcks-testcontainers-dotnet",
-          "label": "GitHub Microcks",
-          "icon": "fa-brands fa-github"
-        },
-        {
-          "url": "https://github.com/microcks/microcks/blob/master/MAINTAINERS.md#maintainers",
-          "label": "MAINTAINERS.md",
-          "icon": "fa-solid fa-list"
-        }
-      ]
-    },
-    {
       "title": "Module Testcontainers .NET — Kafka",
       "sort_key": 20241215,
       "impact": {
         "icon": "fa-solid fa-code-branch",
-        "text": "Contributions au module officiel Testcontainers .NET pour Kafka"
+        "text": "Contributions au module officiel Testcontainers .NET pour Kafka",
+        "type": "other"
       },
       "paragraphs": [
         "Ajout de fonctionnalités et améliorations pour le module Testcontainers .NET pour Kafka.",
         "En particulier, contributions autour de la gestion d'un network privé pour Kafka, permettant une meilleure isolation et fiabilité des tests d'intégration utilisant Kafka dans des environnements .NET."
       ],
       "tags": [
-        { "label": "Contribution", "class": "tag--orange tag" },
-        { "label": "Open Source", "class": "tag" },
-        { "label": ".NET", "class": "tag" },
-        { "label": "Kafka", "class": "tag" },
-        { "label": "Testcontainers", "class": "tag" }
+        {
+          "label": "Open Source & CNCF",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Open Source",
+          "class": "tag"
+        },
+        {
+          "label": ".NET",
+          "class": "tag"
+        },
+        {
+          "label": "Kafka",
+          "class": "tag"
+        },
+        {
+          "label": "Testcontainers",
+          "class": "tag"
+        }
       ],
       "date": "15 Décembre 2024",
       "links": [
@@ -350,18 +480,34 @@
       "sort_key": 20260101,
       "impact": {
         "icon": "fa-solid fa-code-review",
-        "text": "Contribution directe et relectures régulières de pull requests"
+        "text": "Contribution directe et relectures régulières de pull requests",
+        "type": "other"
       },
       "paragraphs": [
         "Contribution open source au repository microsoft/apm avec la pull request #83.",
         "Participation régulière aux revues de code (code review) sur les pull requests du projet pour maintenir la qualité et la cohérence technique."
       ],
       "tags": [
-        { "label": "Contribution", "class": "tag--orange tag" },
-        { "label": "Code Review", "class": "tag" },
-        { "label": "Open Source", "class": "tag" },
-        { "label": "microsoft/apm", "class": "tag" },
-        { "label": "Python", "class": "tag" }
+        {
+          "label": "Open Source & CNCF",
+          "class": "tag--orange tag"
+        },
+        {
+          "label": "Code Review",
+          "class": "tag"
+        },
+        {
+          "label": "Open Source",
+          "class": "tag"
+        },
+        {
+          "label": "microsoft/apm",
+          "class": "tag"
+        },
+        {
+          "label": "Python",
+          "class": "tag"
+        }
       ],
       "date": "2026",
       "links": [
@@ -388,24 +534,8 @@
       ]
     },
     {
-      "icon": "fa-solid fa-graduation-cap",
-      "title": "Workshops: Architecture & Event Sourcing",
-      "paragraphs": [
-        "Série de workshops sur la Clean Architecture, le DDD et l'Event Sourcing chez ArcelorMittal.",
-        "Diffusion de patterns de design avancés pour sécuriser la robustesse des systèmes événementiels complexes."
-      ]
-    },
-    {
-      "icon": "fa-solid fa-people-arrows",
-      "title": "Mentorat Transverse (Tribu AXA)",
-      "paragraphs": [
-        "Accompagnement de développeurs au sein de la Tribu AXA France sur les pratiques Craft (TDD, DDD, Clean Architecture).",
-        "Catalyseur de montée en compétences pour favoriser l'autonomie et la qualité logicielle inter-équipes."
-      ]
-    },
-    {
       "icon": "fa-solid fa-user-tie",
-      "title": "Tech Leadership d'Équipe (AXA)",
+      "title": "Tech Leader d'Équipe (AXA)",
       "paragraphs": [
         "Rôle de TechLead opérationnel : accompagnement quotidien, revues de code et coaching des membres de mon équipe.",
         "Instauration d'une culture de responsabilité produit et d'excellence technique (Quality First)."
