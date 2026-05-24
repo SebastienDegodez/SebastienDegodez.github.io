@@ -128,7 +128,7 @@
 <body>
   <main class="deck" id="deck"></main>
   <div class="chrome" aria-live="polite">
-    <div><b>Coder avec l'IA</b> <span class="hint">← → · molette · swipe</span></div>
+    <div><b>Coder avec l'IA</b> <span class="hint">← → · molette · swipe · 'S' pour les notes</span></div>
     <div class="dots" id="dots"></div>
     <div id="counter">1 / 16</div>
   </div>
@@ -141,8 +141,7 @@
         Talk : Coding with AI : Intégrer Copilot sans sacrifier la qualité
         Date : 20260520
         Abstract : GitHub Copilot est puissant, mais l'utilisez-vous à 100 % de ses capacités,
-        notamment en TDD et BDD ? Lors de cette session, nous irons au-delà de la simple
-        autocomplétion. Au travers d'un savant mélange de slides et de démos, nous verrons
+        notamment en TDD et BDD ? Lors de cette session, nous irons au-delà de la simple        autocomplétion. Au travers d'un savant mélange de slides et de démos, nous verrons
         comment l'IA peut assister la phase de développement post-Three Amigos et accélérer
         l'écriture de vos tests unitaires sans renier sur la qualité de vos tests.
         François Descamps — AXA France depuis 2015-2016 · Principal Engineer · déploiement
@@ -165,13 +164,13 @@
         bgImage: './assets/images/image80.png',
         bgOpacity: 0.25,
         quote: '« Nos expérimentations démontrent que la maturité des pratiques d\'ingénierie est le levier essentiel pour limiter les risques induits par l\'IA. »'
-        // Notes: L'IA bouge tous les jours, nous avons mis la conférence à jour déjà plusieurs fois et au final, elle ne ressemble plus à la présentation de novembre donnée dans sa première version à notre Summit tech de Séville.
-        // C'est d'ailleurs un principe chez AXA France — il est crucial d'être à la fois créatif et discipliné dans le déploiement de Copilot et de l'IA en général.
-        // Maîtrise du déterminisme : tests automatisés robustes (unitaires, intégration, bout en bout) pour valider le comportement du code IA de manière déterministe.
-        // Gouvernance des standards : architecture claire, règles strictes (nommage, linters, revues) — empêche l'IA d'introduire de la dette technique ou des patterns incohérents.
-        // Sécurité par conception : contraintes de sécurité dès la conception, scan systématique du code généré.
-        // En résumé : tests automatisés + architecture/standards + sécurité = le filet de sécurité face à l'IA.
-        // Mais avant de se plonger dans la démo, nous allons vérifier que vous connaissez le kung fu, pardon GitHub Copilot.
+,       notes: `L'IA bouge tous les jours, nous avons mis la conférence à jour déjà plusieurs fois et au final, elle ne ressemble plus à la présentation de novembre donnée dans sa première version à notre Summit tech de Séville.
+        C'est d'ailleurs un principe chez AXA France — il est crucial d'être à la fois créatif et discipliné dans le déploiement de Copilot et de l'IA en général.
+        Maîtrise du déterminisme : tests automatisés robustes (unitaires, intégration, bout en bout) pour valider le comportement du code IA de manière déterministe.
+        Gouvernance des standards : architecture claire, règles strictes (nommage, linters, revues) — empêche l'IA d'introduire de la dette technique ou des patterns incohérents.
+        Sécurité par conception : contraintes de sécurité dès la conception, scan systématique du code généré.
+        En résumé : tests automatisés + architecture/standards + sécurité = le filet de sécurité face à l'IA.
+        Mais avant de se plonger dans la démo, nous allons vérifier que vous connaissez le kung fu, pardon GitHub Copilot.`
       },
       // ─── SLIDE 1c: Je connais Copilot ───
       {
@@ -179,23 +178,23 @@
         title: '"Je connais Copilot"',
         subtitle: '🤚 Levez la main &mdash; baissez-la quand vous ne savez plus',
         image: 'assets/kung-fu.gif'
-        // Notes: Pour vérifier votre connaissance de copilot, procédons à un petit jeu.
-        // Tout le monde lève la main, vous la gardez tout le temps en l'air et dès que vous ne connaissez pas la réponse, vous baissez la main.
-        // Exemple : Qui est reconnaissant pour l'accueil de Sfeir aujourd'hui ? / Qui connaît la 7ième décimale de Pi ? (π = 3,14159265... c'est 6)
-        // Vraies questions : Qui connaît les 3 différents modes du chat copilot ?
-        // Qui sait ce que sont les "copilot instructions" ?
-        // Qui sait ce qu'est une primitive au sens copilot ?
-        // Qui sait ce qu'est une premium request ?
-        // Qui sait que copilot n'utilise pas toute la taille possible de tokens qu'il peut envoyer à un modèle ?
-        // Qui sait ce qu'est le "Fill in the middle" ?
-        // Qui sait ce qu'est le "0/1/few shots prompting" ?
-        // Qui sait ce qu'est un custom agent ? Et un handoff ?
-        // Qui sait ce qu'est une skill ? Qui sait ce qu'est un subagent ?
-        // Prévoir des stickers.
-        // Quand vous maîtrisez ces choses, vous êtes un Context Engineer (Ingénieur de Contexte).
-        // Le contexte = toutes les informations, instructions, fichiers, règles, historique de chat et exemples que l'agent utilise.
-        // Le contexte est limité en taille : les éléments les plus utiles doivent être sélectionnés.
-        // ASTUCE : Vous voyez "Summary" => vous avez atteint la limite du contexte.
+,       notes: `Pour vérifier votre connaissance de copilot, procédons à un petit jeu.
+        Tout le monde lève la main, vous la gardez tout le temps en l'air et dès que vous ne connaissez pas la réponse, vous baissez la main.
+        Exemple : Qui est reconnaissant pour l'accueil de Sfeir aujourd'hui ? / Qui connaît la 7ième décimale de Pi ? (π = 3,14159265... c'est 6)
+        Vraies questions : Qui connaît les 3 différents modes du chat copilot ?
+        Qui sait ce que sont les "copilot instructions" ?
+        Qui sait ce qu'est une primitive au sens copilot ?
+        Qui sait ce qu'est une premium request ?
+        Qui sait que copilot n'utilise pas toute la taille possible de tokens qu'il peut envoyer à un modèle ?
+        Qui sait ce qu'est le "Fill in the middle" ?
+        Qui sait ce qu'est le "0/1/few shots prompting" ?
+        Qui sait ce qu'est un custom agent ? Et un handoff ?
+        Qui sait ce qu'est une skill ? Qui sait ce qu'est un subagent ?
+        Prévoir des stickers.
+        Quand vous maîtrisez ces choses, vous êtes un Context Engineer (Ingénieur de Contexte).
+        Le contexte = toutes les informations, instructions, fichiers, règles, historique de chat et exemples que l'agent utilise.
+        Le contexte est limité en taille : les éléments les plus utiles doivent être sélectionnés.
+        ASTUCE : Vous voyez "Summary" => vous avez atteint la limite du contexte.`
       },
       // ─── SLIDE 2a: Les 4 Primitives Copilot ───
       {
@@ -208,10 +207,10 @@
           + '<div class="card"><div class="role">L\'Entrée Contextuelle</div><h3>💬 Prompts</h3><p>Déclencheur immédiat et contextuel — le <strong>« Ce qu\'il faut faire maintenant »</strong>.</p></div>'
           + '<div class="card"><div class="role">L\'Orchestrateur</div><h3>🤖 Agents</h3><p>Entité autonome — le <strong>« Qui agit »</strong>. Combine Instructions + Skills + Prompts pour résoudre des tâches complexes.</p></div>'
           + '</div>'
-        // Notes: Instructions = config haut niveau / "règles du jeu" — directives globales (ex: .github/copilot-instructions.md). Définissent le "Comment".
-        // Skills = capacités modulaires (lire_un_fichier, exécuter_tests, appel_API). Définissent "Ce que" le système peut faire. J'aime les appeler des personas spécialisés.
-        // Prompts = déclencheur immédiat en langage naturel (ex: "Trouve le bug dans cette fonction"). Définissent "Ce qu'il faut faire maintenant".
-        // Agents = entité autonome combinant les trois précédentes. Reçoit un Prompt, utilise ses Skills, respecte les Instructions pour accomplir une tâche complexe. Définit "Qui agit".
+,       notes: `Instructions = config haut niveau / "règles du jeu" — directives globales (ex: .github/copilot-instructions.md). Définissent le "Comment".
+        Skills = capacités modulaires (lire_un_fichier, exécuter_tests, appel_API). Définissent "Ce que" le système peut faire. J'aime les appeler des personas spécialisés.
+        Prompts = déclencheur immédiat en langage naturel (ex: "Trouve le bug dans cette fonction"). Définissent "Ce qu'il faut faire maintenant".
+        Agents = entité autonome combinant les trois précédentes. Reçoit un Prompt, utilise ses Skills, respecte les Instructions pour accomplir une tâche complexe. Définit "Qui agit".`
       },
       // ─── SLIDE 2b: Instructions ───
       {
@@ -224,13 +223,13 @@
           + '<li style="margin-top:.6rem"><b>🎯 Purpose?</b><ul class="bullets" style="margin-top:.4rem"><li>Appliquer les règles de sécurité</li><li>Imposer les conventions de formatage</li><li>Garantir des règles de fonctionnement cohérentes</li></ul></li>'
           + '</ul></div>',
         right: '<div class="reveal"><img class="img" src="assets/instructions.png" alt="Instructions diagram" style="max-height:min(60vh,480px)" /></div>'
-        // Notes: Ce sont des fichiers présents dans votre base de code pour enrichir le prompt que vous écrivez dans le chat.
-        // Priorité : elles priment sur les prompts utilisateur — l'assistant doit impérativement les suivre.
-        // Éviter le "Code Spaghetti" : fixe des règles dès le départ, Copilot ne proposera pas de solutions "sales" ou obsolètes.
-        // Apprentissage par l'exemple : forces l'IA à coder selon les standards de l'entreprise — tutorat passif pour le junior.
-        // Exemples concrets : bibliothèques (pas Axios → fetch), nommage (I majuscule pour interfaces TS), JSDoc, tests .spec.ts Vitest.
-        // Placement : globales (IDE settings) ou locales (.github/copilot-instructions.md) — la 2ème est partagée via Git.
-        // Pro-tip : les instructions réduisent les hallucinations mais ne remplacent pas la relecture (Code Review).
+,       notes: `Ce sont des fichiers présents dans votre base de code pour enrichir le prompt que vous écrivez dans le chat.
+        Priorité : elles priment sur les prompts utilisateur — l'assistant doit impérativement les suivre.
+        Éviter le "Code Spaghetti" : fixe des règles dès le départ, Copilot ne proposera pas de solutions "sales" ou obsolètes.
+        Apprentissage par l'exemple : forces l'IA à coder selon les standards de l'entreprise — tutorat passif pour le junior.
+        Exemples concrets : bibliothèques (pas Axios → fetch), nommage (I majuscule pour interfaces TS), JSDoc, tests .spec.ts Vitest.
+        Placement : globales (IDE settings) ou locales (.github/copilot-instructions.md) — la 2ème est partagée via Git.
+        Pro-tip : les instructions réduisent les hallucinations mais ne remplacent pas la relecture (Code Review).`
       },
       // ─── SLIDE 2c: Skills ───
       {
@@ -242,10 +241,10 @@
           + '<blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted)">Copilot passe du générateur de code à un <b>assistant connecté à l\'écosystème</b></blockquote>'
           + '</div>',
         right: '<div class="reveal"><img class="img" src="assets/skill.png" alt="Skill diagram" style="max-height:min(55vh,440px)" /></div>'
-        // Notes: Un LLM brut est comme un "cerveau" enfermé dans une boîte. Les Skills sont les mains de ce cerveau.
-        // Ce n'est pas de la génération de texte — c'est l'exécution d'une fonction réelle (requête API REST, commande terminal, BDD).
-        // Tool Calling : l'IA analyse le prompt, détermine si elle a besoin d'infos externes, sélectionne la Skill, formate les paramètres, exécute, ingère le résultat.
-        // En résumé : les Skills transforment Copilot d'un générateur statique en assistant dynamique dans l'écosystème de l'entreprise.
+,       notes: `Un LLM brut est comme un "cerveau" enfermé dans une boîte. Les Skills sont les mains de ce cerveau.
+        Ce n'est pas de la génération de texte — c'est l'exécution d'une fonction réelle (requête API REST, commande terminal, BDD).
+        Tool Calling : l'IA analyse le prompt, détermine si elle a besoin d'infos externes, sélectionne la Skill, formate les paramètres, exécute, ingère le résultat.
+        En résumé : les Skills transforment Copilot d'un générateur statique en assistant dynamique dans l'écosystème de l'entreprise.`
       },
       // ─── SLIDE 2d: Fill in the Middle ───
       {
@@ -256,10 +255,10 @@
           + '<ul class="bullets"><li>Le curseur peut être <b>n\'importe où</b> dans le fichier</li><li>Copilot analyse le code <b>avant ET après</b> la position</li><li><b>Cohérence des variables</b> garantie</li><li><b>Évite les doublons</b> de logique</li><li>Idéal pour le <b>refactoring</b> et l\'insertion de blocs (<code>try/catch</code>, validations…)</li></ul>'
           + '</div>',
         right: '<div class="reveal"><pre class="code">function calculerTotal(panier) {\n  const tva = 0.20;\n  <span class="del">// 🔴 Sans FIM → ignorant return</span>\n  <span class="add">// ✅ Avec FIM → Copilot génère :</span>\n  const total = panier.reduce(\n    (acc, item) =&gt; acc + item.prix, 0\n  );\n  return total * (1 + tva);\n}</pre><blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted);font-size:.9rem">Copilot voit le <code>return total</code> <b>après</b> le curseur → génère exactement la bonne variable</blockquote></div>'
-        // Notes: Technique permettant à Copilot de compléter du code non seulement à la fin, mais aussi au milieu ou au début.
-        // D'ordinaire les modèles lisent de haut en bas — sans FIM, il ignore ce qui est juste en dessous du curseur.
-        // Avec FIM : si return total * (1+tva) existe déjà, Copilot comprend qu'il doit créer la variable total au milieu.
-        // Idéal pour insérer des try/catch, conditions if autour de blocs existants.
+,       notes: `Technique permettant à Copilot de compléter du code non seulement à la fin, mais aussi au milieu ou au début.
+        D'ordinaire les modèles lisent de haut en bas — sans FIM, il ignore ce qui est juste en dessous du curseur.
+        Avec FIM : si return total * (1+tva) existe déjà, Copilot comprend qu'il doit créer la variable total au milieu.
+        Idéal pour insérer des try/catch, conditions if autour de blocs existants.`
       },
       // ─── SLIDE 2e: 0/1/Few-Shot Prompting ───
       {
@@ -272,10 +271,10 @@
           + '<div class="card"><span class="badge">One-Shot</span><h3 style="margin-top:.5rem">Un exemple fourni</h3><p>Clarifie les attentes : <b>style, nommage, format</b> de retour. L\'IA calque sa réponse sur l\'exemple donné.</p></div>'
           + '<div class="card"><span class="badge">Few-Shot</span><h3 style="margin-top:.5rem">Deux exemples ou plus</h3><p>Reconnaissance de <b>patterns</b> · tâches complexes · réponses plus précises et cohérentes.</p></div>'
           + '</div>'
-        // Notes: Zero-shot = aucun exemple, juste une instruction. L'IA puise dans ses connaissances d'entraînement.
-        // One-shot = un exemple pour clarifier le style attendu, le format de retour, le nommage.
-        // Few-shot = 2+ exemples pour les patterns complexes — l'IA reconnaît la structure et la répète.
-        // Application directe dans Copilot : mettre des exemples dans copilot-instructions.md ou dans le prompt = few-shot implicite.
+,       notes: `Zero-shot = aucun exemple, juste une instruction. L'IA puise dans ses connaissances d'entraînement.
+        One-shot = un exemple pour clarifier le style attendu, le format de retour, le nommage.
+        Few-shot = 2+ exemples pour les patterns complexes — l'IA reconnaît la structure et la répète.
+        Application directe dans Copilot : mettre des exemples dans copilot-instructions.md ou dans le prompt = few-shot implicite.`
       },
       // ─── SLIDE 0: Écosystème workflows IA ───
       {
@@ -284,6 +283,13 @@
         title: 'L\'écosystème des workflows IA.',
         left: '<div class="panel"><div class="head"><span>Approches</span><span>landscape</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">Superpowers</span>  skills + discipline\n             workflow rigid/flexible\n\n<span class="add">BMAD</span>         multi-agent orchestration\n             role-based personas\n\n<span class="add">Genesis</span>      design-first modules\n             8-step agentic primitives\n\n<span class="add">Custom</span>       .agent.md + SKILL.md\n             VS Code / Claude Code</pre></div></div>',
         right: '<div class="panel"><div class="head"><span>Point commun</span><span>constat</span></div><div class="body"><ul class="bullets"><li>L\'IA seule ne suffit pas</li><li>Il faut un <b>workflow structuré</b></li><li>Les <b>skills</b> = contexte injecté</li><li>Les <b>agents</b> = spécialistes orchestrés</li><li>L\'<b>humain</b> reste décisionnaire</li></ul><p class="lede" style="margin-top:.8rem">Aujourd\'hui: on montre ce que ça donne en pratique sur un vrai projet .NET.</p></div></div>'
+        ,notes: `En 2026, on voit apparaître plusieurs familles de workflows IA.
+        Certaines approches mettent l'accent sur la discipline et le contexte, d'autres sur l'orchestration multi-agents, d'autres encore sur des agents et des modules complètement sur mesure.
+        On peut citer BMAD, Superpowers, des approches custom dans VS Code, et aussi Genesis.
+        Genesis est intéressant parce qu'il pousse l'idée de construction modulaire de workflows : on découpe, on structure, on spécialise, au lieu de tout mettre dans un prompt géant.
+        Mais le point important n'est pas de choisir un camp.
+        Le point important, c'est que tout le monde converge vers la même conclusion : l'IA seule ne suffit pas, il faut un workflow, du contexte injecté au bon moment, et un humain qui garde l'arbitrage.
+        Donc ici, on ne vend pas un framework miracle. On montre simplement comment ces idées se traduisent concrètement sur un vrai flux de delivery.`
       },
       // ─── SLIDE 1: Le paradoxe ───
       {
@@ -292,6 +298,13 @@
         title: 'L\'IA compile. Ça ne suffit pas.',
         left: '<p class="quote reveal">Le vrai sujet n\'est pas la génération.<br>C\'est la <b>cohérence architecturale</b> et la capacité à <b>prouver le comportement</b>.</p>',
         right: '<div class="panel"><div class="head"><span>Question</span><span>audience</span></div><div class="body"><ul class="bullets"><li>Qui a déjà vu un code "bon à compiler" mais faux métier ?</li><li>Qui a déjà perdu du temps à corriger après coup ?</li><li>Qui veut voir un workflow qui limite ces erreurs ?</li></ul></div></div>'
+        ,notes: `Le paradoxe de l'IA, c'est qu'elle veut nous satisfaire.
+        Donc si on lui demande de faire passer quelque chose, elle va tout tenter pour y arriver, parfois même en trichant sans vraiment tricher consciemment.
+        Très concrètement, elle peut produire un code qui compile, elle peut même faire disparaître la gêne en supprimant un morceau de test, en affaiblissant une assertion, ou en contournant le vrai problème.
+        Le résultat est séduisant, parce que l'écran redevient vert.
+        Mais ce vert-là ne prouve rien.
+        C'est pour cela que notre sujet n'est pas la génération de code en soi.
+        Notre sujet, c'est la capacité à garder de la cohérence architecturale et à prouver le comportement attendu, même quand l'IA essaie de nous satisfaire le plus vite possible.`
       },
       // ─── SLIDE 2: C'est quoi un Skill ? ───
       {
@@ -299,7 +312,15 @@
         kicker: 'Concept clé',
         title: 'Un Skill = du contexte compressé.',
         left: '<div class="panel"><div class="head"><span>SKILL.md</span><span>structure</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5">---\nname: outside-in-tdd\ndescription: Use when writing\n  tests from the outside-in\n---\n\n<span class="add">## Iron Rules</span>\n  - Start at Application layer\n  - Domain emerges by necessity\n  - No dirty-green\n\n<span class="add">## Checklist</span>\n  \u25a1 Wishful Thinking first\n  \u25a1 True RED on behavior\n  \u25a1 SYNTHESIZE clean code</pre></div></div>',
-        right: '<div class="panel"><div class="head"><span>Pourquoi</span><span>ça change tout</span></div><div class="body"><ul class="bullets"><li>Chargé <b>au bon moment</b> par l\'agent</li><li>Réduit le bruit et les tokens</li><li>Encode la <b>discipline</b> du craft</li><li>Évolue avec le projet (versionné en git)</li></ul><p class="lede" style="margin-top:.8rem">Sans skill: l\'IA invente.<br>Avec skill: l\'IA applique<br>une méthode éprouvée.</p></div></div>'
+        right: '<div class="panel"><div class="head"><span>Pourquoi</span><span>ça change tout</span></div><div class="body"><ul class="bullets"><li>Chargé <b>au bon moment</b> par l\'agent</li><li>Réduit le bruit et les tokens</li><li>Encode la <b>discipline</b> du craft</li><li>Évolue avec le projet (versionné en git)</li></ul><p class="lede" style="margin-top:.8rem">Sans skill: l\'IA invente.<br>Avec skill: l\'IA applique<br>une méthode éprouvée.</p></div></div>',
+        notes: `Le concept clé ici, c'est qu'une skill n'est pas juste un bout de documentation rangé dans le repo.
+        Une skill, c'est de l'expérience d'ingénierie condensée dans un format que l'agent peut réinjecter au bon moment.
+        Au lieu de repartir de zéro à chaque prompt, on redonne à l'IA un cadre précis : les règles, l'ordre de pensée, les garde-fous, les pièges connus.
+        C'est pour cela que je parle de contexte compressé.
+        On ne lui envoie pas tout le wiki, toute la doc et tous les principes à chaque fois. On lui donne juste le bon paquet de discipline, au bon moment, pour la tâche en cours.
+        Et c'est ça qui change la qualité du résultat.
+        Sans skill, l'IA improvise. Avec une skill, elle applique une méthode que le développeur a explicitement choisie.
+        Autrement dit, la skill est un moyen très concret d'injecter nos principes de craft dans le système.`
       },
       // ─── SLIDE 3: Mon Gherkin de départ ───
       {
@@ -308,6 +329,14 @@
         title: 'Mon Gherkin de départ.',
         left: '<div class="panel"><div class="head"><span>Prompt</span><span>gherkin-gate</span></div><div class="body"><p class="lede">Je donne mon .feature à l\'agent.<br>Il valide, brainstorm, améliore.</p><pre class="code"><span class="add">@gherkin-gate</span>\n\nVoici mon fichier .feature.\nValide les scénarios, identifie\nles cas limites manquants,\net propose une version améliorée.</pre></div></div>',
         right: '<div class="panel"><div class="head"><span>features/eligibilite.feature</span><span>403a344</span></div><div class="body"><pre class="code"># language: fr\nFonctionnalité: Éligibilité\n\nScénario: Refus voiture mineur\n  Étant donné un conducteur né le "10/10/2010"\n  Et nous sommes le "01/01/2026"\n  Et le véhicule est une "Voiture"\n  Quand je demande une éligibilité\n  Alors la demande est refusée ...\n\nScénario: Trottinette 16 ans\n  Étant donné un conducteur âgé de 16 ans\n  ...\n\nScénario: Refus moto puissante\n  Étant donné un conducteur avec 2 ans\n  ...</pre></div></div>'
+        ,notes: `Ici, on est encore pendant les 3 Amigos.
+        On n'est pas encore dans le code, on est encore dans le moment où on essaie d'aligner métier, test et implémentation autour du bon comportement.
+        Et c'est justement là que l'IA peut nous aider.
+        Pas pour inventer le besoin à notre place, mais pour nous aider à réappliquer des règles BDD profondes qu'on a souvent laissées se dégrader dans nos bases de code.
+        Parce qu'en vrai, beaucoup de Gherkin finissent pollués par de la technique : on voit des click, des post, des détails d'écran ou d'API au lieu de voir l'intention métier.
+        Donc je donne à l'agent un Gherkin encore imparfait pour qu'il nous aide à le ramener vers quelque chose de plus métier, plus explicite et plus testable.
+        Il ne remplace pas les 3 Amigos : il nous aide à mieux les faire.
+        Et c'est important, parce que si on laisse un Gherkin flou ou trop technique, l'IA va amplifier ce défaut dans tout le reste de la chaîne.`
       },
       // ─── SLIDE 2: Avant / Après (git diff) ───
       {
@@ -315,6 +344,12 @@
         kicker: '3 Amigos avec l\'IA · commit 403a344 → 0a82358',
         title: 'Le diff qui change tout.',
         code: '<span class="del">- Scénario: Refus voiture mineur</span>\n<span class="del">-   Étant donné un conducteur né le "10/10/2010"</span>\n<span class="del">-   Et nous sommes le "01/01/2026"</span>\n\n<span class="add">+ Contexte:</span>\n<span class="add">+   Étant donné nous sommes le "01/01/2026"</span>\n\n<span class="add">+ Plan du Scénario: Vérification de l\'âge minimum</span>\n<span class="add">+   Étant donné un conducteur âgé de &lt;age&gt; ans</span>\n<span class="add">+   Et le véhicule est une "&lt;vehicule&gt;"</span>\n<span class="add">+   Quand je demande une éligibilité</span>\n<span class="add">+   Alors la demande est &lt;resultat&gt;</span>\n\n<span class="add">+   Exemples: Conducteurs mineurs refusés</span>\n<span class="add">+     | 17 | Voiture | refusée ... |</span>\n<span class="add">+     | 16 | Moto    | refusée ... |</span>\n<span class="add">+   Exemples: Conducteurs majeurs acceptés</span>\n<span class="add">+     | 18 | Voiture | acceptée |</span>'
+        ,notes: `Ce diff montre exactement la valeur de l'IA quand elle est bien cadrée.
+        On ne change pas le besoin métier, on améliore la façon de l'exprimer.
+        On remplace un scénario un peu brut par une structure plus lisible, plus factorisée, et surtout plus exploitable pour la suite.
+        Le contexte commun est extrait, les exemples sont regroupés, les frontières deviennent explicites.
+        Autrement dit, on passe d'un Gherkin compréhensible par des humains à un Gherkin qui aide vraiment aussi bien les humains que l'IA à raisonner proprement.
+        Et ce travail de clarification en amont nous évite beaucoup de bruit plus tard, au moment des tests et de l'implémentation.`
       },
       // ─── SLIDE 3: Skill discovering-bdd-scenarios ───
       {
@@ -323,6 +358,14 @@
         title: 'Découvrir ce qu\'on ne sait pas.',
         left: '<div class="panel"><div class="head"><span>Example Mapping</span><span>3 Amigos</span></div><div class="body"><pre class="code"><span class="add">[Yellow] Story: Éligibilité</span>\n  |\n  +-- [Blue] Rule: 18+ pour voiture\n  |     +-- [Green] 17yo → refused\n  |     +-- [Green] 18yo → accepted\n  |     +-- <span class="del">[Red] 18yo exact ?</span>\n  |\n  +-- [Blue] Rule: 16+ électrique\n        +-- [Green] 16yo scooter → ok\n        +-- <span class="del">[Red] Moto élec: 16 ou 18 ?</span></pre></div></div>',
         right: '<div class="panel"><div class="head"><span>Objectif</span><span>avant le code</span></div><div class="body"><ul class="bullets"><li>Surface les règles métiers cachées</li><li>Force les exemples concrets</li><li>Les <span style="color:var(--danger)">Red Cards</span> = questions ouvertes</li><li>Évite de coder sur des hypothèses</li></ul><p class="lede" style="margin-top:.8rem">Per rule: 2-3 Green cards<br>happy path · boundary · error path</p></div></div>'
+        ,notes: `La première étape, c'est de découvrir les bons exemples.
+        En général, le happy path, on le trouve assez facilement.
+        Là où on a plus de mal, c'est sur les edge cases, les cas limites, les cas un peu tordus qui vont justement révéler les vraies règles métier.
+        Et c'est là que l'IA peut vraiment nous aider : elle peut proposer des pistes, suggérer des variations, nous pousser à explorer des cas qu'on n'aurait pas vus immédiatement.
+        Mais il y a une règle importante : elle ne doit pas prendre la décision à notre place.
+        Son rôle, c'est de nous aider à ouvrir le champ des possibles, pas de trancher toute seule sur la bonne règle métier.
+        Les red cards sont précieuses pour ça : elles matérialisent les questions qu'on doit encore arbitrer humainement.
+        Donc ici, on utilise l'IA pour mieux chercher les edge cases, pas pour inventer le métier à notre place.`
       },
       // ─── SLIDE 4: Skill designing-bdd-scenarios ───
       {
@@ -331,6 +374,28 @@
         title: 'Structurer en Gherkin exécutable.',
         left: '<div class="panel"><div class="head"><span>Règles</span><span>structure</span></div><div class="body"><pre class="code"><span class="add">Background: shared Given only</span>\n<span class="add">Outline + Examples: boundaries</span>\n<span class="add">Group by intent: accepted/refused</span>\n\n<span class="del">❌ POST /api/eligibility returns 200</span>\n<span class="add">✅ Eligibility request is accepted</span>\n\n<span class="del">❌ EligibilityHandler returns rejected</span>\n<span class="add">✅ Driver refused: too young</span></pre></div></div>',
         right: '<div class="panel"><div class="head"><span>Résultat</span><span>commit 0a82358</span></div><div class="body"><ul class="bullets"><li>1 scenario = 1 behavior</li><li>Déclaratif, pas impératif</li><li>Exemples concrets (17 ans, pas "mineur")</li><li>3-5 steps max par scénario</li><li>Spec leakage éliminé</li></ul><p class="lede" style="margin-top:.8rem">Prompt IA bien plus stable.<br>Plan de tests prêt à exécuter.</p></div></div>'
+        ,notes: `Une fois les questions découvertes, il faut structurer tout ça proprement.
+        L'objectif n'est pas d'écrire un joli document. L'objectif est d'obtenir un Gherkin exécutable, stable, et centré sur le comportement observable.
+        On évite donc les formulations techniques, on évite de parler d'API, de handler ou de codes de retour HTTP.
+        On parle uniquement de ce que le métier voit : accepté, refusé, trop jeune, véhicule concerné.
+        C'est ça qui rend ensuite les prompts plus stables, les tests plus lisibles, et l'implémentation plus saine.
+        En pratique, cette étape transforme la discussion métier en véritable plan de vol pour la suite du TDD.`
+      },
+      // ─── SLIDE 9: Outside-In TDD ───
+      {
+        kind: 'split',
+        kicker: 'Outside-In TDD',
+        title: 'On part du comportement observable.',
+        left: '<div class="panel"><div class="head"><span>The Iron Rule</span><span>testing</span></div><div class="body"><ul class="bullets"><li>Le test démarre dans <b>Application</b></li><li><b>Zéro mock</b> sur le Domain</li><li>Le design <b>émerge</b> par nécessité</li><li>Tests Domain unitaires : cas complexes</li></ul><p class="lede" style="margin-top:.8rem">Real domain objects.<br>Mocked external boundaries.</p></div></div>',
+        right: '<div class="reveal"><img class="img" src="assets/outside-in-tdd.png" alt="Outside-In TDD" style="max-height:min(60vh, 480px);" /><div class="caption">Application → Domain → Infrastructure. Le design émerge depuis l\'extérieur.</div></div>'
+        ,notes: `Comment passe-t-on du Gherkin au code ? Avec l'Outside-In TDD.
+        On part de ce que le métier peut observer, puis on descend progressivement vers l'implémentation.
+        On commence donc en Application, pas sur l'API REST. Pourquoi ? Parce que l'API REST est surtout une porte d'entrée technique : HTTP, routes, statuts, sérialisation. Ce n'est pas l'endroit où on veut découvrir la règle métier.
+        Si on démarre par l'API, on mélange trop tôt la plomberie web avec la logique métier, et la boucle de test devient plus lente, plus fragile et plus bruyante.
+        Le bon point d'entrée, c'est le use case ou le handler d'Application : il est assez haut pour couvrir le comportement complet, mais assez proche du métier pour garder des tests rapides et lisibles.
+        C'est très proche de ce que Fowler défend sur des tests rapides et utiles, et de ce qu'Evans défend sur un modèle métier qui exprime vraiment le domaine au lieu de dépendre de la technique.
+        Ensuite, le Domaine émerge seulement quand le test en a besoin. On ne le dessine pas à l'avance.
+        Et point fondamental en Clean Architecture et en TDD : on ne mocke jamais le Domaine. On garde de vrais objets métier, et on ne mocke que les dépendances externes, comme la base de données ou un service tiers.`
       },
       // ─── SLIDE 5: TDD Wishful + True RED ───
       {
@@ -339,6 +404,12 @@
         title: 'Wishful → True RED.',
         left: '<div class="panel"><div class="head"><span>① Wishful Thinking</span><span>Application</span></div><div class="body"><pre class="code"><span class="add">// Application layer — handler n\'existe pas</span>\nvar result = handler.Handle(query);\n\n<span class="del">// CS0234: type does not exist</span>\n<span class="add">→ Discovery: on sait quelle API créer</span></pre><p class="lede" style="margin-top:.6rem">Ce n\'est <b>pas</b> un RED.<br>C\'est de l\'information discovery.</p></div></div>',
         right: '<div class="panel"><div class="head"><span>② True RED</span><span>Application → Domain</span></div><div class="body"><pre class="code"><span class="add">// Le handler existe, le test s\'exécute</span>\nvar query = new CheckEligibilityQuery(\n    DateOfBirth: Today.AddYears(-17),\n    VehicleType: VehicleType.Car);\n\nvar result = handler.Handle(query);\n<span class="del">Assert.False(result.IsEligible);</span>\n<span class="del">// ✗ Expected: False — Got: True</span></pre><p class="lede" style="margin-top:.6rem">Le vrai RED: échec <b>comportemental</b>.</p></div></div>'
+        ,notes: `Il y a ici un malentendu très fréquent en TDD : une erreur de compilation n'est pas encore un vrai RED.
+        Quand le test ne compile pas, on est dans ce qu'on appelle le wishful thinking. En pratique, cela nous aide à découvrir l'API dont on a besoin, pas encore à valider le comportement.
+        Le vrai RED commence seulement quand le test s'exécute et échoue sur le comportement attendu.
+        Ici, le code compile, le handler existe, mais le résultat métier est faux. Là, on a enfin prouvé que le test capture bien un défaut réel.
+        Cette distinction est importante, parce qu'elle évite de confondre découverte de design et validation de comportement.
+        Autrement dit : tant qu'on se bat avec le compilateur, on affine le design. Quand l'assertion casse, on fait enfin du vrai TDD.`
       },
       // ─── SLIDE 6: SYNTHESIZE GREEN ───
       {
@@ -347,14 +418,15 @@
         title: 'Le Domain émerge.',
         left: '<div class="panel"><div class="head"><span>Application</span><span>Handler</span></div><div class="body"><pre class="code">public EligibilityViewModel Handle(\n    CheckEligibilityQuery query)\n{\n  var driver = new Driver(\n      query.DateOfBirth,\n      query.LicenseYears);\n  var vehicle = new Vehicle(\n      query.VehicleType,\n      query.Power);\n\n  return <span class="add">_policy.Evaluate</span>(\n      driver, vehicle, today)\n    .Match(...);\n}</pre></div></div>',
         right: '<div class="panel"><div class="head"><span>Domain</span><span>EligibilityPolicy</span></div><div class="body"><pre class="code">public EligibilityResult Evaluate(\n    Driver driver,\n    Vehicle vehicle,\n    DateOnly today)\n{\n  <span class="add">if (driver.Age(today)</span>\n      <span class="add">&lt; vehicle.MinimumAge())</span>\n    return EligibilityResult\n      .Refused("Conducteur trop jeune");\n\n  <span class="add">return EligibilityResult.Accepted();</span>\n}</pre><p class="lede" style="margin-top:.6rem"><span class="badge">✓ 1 passed</span></p></div></div>'
-      },
-      // ─── SLIDE 9: Outside-In TDD ───
-      {
-        kind: 'split',
-        kicker: 'Outside-In TDD',
-        title: 'On part du comportement observable.',
-        left: '<div class="panel"><div class="head"><span>Principe</span><span>évolution du TDD</span></div><div class="body"><ul class="bullets"><li>Le test démarre dans <b>Application</b></li><li>Le Domain <b>émerge</b> par nécessité</li><li>Pas de dirty-green intermédiaire</li><li>SYNTHESIZE = code propre en un jet</li></ul><p class="lede" style="margin-top:.8rem">On garde le TDD classique.<br>On améliore sa lisibilité<br>et sa robustesse avec l\'IA.</p></div></div>',
-        right: '<div class="reveal"><img class="img" src="assets/outside-in-tdd.png" alt="Outside-In TDD" style="max-height:min(60vh, 480px);" /><div class="caption">Application → Domain → Infrastructure. Le design émerge depuis l\'extérieur.</div></div>'
+        ,notes: `Une fois le vrai RED obtenu, on passe à la phase synthesize green.
+        Le green intermédiaire, le dirty green, est surtout un processus humain : on écrit parfois quelque chose d'un peu brut pour réussir à atteindre le vert, puis on le nettoie.
+        Avec une IA, on peut souvent sauter cette étape et lui demander directement une implémentation propre, minimale et placée dans la bonne couche.
+        On gagne des tokens, mais en échange on doit être beaucoup plus strict sur la consigne.
+        Il faut lui apprendre à ne coder que ce qui est nécessaire pour faire passer le test, sans branches spéculatives, sans "au cas où", sans if ajoutés juste par prudence.
+        Regardez bien la séparation des rôles : le handler d'Application orchestre, il transforme la requête en objets métier et délègue la décision.
+        La vraie règle métier, elle, vit dans la Policy du Domaine.
+        C'est exactement ce que veut dire "le Domaine émerge" : on extrait une abstraction métier seulement parce que le test nous a montré qu'elle était nécessaire.
+        Là encore, on retrouve Evans : un modèle de domaine doit révéler l'intention métier, pas accumuler de la logique défensive ou technique.`
       },
       // ─── SLIDE 10: Clean Architecture — vrai code ───
       {
@@ -363,6 +435,13 @@
         title: 'Où vit chaque fichier.',
         left: '<div class="panel"><div class="head"><span>📁 Structure</span><span>MonAssurance</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">src/\n├─ <span style="color:var(--muted)">MonAssurance.Api/</span>\n│  └─ Eligibility/EligibilityEndpoints.cs\n│\n├─ <span style="color:var(--accent-2)">MonAssurance.Application/</span>\n│  └─ Eligibility/Queries/\n│     ├─ CheckEligibilityQuery.cs\n│     └─ CheckEligibilityQueryHandler.cs\n│\n└─ <span style="color:var(--accent)">MonAssurance.Domain/</span>\n   └─ Eligibility/\n      ├─ Driver.cs · Vehicle.cs\n      ├─ <b>EligibilityPolicy.cs</b>\n      └─ EligibilityResult.cs\n\ntests/MonAssurance.UnitTests/Eligibility/\n├─ <span style="color:var(--accent-2)">Application/</span>\n│  └─ <b>CheckEligibilityQueryHandlerTests</b> <span class="badge">8</span>\n└─ <span style="color:var(--accent)">Domain/</span>\n   └─ <b>EligibilityPolicyTests</b> <span class="badge">9</span></pre></div></div>',
         right: '<div class="panel"><div class="head"><span>Application · HandlerTests</span><span>8 tests</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">[Fact]\npublic void Handle_WhenDriverIs17AndHasCar\n    _ReturnsRefused()\n{\n  var handler = BuildHandler(Today);\n  var query = new CheckEligibilityQuery(\n      DateOfBirth: Today.AddYears(-17),\n      VehicleType: VehicleType.Car, ...);\n\n  var result = handler.Handle(query);\n\n  <span class="del">Assert.False(result.IsEligible);</span>\n  Assert.Equal("Conducteur trop jeune",\n      result.RejectionReason);\n}</pre></div></div><div class="panel" style="margin-top:.5rem"><div class="head"><span>Domain · PolicyTests</span><span>9 tests</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.45">[Fact]\npublic void Evaluate_WhenDriverTurns18Today\n    _ReturnsAccepted()\n{\n  var driver = new Driver(\n      Today.AddYears(-18), licenseYears: 2);\n  var vehicle = new Vehicle(\n      VehicleType.Car, power: null);\n  var result = _policy.Evaluate(\n      driver, vehicle, Today);\n  var ok = result.Match(\n      onAccepted: () =&gt; true,\n      onRefused: _ =&gt; false);\n  <span class="add">Assert.True(ok);</span>\n}</pre></div></div>'
+        ,notes: `Ce qu'on voit ici, c'est ce qui s'est passé en implémentant à partir du Gherkin.
+        On n'est pas parti d'un grand schéma de Clean Architecture dessiné à l'avance. On est parti d'un comportement métier, puis le code s'est organisé progressivement au bon endroit.
+        L'API reçoit la requête HTTP, mais ne porte pas la décision métier.
+        L'Application porte le use case : ici, vérifier l'éligibilité.
+        Le Domaine contient les règles métier pures, indépendantes du web et de la base.
+        Et la même logique se retrouve dans les tests : les tests d'Application vérifient le comportement complet du use case, alors que les tests de Domaine se concentrent sur les règles pures quand elles deviennent assez riches pour le justifier.
+        C'est aussi ce qui permet de garder un vrai modèle métier, au sens d'Evans : un code qui parle le langage du domaine, au lieu d'être contaminé par HTTP, SQL ou les frameworks.`
       },
       // ─── SLIDE 8: Pourquoi 2 niveaux de tests ? ───
       {
@@ -371,6 +450,12 @@
         title: 'Pourquoi tester aussi le Domain ?',
         left: '<div class="panel"><div class="head"><span>The Iron Rule</span><span>skill</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">Default = Application-level test.</span>\nDo NOT write Domain tests by default.\n\nExtract a Domain test ONLY when:\n<span class="add">1. Complex invariants</span>\n   OR large edge-case matrix\n<span class="add">2. AND extracted into a reusable</span>\n   Policy / Domain Service / Spec\n\n<span class="del">NEVER test:</span>\n  - Constructors\n  - Simple value objects\n  - Getters / setters / DTOs</pre></div></div>',
         right: '<div class="panel"><div class="head"><span>EligibilityPolicy</span><span>qualifie ✓</span></div><div class="body"><ul class="bullets"><li>Matrice de cas limites complexe:<br><span style="color:var(--accent-2)">17/18 ans · 15/16 ans · 100/101 ch</span></li><li>Extraite en Policy réutilisable</li><li>9 [Fact] couvrent toutes les frontières</li></ul><p class="lede" style="margin-top:.6rem">Application test = "ça marche de bout en bout"<br>Domain test = "chaque frontière métier est verrouillée"</p></div></div>'
+        ,notes: `Une IA non guidée va très souvent produire une logique du type : une classe, donc un test dédié.
+        C'est séduisant au début, mais ça couple les tests à la structure interne du code.
+        Dès qu'on refactorise le Domaine, les tests cassent, non pas parce que le métier a changé, mais parce que l'implémentation a bougé.
+        Avec cette approche, on protège d'abord le comportement métier au niveau Application.
+        Et on descend au niveau Domain seulement quand une règle devient assez riche pour justifier ses propres tests.
+        Cela donne une suite beaucoup plus robuste au refactoring, et on se rapproche d'une vraie pyramide de tests saine.`
       },
       // ─── SLIDE 9: Review ───
       {
@@ -379,6 +464,14 @@
         title: 'Le garde-fou avant "Done".',
         left: '<div class="panel"><div class="head"><span>Finding</span><span>test assertion</span></div><div class="body"><pre class="code"><span class="del">- result.Match(</span>\n<span class="del">-   onAccepted: () =&gt; true,</span>\n<span class="del">-   onRefused: _ =&gt;</span>\n<span class="del">-     throw new Exception());</span>\n\n<span class="add">+ var ok = result.Match(</span>\n<span class="add">+   onAccepted: () =&gt; true,</span>\n<span class="add">+   onRefused: _ =&gt; false);</span>\n<span class="add">+ Assert.True(ok);</span></pre><p class="lede" style="margin-top:.6rem">Match sans Assert = faux positif potentiel.</p></div></div>',
         right: '<div class="panel"><div class="head"><span>craft-discipline vérifie</span><span>avant commit</span></div><div class="body"><ul class="bullets"><li>tests, build, analyse statique</li><li>pas de mock inadapté en Domain</li><li>conventions métier + commit propre</li><li>assertions explicites et lisibles</li></ul><p class="lede" style="margin-top:.8rem">Sans ce step:<br>— "ça marche chez moi" en prod<br>— régressions silencieuses<br>— perte de confiance</p></div></div>'
+        ,notes: `Le reviewer nous aide ici à trouver une anomalie très concrète : un Match était exécuté, mais sans assertion explicite sur le résultat final.
+        C'est utile, mais le vrai sujet n'est pas seulement d'avoir un reviewer qui rattrape les erreurs à la fin.
+        Le vrai sujet, c'est que le développeur doit intégrer ses principes d'ingénierie dans la façon dont il travaille avec l'IA.
+        Si je veux des tests solides, je dois demander des assertions explicites, des tests qui échouent pour les bonnes raisons, et pas juste du code qui passe au vert.
+        Si je veux un code propre, je dois imposer mes règles : séparation des couches, pas de mock absurde dans le Domaine, nommage métier, code minimal, pas de branches spéculatives.
+        En fait, l'IA amplifie surtout le cadre qu'on lui donne.
+        Si le développeur est flou, l'IA accélère le flou. Si le développeur est discipliné, l'IA accélère cette discipline.
+        Le reviewer devient alors le dernier filet de sécurité : il confirme qu'on a bien respecté les principes, et il remonte encore les anomalies qui auraient échappé à l'implémentation.`
       },
       // ─── SLIDE 13: SDLC Parfait ───
       {
@@ -386,6 +479,13 @@
         kicker: 'Vision',
         title: 'Imaginer le SDLC parfait.',
         content: '<div class="reveal"><div class="sequence-track" style="margin-bottom:.8rem;"><div class="sequence-node"><strong>DISCOVER</strong><span>triage · priorité</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISCUSS</strong><span>stories · AC</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DESIGN</strong><span>ADR · contrats</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISTILL</strong><span>Gherkin · plan</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DELIVER</strong><span>TDD · code</span></div></div><div class="sequence-track"><div class="sequence-node human-node"><strong>👤 Humain</strong><span>arbitre à chaque phase</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Agent spécialiste</strong><span>produit les artefacts</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Agent reviewer</strong><span>4 lenses adversariales</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Skills</strong><span>contexte chargé au bon moment</span></div></div><div class="grid-2" style="margin-top:.9rem;"><div class="card"><p class="small">Pattern Agent + Reviewer</p><ul class="bullets list-tight"><li>1 spécialiste + 1 reviewer par phase</li><li>retry auto, escalade si blocage</li><li>l\'humain arbitre, jamais by-passé</li></ul></div><div class="card"><p class="small">Skills par phase</p><ul class="bullets list-tight"><li>DISCOVER: triage, search protocol</li><li>DESIGN: patterns, ADR, contrats</li><li>DISTILL: BDD, test-design-mandates</li><li>DELIVER: outside-in, RSG, craft</li></ul></div></div></div>'
+        ,notes: `Quand je parle de SDLC parfait, je ne parle pas d'un processus parfait parce qu'il y a plus d'agents partout.
+        Je parle d'un processus où la discipline du développeur est rendue explicite, découpée, et réutilisable à chaque phase.
+        Chaque agent a une responsabilité claire, chaque reviewer vérifie un angle précis, et les skills injectent le bon contexte au bon moment.
+        Ce qui rend ce modèle intéressant, ce n'est donc pas l'autonomie brute.
+        C'est le fait qu'on arrive à distribuer notre rigueur d'ingénierie dans tout le flux, depuis la découverte du besoin jusqu'à la review finale.
+        Et malgré tout ça, l'humain reste au centre.
+        C'est lui qui arbitre, qui tranche, et qui décide quand on passe à l'étape suivante.`
       },
       // ─── SLIDE 10: Et dans le futur ? ───
       {
@@ -394,6 +494,12 @@
         title: 'GitHub Agentic Workflows.',
         left: '<div class="panel"><div class="head"><span>github/gh-aw</span><span>2026</span></div><div class="body"><ul class="bullets"><li>Workflows définis en <b>markdown</b></li><li>Multi-engine: Copilot, Claude, Codex</li><li>Triggers: issues, PRs, push, schedule</li><li>5 couches de sécurité:<ul style="margin-top:.4rem;font-size:.9em"><li>① Tokens en lecture seule</li><li>② Zéro secrets dans l\'agent</li><li>③ Firewall réseau (container isolé)</li><li>④ Safe outputs — agent propose, job applique</li><li>⑤ Détection de menaces IA avant tout write</li></ul></li></ul><p class="lede" style="margin-top:.7rem"><span class="badge">Continuous AI</span></p></div></div>',
         right: '<div class="panel"><div class="head"><span>Évolutions</span><span>ce qu\'on imagine</span></div><div class="body"><ul class="bullets"><li>Pipeline SDLC complet orchestré par agents</li><li>Review adversariale automatique à chaque phase</li><li>Améliorations livrées chaque matin, prêtes à review</li><li>Autoloop: optimisation mesurable en continu</li></ul><p class="lede" style="margin-top:.7rem">L\'IA orchestre,<br>l\'humain supervise et arbitre.</p></div></div>'
+        ,notes: `L'étape suivante, c'est l'industrialisation de cette discipline.
+        Des plateformes comme GitHub Agentic Workflows laissent entrevoir un monde où ces enchaînements d'agents, de reviewers et de garde-fous deviennent exécutables à grande échelle.
+        Mais ce qui m'intéresse ici, ce n'est pas de dire que demain l'IA va coder toute seule dans GitHub.
+        Ce qui m'intéresse, c'est qu'on pourra rendre reproductible une manière saine de travailler.
+        Autrement dit : industrialiser non pas juste l'automatisation, mais l'ingénierie disciplinée.
+        Plus on donne de pouvoir à ces workflows, plus on doit encadrer fortement ce qu'ils ont le droit de faire.`
       },
       // ─── SLIDE 11: Conclusion ───
       {
@@ -402,8 +508,52 @@
         title: 'Discipline workflow + discipline code.',
         left: '<p class="quote reveal">Le process ne cache pas les bugs. Il les fait apparaître plus tôt et plus clairement.</p><div style="margin-top:1.2rem"><span class="badge">Plan → Code</span> <span class="badge">Skills = contexte</span> <span class="badge">Review = filet</span></div>',
         right: '<div class="panel"><div class="head"><span>Repo</span><span>essayez</span></div><div class="body"><p class="lede">Les commits, la spec, le journal et les skills sont dans le repo.</p><img class="img" src="assets/devops-ia.png" alt="SDLC workflow" style="max-height:min(28vh, 220px);" /></div></div>'
+        ,notes: `S'il fallait résumer toute la session en une idée, ce serait celle-ci : l'IA n'apporte pas la qualité à notre place.
+        Elle amplifie ce qu'on met dedans.
+        Si on lui donne du flou, elle accélère le flou.
+        Si on lui donne de la rigueur, des règles de design, de bons exemples, des tests solides et une vraie discipline de review, alors elle accélère cette qualité-là.
+        Donc la compétence clé pour nous, développeurs, ce n'est pas seulement savoir prompter.
+        C'est savoir injecter nos principes craft dans le workflow, dans le contexte, dans les skills, dans les tests et dans la review.
+        Ajouter ces principes craft permet de beaucoup mieux cadrer l'IA.
+        Cela garantit aussi qu'on puisse relire à la vitesse de la lumière, parce que le code produit est plus prévisible, plus cohérent et plus proche de ce qu'on attend.
+        Et au passage, on réduit aussi le nombre de tokens, parce qu'on évite de réexpliquer en boucle les mêmes règles et qu'on donne directement le bon cadre.
+        Et quand on fait ça bien, l'IA devient un formidable amplificateur de craft, pas un générateur aléatoire de code qui compile.`
       }
     ];
+
+
+    if (new URLSearchParams(window.location.search).has('speaker')) {
+      document.body.innerHTML = `
+        <div style="padding: 2.5rem; display: flex; flex-direction: column; height: 100vh; box-sizing: border-box; background: #0b1117; color: #d7ffe3; font-family: sans-serif;">
+          <div style="display: flex; justify-content: space-between; font-size: 2rem; margin-bottom: 2rem; border-bottom: 1px solid rgba(0, 255, 65, 0.2); padding-bottom: 1rem;">
+            <div style="font-weight: bold; color: var(--accent-2);">Slide <span id="spk-current"></span> / ${slides.length}</div>
+            <div id="spk-time" style="color: var(--accent); font-weight: bold;">00:00:00</div>
+          </div>
+          <div id="spk-notes" style="font-size: 1.6rem; line-height: 1.4; white-space: pre-wrap; overflow-y: auto; flex-grow: 1; padding-right: 1rem;"></div>
+          <div style="margin-top: 1rem; color: #8ab39c; font-size: 1.6rem; border-top: 1px solid rgba(0, 255, 65, 0.2); padding-top: 1rem;">
+            Next: <span id="spk-next" style="color: #fff;"></span>
+          </div>
+        </div>
+      `;
+      setInterval(() => {
+        const d = new Date();
+        document.getElementById('spk-time').innerText = d.toLocaleTimeString('fr-FR');
+      }, 1000);
+      const syncSpeaker = (index) => {
+        document.getElementById('spk-current').innerText = index + 1;
+        document.getElementById('spk-notes').innerText = slides[index]?.notes || "—";
+        document.getElementById('spk-next').innerText = index + 1 < slides.length ? (slides[index + 1].title || "Unknown") : "End";
+      };
+      window.addEventListener('storage', e => {
+        if (e.key === 'meetup_slide') syncSpeaker(Number(e.newValue));
+      });
+      syncSpeaker(Number(localStorage.getItem('meetup_slide') || 0));
+      window.addEventListener('keydown', e => {
+         if (['ArrowDown','PageDown','ArrowRight',' '].includes(e.key)) localStorage.setItem('meetup_slide_cmd', 'next_' + Date.now());
+         if (['ArrowUp','PageUp','ArrowLeft'].includes(e.key)) localStorage.setItem('meetup_slide_cmd', 'prev_' + Date.now());
+      });
+      throw new Error("Speaker View active - stopping normal execution");
+    }
 
     const deck = document.getElementById('deck');
     const dots = document.getElementById('dots');
@@ -466,7 +616,8 @@
             setTimeout(function() { el.classList.add('in'); }, i * 80);
           });
           document.querySelectorAll('.dot').forEach(function(dot, idx) { dot.classList.toggle('active', idx === Number(entry.target.dataset.index)); });
-          counter.textContent = (Number(entry.target.dataset.index) + 1) + ' / ' + sections.length;
+                    counter.textContent = (Number(entry.target.dataset.index) + 1) + ' / ' + sections.length;
+          localStorage.setItem('meetup_slide', entry.target.dataset.index);
         }
       });
     }, { threshold: 0.58 });
@@ -484,6 +635,7 @@
     }
 
     window.addEventListener('keydown', function(e) {
+      if (e.key === 's' || e.key === 'S') { e.preventDefault(); window.open(window.location.href.split('?')[0] + '?speaker=true', 'SpeakerView', 'width=800,height=600'); }
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
       if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
       if (e.key === 'Home') { e.preventDefault(); sections[0].scrollIntoView({ behavior: 'smooth' }); }
@@ -504,6 +656,14 @@
       if (Math.abs(diff) > 36) go(diff < 0 ? 1 : -1);
       touchY = null;
     }, { passive: true });
+
+    window.addEventListener('storage', function(e) {
+      if (e.key === 'meetup_slide_cmd') {
+        if (e.newValue.startsWith('next_')) go(1);
+        if (e.newValue.startsWith('prev_')) go(-1);
+      }
+    });
+
   </script>
 </body>
 </html>
