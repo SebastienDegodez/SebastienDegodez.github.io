@@ -30,7 +30,7 @@ jobs:
         with:
           repository: SebastienDegodez/meetup-coding-with-ai
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.meetup_ref || 'main' }}
-          token: ${{ secrets.REPO_READ_TOKEN }}
+          token: ${{ secrets.REPO_READ_TOKEN || github.token }}
           path: sources/meetup-coding-with-ai
 
       - name: Checkout skraft-plugin
@@ -38,7 +38,7 @@ jobs:
         with:
           repository: SebastienDegodez/skraft-plugin
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.skraft_ref || 'main' }}
-          token: ${{ secrets.REPO_READ_TOKEN }}
+          token: ${{ secrets.REPO_READ_TOKEN || github.token }}
           path: sources/skraft-plugin
 
       - name: Sync presentations
