@@ -1,0 +1,19 @@
+- label: Accueil
+  icon: fa-solid fa-house
+  url: /
+
+- label: Presentations
+  icon: fa-solid fa-display
+  url: /presentations-catalog.html
+
+- label: Brag Document
+  icon: fa-solid fa-star
+  url: /brag.html
+
+- label: Learning Paths
+  icon: fa-solid fa-graduation-cap
+  dropdown: true
+  items:
+    - label: Copilot
+      icon: fa-brands fa-github
+      url: /learning-path-copilot/

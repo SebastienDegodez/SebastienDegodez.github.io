@@ -13,141 +13,12 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   />
+  <link rel="stylesheet" href="/assets/css/tech-glass.css" />
   <link rel="stylesheet" href="/design-tokens.css" />
   <style>
     /* ============================================================
-       THEME — Tech Glass (inspire des presentations)
+       GLASS PRIMITIVES (site-specific overrides already in tech-glass)
        ============================================================ */
-    :root {
-      --color-background: #0e1618;
-      --color-foreground: #e9f7ef;
-      --color-primary:    #4ed58a;
-      --color-highlight:  #8be5b1;
-      --color-dimmed:     #b8d0c1;
-      --color-stripe:     rgba(139, 229, 177, 0.14);
-      --gradient-overlay: linear-gradient(
-        135deg,
-        rgba(78, 213, 138, 0.08) 0%,
-        rgba(78, 213, 138, 0.03) 50%,
-        rgba(0, 0, 0, 0) 50%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      --font-sans: Lato, 'Avenir Next', Avenir, 'Trebuchet MS', 'Segoe UI', sans-serif;
-      --font-mono: 'Fira Code', 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
-      --radius: 6px;
-      --radius-card: 10px;
-      --transition: 0.2s ease;
-
-      /* Glass v2 defaults (override by design-tokens.css when present) */
-      --glass-bg: rgba(15, 27, 24, 0.9);
-      --glass-bg-strong: rgba(10, 20, 18, 0.95);
-      --glass-border: rgba(139, 229, 177, 0.22);
-      --glass-border-strong: rgba(139, 229, 177, 0.34);
-      --glass-highlight: rgba(233, 247, 239, 0.12);
-      --glass-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
-      --glass-shadow-hover: 0 24px 70px rgba(0, 0, 0, 0.55);
-      --glass-blur: 14px;
-      --motion-fast: 160ms ease;
-      --motion-medium: 260ms ease;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--color-background);
-      background-image: radial-gradient(circle at 80% 10%, rgba(78, 213, 138, 0.12), transparent 28%), var(--gradient-overlay);
-      color: var(--color-foreground);
-      font-family: var(--font-sans);
-      font-size: 18px;
-      line-height: 1.65;
-      letter-spacing: 0.2px;
-    }
-    a {
-      color: var(--color-highlight);
-      text-decoration: none;
-      transition: opacity var(--transition);
-    }
-    a:hover { opacity: 0.8; text-decoration: underline; }
-
-    /* ============================================================
-       GLASS PRIMITIVES
-       ============================================================ */
-    .glass-nav,
-    .glass-surface,
-    .glass-card,
-    .glass-chip {
-      border: 1px solid var(--glass-border);
-      background: var(--glass-bg);
-      box-shadow: var(--glass-shadow);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-    }
-    .glass-card {
-      border-radius: var(--radius-card);
-      transition: transform var(--motion-fast), border-color var(--motion-fast), box-shadow var(--motion-fast), background var(--motion-fast);
-    }
-    .glass-card:hover {
-      border-color: var(--glass-border-strong);
-      box-shadow: var(--glass-shadow-hover);
-      transform: translateY(-2px);
-    }
-    .glass-chip {
-      border-radius: 999px;
-      background: rgba(139, 229, 177, 0.12);
-      border-color: rgba(139, 229, 177, 0.28);
-      box-shadow: none;
-      backdrop-filter: blur(calc(var(--glass-blur) * 0.55));
-      -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.55));
-    }
-    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-      .glass-nav,
-      .glass-surface,
-      .glass-card,
-      .glass-chip {
-        background: var(--glass-bg-strong);
-        border-color: var(--glass-border-strong);
-      }
-    }
-
-    /* ============================================================
-       NAVIGATION
-       ============================================================ */
-    .site-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      padding: 0.75rem 2rem;
-      background: var(--glass-bg-strong);
-      border-bottom: 1px solid var(--glass-border);
-      box-shadow: 0 8px 28px rgba(4, 12, 18, 0.28);
-      backdrop-filter: blur(var(--glass-blur));
-      -webkit-backdrop-filter: blur(var(--glass-blur));
-    }
-    .site-nav a {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--color-dimmed);
-      padding: 0.3em 0.75em;
-      border-radius: var(--radius);
-      transition: color var(--motion-fast), background var(--motion-fast), transform var(--motion-fast), border-color var(--motion-fast);
-      border: 1px solid transparent;
-    }
-    .site-nav a:hover,
-    .site-nav a.active {
-      color: var(--color-foreground);
-      background: rgba(139, 229, 177, 0.16);
-      border-color: rgba(139, 229, 177, 0.28);
-      transform: translateY(-1px);
-      text-decoration: none;
-      opacity: 1;
-    }
-    .site-nav a.active { color: var(--color-highlight); }
 
     /* ============================================================
        HERO
@@ -727,18 +598,6 @@
       color: var(--color-dimmed);
       line-height: 1.55;
     }
-
-    /* ============================================================
-       FOOTER
-       ============================================================ */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.85rem;
-      color: var(--color-dimmed);
-      border-top: 1px solid var(--color-stripe);
-    }
-    footer a { color: var(--color-highlight); }
   </style>
 </head>
 <body>
@@ -747,16 +606,47 @@
        NAVIGATION
        ============================================================ -->
   <nav class="site-nav" aria-label="Navigation principale">
-    <a href="{% link index.md %}"{% if page.url == '/' or page.url == '/index.html' %} class="active" aria-current="page"{% endif %}>
-      <i class="fa-solid fa-house" aria-hidden="true"></i> Accueil
-    </a>
-    <a href="{% link presentations.md %}"{% if page.url contains 'presentations' %} class="active" aria-current="page"{% endif %}>
-      <i class="fa-solid fa-display" aria-hidden="true"></i> Presentations
-    </a>
-    <a href="{% link brag.md %}"{% if page.url contains 'brag' %} class="active" aria-current="page"{% endif %}>
-      <i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document
-    </a>
+    <button class="nav-burger" id="navBurger" aria-label="Menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="nav-links" id="navLinks">
+      {% for item in site.data.nav %}
+        {% if item.dropdown %}
+        <div class="nav-dropdown" data-dropdown>
+          <button class="nav-dropdown__trigger">
+            <i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.label }}
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="nav-dropdown__menu">
+            {% for sub in item.items %}
+            <a href="{{ sub.url }}"><i class="{{ sub.icon }}" aria-hidden="true"></i> {{ sub.label }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <a href="{{ item.url }}"{% if page.url == '/' and item.label == 'Accueil' or page.url contains 'presentations' and item.label == 'Presentations' or page.url contains 'brag' and item.label == 'Brag Document' %} class="active" aria-current="page"{% endif %}>
+          <i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.label }}
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
   </nav>
+
+  <script>
+    document.getElementById('navBurger')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('[data-dropdown]').forEach(dd => {
+      dd.querySelector('.nav-dropdown__trigger')?.addEventListener('click', e => {
+        e.stopPropagation();
+        document.querySelectorAll('[data-dropdown]').forEach(o => { if (o !== dd) o.classList.remove('open'); });
+        dd.classList.toggle('open');
+      });
+    });
+    document.addEventListener('click', () => {
+      document.querySelectorAll('[data-dropdown]').forEach(d => d.classList.remove('open'));
+    });
+  </script>
 
   {{ content }}
 
