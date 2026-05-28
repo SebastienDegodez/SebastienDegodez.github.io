@@ -1,0 +1,33 @@
+<div class="project-card{% if include.project.ongoing %} project-card--ongoing{% endif %}" data-impact-type="{{ include.project.impact.type | default: 'other' }}">
+<div class="project-card__main">
+<div class="project-card__header-flex">
+  <h3>{{ include.project.title }}{% if include.project.ongoing %} <span class="badge-ongoing"><i class="fa-solid fa-circle-play"></i> En cours</span>{% endif %}</h3>
+  {% if include.project.logo %}
+  <img src="{{ include.project.logo }}" alt="{{ include.project.title }} logo" class="project-card__logo" style="height: 32px; width: auto; object-fit: contain; margin-left: 1rem; border-radius: 4px;" />
+  {% endif %}
+</div>
+<div class="project-card__impact"><i class="{{ include.project.impact.icon }}" aria-hidden="true"></i> {{ include.project.impact.text }}</div>
+{% for paragraph in include.project.paragraphs %}
+<p>{{ paragraph }}</p>
+{% endfor %}
+<div class="project-card__tags">
+{% for tag in include.project.tags %}
+<span class="{{ tag.class | default: 'tag' }}">{{ tag.label }}</span>
+{% endfor %}
+</div>
+</div>
+<div class="project-card__side">
+{% if include.project.ongoing and include.project.started %}
+<span class="project-card__date">Depuis {{ include.project.started }}</span>
+{% elsif include.project.date_lines %}
+{% for line in include.project.date_lines %}
+<span class="project-card__date">{{ line }}</span>
+{% endfor %}
+{% elsif include.project.date %}
+<span class="project-card__date">{{ include.project.date }}</span>
+{% endif %}
+{% for link in include.project.links %}
+<a class="project-card__link" href="{{ link.url }}" target="_blank" rel="noopener"><i class="{{ link.icon }}" aria-hidden="true"></i> {{ link.label }}</a>
+{% endfor %}
+</div>
+</div>

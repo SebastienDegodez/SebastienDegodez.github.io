@@ -114,6 +114,32 @@ title: Brag Document
   border-left: 5px solid var(--color-primary);
   text-shadow: 0 2px 10px rgba(36, 181, 255, 0.2);
 }
+/* ── Ongoing / En cours ──────────────────────────── */
+.project-card--ongoing {
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  box-shadow: 0 0 20px rgba(76, 175, 80, 0.12), inset 0 0 30px rgba(76, 175, 80, 0.04);
+}
+.badge-ongoing {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #81c784;
+  background: rgba(76, 175, 80, 0.15);
+  border: 1px solid rgba(76, 175, 80, 0.35);
+  border-radius: 20px;
+  padding: 0.15rem 0.65rem;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  animation: ongoing-pulse 2.5s ease-in-out infinite;
+}
+@keyframes ongoing-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
 </style>
 <header class="page-header">
   <div class="page-header__bg" role="presentation" aria-hidden="true"></div>
@@ -170,51 +196,14 @@ title: Brag Document
 </div>
 <div class="project-list">
 {% assign projects_sorted = site.data.brag.projects | sort: "sort_key" | reverse %}
-{% assign system_current_year = "now" | date: "%Y" | plus: 0 %}
 {% assign current_year = '' %}
 {% for project in projects_sorted %}
 {% assign project_year = project.sort_key | divided_by: 10000 %}
-{% if project_year == 9999 %}
-  {% assign display_year = system_current_year %}
-{% else %}
-  {% assign display_year = project_year %}
+{% if project_year != current_year %}
+<h3 class="year-separator">{{ project_year }}</h3>
+{% assign current_year = project_year %}
 {% endif %}
-
-{% if display_year != current_year %}
-<h3 class="year-separator">{{ display_year }}</h3>
-{% assign current_year = display_year %}
-{% endif %}
-<div class="project-card" data-impact-type="{{ project.impact.type | default: 'other' }}">
-<div class="project-card__main">
-<div class="project-card__header-flex">
-  <h3>{{ project.title }}</h3>
-  {% if project.logo %}
-  <img src="{{ project.logo }}" alt="{{ project.title }} logo" class="project-card__logo" style="height: 32px; width: auto; object-fit: contain; margin-left: 1rem; border-radius: 4px;" />
-  {% endif %}
-</div>
-<div class="project-card__impact"><i class="{{ project.impact.icon }}" aria-hidden="true"></i> {{ project.impact.text }}</div>
-{% for paragraph in project.paragraphs %}
-<p>{{ paragraph }}</p>
-{% endfor %}
-<div class="project-card__tags">
-{% for tag in project.tags %}
-<span class="{{ tag.class | default: 'tag' }}">{{ tag.label }}</span>
-{% endfor %}
-</div>
-</div>
-<div class="project-card__side">
-{% if project.date_lines %}
-{% for line in project.date_lines %}
-<span class="project-card__date">{{ line }}</span>
-{% endfor %}
-{% elsif project.date %}
-<span class="project-card__date">{{ project.date }}</span>
-{% endif %}
-{% for link in project.links %}
-<a class="project-card__link" href="{{ link.url }}" target="_blank" rel="noopener"><i class="{{ link.icon }}" aria-hidden="true"></i> {{ link.label }}</a>
-{% endfor %}
-</div>
-</div>
+{% include brag-project-card.html project=project %}
 {% endfor %}
 
 </div>
@@ -232,47 +221,14 @@ title: Brag Document
 </div>
 <div class="project-list">
 {% assign opensource_sorted = site.data.brag.opensource | sort: "sort_key" | reverse %}
-{% assign system_current_year = "now" | date: "%Y" | plus: 0 %}
 {% assign current_year = '' %}
 {% for item in opensource_sorted %}
 {% assign item_year = item.sort_key | divided_by: 10000 %}
-{% if item_year == 9999 %}
-  {% assign display_year = system_current_year %}
-{% else %}
-  {% assign display_year = item_year %}
+{% if item_year != current_year %}
+<h3 class="year-separator">{{ item_year }}</h3>
+{% assign current_year = item_year %}
 {% endif %}
-
-{% if display_year != current_year %}
-<h3 class="year-separator">{{ display_year }}</h3>
-{% assign current_year = display_year %}
-{% endif %}
-<div class="project-card" data-impact-type="{{ item.impact.type | default: 'other' }}">
-<div class="project-card__main">
-<div class="project-card__header-flex">
-  <h3>{{ item.title }}</h3>
-  {% if item.logo %}
-  <img src="{{ item.logo }}" alt="{{ item.title }} logo" class="project-card__logo" style="height: 32px; width: auto; object-fit: contain; margin-left: 1rem; border-radius: 4px;" />
-  {% endif %}
-</div>
-<div class="project-card__impact"><i class="{{ item.impact.icon }}" aria-hidden="true"></i> {{ item.impact.text }}</div>
-{% for paragraph in item.paragraphs %}
-<p>{{ paragraph }}</p>
-{% endfor %}
-<div class="project-card__tags">
-{% for tag in item.tags %}
-<span class="{{ tag.class | default: 'tag' }}">{{ tag.label }}</span>
-{% endfor %}
-</div>
-</div>
-<div class="project-card__side">
-{% if item.date %}
-<span class="project-card__date">{{ item.date }}</span>
-{% endif %}
-{% for link in item.links %}
-<a class="project-card__link" href="{{ link.url }}" target="_blank" rel="noopener"><i class="{{ link.icon }}" aria-hidden="true"></i> {{ link.label }}</a>
-{% endfor %}
-</div>
-</div>
+{% include brag-project-card.html project=item %}
 {% endfor %}
 
 </div>
