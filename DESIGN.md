@@ -1,66 +1,95 @@
 # 🎨 Design System — SebastienDegodez.github.io
 
-Synthèse des éléments visuels extraits des dépôts source :
+Système visuel **Tech Glass** — sombre, glassmorphism, animations subtiles.
+
+Deux déclinaisons chromatiques :
+- **Site web** (`assets/css/tech-glass.css`) — palette verte
+- **Présentations Marp** (`design-tokens.css`) — palette bleue
+
+Sources originales :
 - [`SebastienDegodez/slide-marp`](https://github.com/SebastienDegodez/slide-marp) — thème de base
 - [`SebastienDegodez/MCP.Pack`](https://github.com/SebastienDegodez/MCP.Pack) — thème étendu
-
-Thème Marp utilisé : **Gaia** (mode `invert`) + surcharges `custom-default.css`.  
-Format prêt à l'emploi : voir [`design-tokens.css`](./design-tokens.css).
 
 ---
 
 ## 🖌️ Palette de couleurs
 
+### Site web (Tech Glass Green)
+
+Fichier : [`assets/css/tech-glass.css`](./assets/css/tech-glass.css)
+
 | Rôle | Nom | Hex | Aperçu |
 |---|---|---|---|
-| Fond principal (invert) | `--color-dark` | `#455a64` | Bleu-gris ardoise |
-| Texte principal (invert) | `--color-light` | `#fff8e1` | Blanc chaud / Cream |
-| Accent primaire | `--color-primary` | `#0288d1` | Bleu vif |
-| Accent secondaire / Highlight | `--color-secondary` | `#81d4fa` | Bleu clair |
-| Muted / footer / code bg | `--color-dimmed` | `#dad8c8` | Cream grisé |
-| Fond variante gaia | `--color-gaia-bg` | `#0288d1` | Bleu primaire |
-| Muted variante gaia | `--color-gaia-dimmed` | `#cce2de` | Bleu-vert pâle |
-| Rayure tableau | `--color-stripe` | `rgba(255,248,225,0.10)` | Cream translucide |
-
-### Mode principal utilisé : `invert` (sombre)
+| Fond principal | `--color-background` | `#0e1618` | Noir profond bleu-vert |
+| Texte principal | `--color-foreground` | `#e9f7ef` | Blanc menthe |
+| Accent primaire | `--color-primary` | `#4ed58a` | Vert vif |
+| Highlight / liens | `--color-highlight` | `#8be5b1` | Vert clair |
+| Muted / footer | `--color-dimmed` | `#b8d0c1` | Vert grisé |
+| Rayure tableau | `--color-stripe` | `rgba(139,229,177,0.14)` | Vert translucide |
 
 ```
-Fond         : #455a64  ██████  bleu-gris ardoise
-Texte        : #fff8e1  ██████  blanc chaud
-Liens/strong : #81d4fa  ██████  bleu clair
-Muted/footer : #dad8c8  ██████  cream grisé
-Code bg      : #dad8c8  ██████  (même que muted)
-Code text    : #455a64  ██████  (même que fond)
+Fond         : #0e1618  ██████  noir profond bleu-vert
+Texte        : #e9f7ef  ██████  blanc menthe
+Accent       : #4ed58a  ██████  vert vif
+Highlight    : #8be5b1  ██████  vert clair
+Muted        : #b8d0c1  ██████  vert grisé
 ```
 
-### Mode clair (light) — slides secondaires
+### Présentations (Tech Glass Blue)
+
+Fichier : [`design-tokens.css`](./design-tokens.css)
+
+| Rôle | Nom | Hex | Aperçu |
+|---|---|---|---|
+| Fond principal | `--color-dark` | `#0f1722` | Bleu nuit profond |
+| Texte principal | `--color-light` | `#eef6ff` | Blanc glacé |
+| Accent primaire | `--color-primary` | `#24b5ff` | Bleu électrique |
+| Accent secondaire / Highlight | `--color-secondary` | `#7fd3ff` | Bleu clair |
+| Muted / footer / code bg | `--color-dimmed` | `#b7c6d8` | Bleu-gris pâle |
+| Accent technique | `--color-tech-mint` | `#80cbc4` | Vert menthe |
+| Fond variante accent | `--color-gaia-bg` | `#24b5ff` | Bleu primaire |
+| Muted variante accent | `--color-gaia-dimmed` | `#c8d8e6` | Bleu-gris pâle |
+| Rayure tableau | `--color-stripe` | `rgba(127,211,255,0.16)` | Bleu translucide |
 
 ```
-Fond         : #fff8e1  ██████  blanc chaud
-Texte        : #455a64  ██████  bleu-gris
-Liens/strong : #0288d1  ██████  bleu vif
-Muted        : #dad8c8  ██████  cream grisé
+Fond         : #0f1722  ██████  bleu nuit profond
+Texte        : #eef6ff  ██████  blanc glacé
+Accent       : #24b5ff  ██████  bleu électrique
+Highlight    : #7fd3ff  ██████  bleu clair
+Muted        : #b7c6d8  ██████  bleu-gris pâle
+Tech mint    : #80cbc4  ██████  vert menthe
 ```
 
-### Variante Gaia (accent bleu — slides spéciaux)
+### Variante accent (slides spéciaux)
 
 ```
-Fond         : #0288d1  ██████  bleu vif
-Texte        : #fff8e1  ██████  blanc chaud
-Highlight    : #81d4fa  ██████  bleu clair
-Muted        : #cce2de  ██████  bleu-vert pâle
+Fond         : #24b5ff  ██████  bleu électrique
+Texte        : #eef6ff  ██████  blanc glacé
+Highlight    : #7fd3ff  ██████  bleu clair
+Muted        : #c8d8e6  ██████  bleu-gris pâle
 ```
 
 ---
 
 ## 🖼️ Fonds de page
 
+### Site web
+
+```css
+background-color: #0e1618;
+background-image: radial-gradient(circle at 80% 10%, rgba(78, 213, 138, 0.12), transparent 28%),
+                  linear-gradient(135deg, rgba(78, 213, 138, 0.08) 0%, rgba(78, 213, 138, 0.03) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%);
+```
+> Fond noir profond avec halo vert subtil et gradient directionnel.
+
+### Présentations
+
 | Slide | Type de fond | Détail |
 |---|---|---|
-| Titre (première slide) | Image + overlay | `bg.jpg` à 70% d'opacité sur fond `#455a64` |
+| Titre (première slide) | Image + overlay | `bg.jpg` à 70% d'opacité sur fond `#0f1722` |
 | Présentation auteur | Image + overlay | `bg.jpg` à 70% d'opacité |
 | Slide de fin | Image + overlay | `bg.jpg` à 70% d'opacité |
-| Slides de contenu | Fond uni + gradient | `#455a64` + gradient 135° subtil |
+| Slides de contenu | Fond uni + gradient | `#0f1722` + gradient 135° subtil |
 
 ### Image de fond
 
@@ -165,9 +194,9 @@ Usage  : QR code centré
 ### Blocs de code (`pre`, `code`)
 
 ```
-Fond (code inline) : #dad8c8  (--color-dimmed)
-Texte code inline  : #455a64  (--color-dark)
-Fond pre           : #fff8e1  (--color-foreground)
+Fond (code inline) : #b7c6d8  (--color-dimmed)
+Texte code inline  : #0f1722  (--color-dark)
+Fond pre           : #eef6ff  (--color-foreground)
 Police             : Fira Code, monospace
 Font-size inline   : 0.8 em  (Gaia natif)
 Font-size pre      : 0.6 em  (surcharge MCP.Pack)
@@ -179,15 +208,15 @@ border-radius      : aucun défini
 
 ```
 Padding  : 0 1 em
-Guillemets décoratifs (::before / ::after) : Times New Roman, bold, #dad8c8
+Guillemets décoratifs (::before / ::after) : Times New Roman, bold, #b7c6d8
 ```
 
 ### Tableau
 
 ```
-Bordures  : 1 px solid #fff8e1
-En-tête   : fond #fff8e1, texte #455a64
-Rayures   : rgba(255,248,225, 0.10)
+Bordures  : 1 px solid #eef6ff
+En-tête   : fond #eef6ff, texte #0f1722
+Rayures   : rgba(127,211,255, 0.16)
 ```
 
 ### Icônes
@@ -204,20 +233,30 @@ Usage   : <i class="fa-brands fa-github"></i>
 
 | Principe | Valeur |
 |---|---|
-| Arrondis | `50%` pour les avatars uniquement — pas d'arrondi général sur les cards |
-| Ombres | Aucune (design plat) |
-| Bordures | Uniquement dans les tableaux (`1px solid`) |
-| Couleur d'accentuation | Bleu clair `#81d4fa` pour les liens, `<strong>` dans les titres |
-| Effet de fond | Gradient subtil 135° quasi-invisible |
+| Arrondis | `6px` général (`--radius`), `10px` cards (`--radius-card`), `50%` avatars, `999px` chips |
+| Ombres | Glass shadow : `0 18px 60px rgba(0,0,0,0.42)` / hover `0 24px 70px rgba(0,0,0,0.55)` |
+| Bordures | Glass border : `rgba(139,229,177,0.22)` site / `rgba(127,211,255,0.26)` slides |
+| Glassmorphism | `backdrop-filter: blur(14px)` + fond semi-transparent + bordure lumineuse |
+| Couleur d'accentuation | Vert `#8be5b1` (site) / Bleu `#7fd3ff` (slides) pour les liens, `<strong>` |
+| Effet de fond | Radial gradient + overlay directionnel (site) / gradient 135° subtil (slides) |
 | Superposition image | `opacity: 0.7` pour laisser lisible le texte par-dessus |
-| Style global | **Flat design, sombre, minimaliste** |
+| Style global | **Tech Glass — sombre, glassmorphism, animations subtiles** |
+| Transitions | `160ms ease` (fast) / `260ms ease` (medium) |
 | Thème Marp | Gaia + classe `invert` (dark mode par défaut) |
 
 ---
 
 ## 🚀 Utilisation pour le prototypage
 
-### En CSS
+### En CSS (site web)
+
+Importer [`assets/css/tech-glass.css`](./assets/css/tech-glass.css) — inclut le reset, les glass primitives, la nav et le footer :
+
+```css
+<link rel="stylesheet" href="/assets/css/tech-glass.css">
+```
+
+### En CSS (présentations)
 
 Importer [`design-tokens.css`](./design-tokens.css) et utiliser les variables CSS :
 
@@ -225,37 +264,82 @@ Importer [`design-tokens.css`](./design-tokens.css) et utiliser les variables CS
 @import './design-tokens.css';
 
 body {
-  background-color: var(--color-background); /* #455a64 */
-  color: var(--color-foreground);            /* #fff8e1 */
+  background-color: var(--color-background); /* #0f1722 */
+  color: var(--color-foreground);            /* #eef6ff */
   font-family: var(--font-sans);
   font-size: var(--font-size-base);
 }
 
-a { color: var(--color-link); }             /* #81d4fa */
+a { color: var(--color-link); }             /* #7fd3ff */
 
 code {
   font-family: var(--font-mono);
-  background: var(--color-code-bg);          /* #dad8c8 */
-  color: var(--color-code-text);             /* #455a64 */
+  background: var(--color-code-bg);          /* #b7c6d8 */
+  color: var(--color-code-text);             /* #0f1722 */
 }
 ```
+
+### Glass Primitives
+
+Classes utilitaires pour le glassmorphism :
+
+| Classe | Usage |
+|---|---|
+| `.glass-nav` | Barre de navigation fixe |
+| `.glass-surface` | Surface vitrée générique |
+| `.glass-card` | Carte avec hover (translateY + border glow) |
+| `.glass-chip` | Badge / tag arrondi |
+
+```css
+/* Fallback automatique quand backdrop-filter n'est pas supporté */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* → background: var(--glass-bg-strong) + border-color: var(--glass-border-strong) */
+}
+```
+
+### Tokens Glass V2
+
+| Token | Valeur (site) | Valeur (slides) |
+|---|---|---|
+| `--glass-bg` | `rgba(15,27,24,0.9)` | `rgba(17,28,40,0.88)` |
+| `--glass-bg-strong` | `rgba(10,20,18,0.95)` | `rgba(12,22,33,0.94)` |
+| `--glass-border` | `rgba(139,229,177,0.22)` | `rgba(127,211,255,0.26)` |
+| `--glass-border-strong` | `rgba(139,229,177,0.34)` | `rgba(127,211,255,0.4)` |
+| `--glass-highlight` | `rgba(233,247,239,0.12)` | `rgba(238,246,255,0.12)` |
+| `--glass-blur` | `14px` | `14px` |
+| `--glass-shadow` | `0 18px 60px rgba(0,0,0,0.42)` | idem |
+| `--glass-shadow-hover` | `0 24px 70px rgba(0,0,0,0.55)` | idem |
+| `--motion-fast` | `160ms ease` | idem |
+| `--motion-medium` | `260ms ease` | idem |
 
 ### En Figma
 
 Créer les styles de couleurs suivants :
 
+**Site web (vert) :**
+
 | Style | Hex |
 |---|---|
-| Background/Primary | `#455a64` |
-| Background/Accent | `#0288d1` |
-| Text/Primary | `#fff8e1` |
-| Text/Muted | `#dad8c8` |
-| Accent/Primary | `#0288d1` |
-| Accent/Highlight | `#81d4fa` |
+| Background/Primary | `#0e1618` |
+| Text/Primary | `#e9f7ef` |
+| Text/Muted | `#b8d0c1` |
+| Accent/Primary | `#4ed58a` |
+| Accent/Highlight | `#8be5b1` |
+
+**Présentations (bleu) :**
+
+| Style | Hex |
+|---|---|
+| Background/Primary | `#0f1722` |
+| Background/Accent | `#24b5ff` |
+| Text/Primary | `#eef6ff` |
+| Text/Muted | `#b7c6d8` |
+| Accent/Primary | `#24b5ff` |
+| Accent/Highlight | `#7fd3ff` |
 
 Styles de texte :
-- **Heading 1** : Lato 900, 63 px, `#fff8e1`
-- **Heading 2** : Lato 900, 52 px, `#fff8e1`
-- **Body** : Lato 400, 35 px, `#fff8e1`, line-height 1.35
-- **Code** : Fira Code 400, 21 px, `#455a64` sur fond `#dad8c8`
-- **Footer** : Lato 400, 23 px, `#dad8c8`
+- **Heading 1** : Lato 900, 63 px, `#eef6ff`
+- **Heading 2** : Lato 900, 52 px, `#eef6ff`
+- **Body** : Lato 400, 35 px, `#eef6ff`, line-height 1.35
+- **Code** : Fira Code 400, 21 px, `#0f1722` sur fond `#b7c6d8`
+- **Footer** : Lato 400, 23 px, `#b7c6d8`
