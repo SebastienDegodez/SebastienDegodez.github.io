@@ -1,0 +1,30 @@
+---
+layout: none
+permalink: /404.html
+---
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Page non trouvée</title>
+  <script>
+    (function() {
+      var path = window.location.pathname;
+      if (path.indexOf('/md-copilot') === 0) {
+        var newPath = path.replace('/md-copilot', '/learning-path-copilot');
+        window.location.replace(newPath + window.location.search + window.location.hash);
+      }
+    })();
+  </script>
+  <style>
+    body { background: #0e1618; color: #e9f7ef; font-family: Lato, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+    a { color: #8be5b1; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>404 — Page non trouvée</h1>
+    <p><a href="/">Retour à l'accueil</a> · <a href="/learning-path-copilot/">Learning Path Copilot</a></p>
+  </div>
+</body>
+</html>
