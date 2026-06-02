@@ -28,6 +28,10 @@ test('homepage keeps critical identity content', () => {
   assert.match(index, /Software Engineer.+AXA France/i, 'Missing current role');
   assert.match(index, /Brag Document/i, 'Missing Brag Document CTA');
   assert.match(index, /LinkedIn/i, 'Missing LinkedIn link');
+  assert.match(index, /HVE/i, 'Missing HVE phase explanation');
+  assert.match(index, /BRD/i, 'Missing BRD phase explanation');
+  assert.match(index, /PRD/i, 'Missing PRD phase explanation');
+  assert.match(index, /Agents & Skills/i, 'Missing agents and skills section');
 });
 
 test('layout keeps navigation shell and design tokens', () => {

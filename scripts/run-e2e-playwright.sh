@@ -21,8 +21,11 @@ echo "[2/5] Install Playwright browser"
 npx playwright install chromium
 
 echo "[3/5] Build static site in Jekyll container"
-docker run --rm -v "$PWD":/srv/jekyll "$SITE_IMAGE" \
-  jekyll build --source /srv/jekyll --destination /srv/jekyll/_site
+docker run --rm \
+  --user "$(id -u):$(id -g)" \
+  --entrypoint /usr/gem/bin/jekyll \
+  -v "$PWD":/srv/jekyll "$SITE_IMAGE" \
+  build --source /srv/jekyll --destination /srv/jekyll/_site --disable-disk-cache
 
 echo "[4/5] Start site container on http://127.0.0.1:4000"
 docker run -d --name "$SERVER_CONTAINER" -p 4000:80 \
