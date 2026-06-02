@@ -168,12 +168,6 @@ Chaque choix structurant est documenté dans des ADR pour préserver le contexte
           <p>Les ADR relient les décisions aux contraintes du moment. On sait pourquoi une direction a été prise, quand la reconsidérer, et comment la faire évoluer proprement.</p>
         </div>
       </article>
-      <article class="project-card">
-        <div class="project-card__main">
-          <h3>Erreurs Mermaid mieux expliquées</h3>
-          <p>Les messages techniques bruts comme <code>Syntax error in text</code> (Mermaid 10.9.6) sont remplacés par une explication lisible pour orienter la correction du diagramme.</p>
-        </div>
-      </article>
     </div>
   </section>
 
@@ -202,6 +196,24 @@ Cette page reste volontairement compacte. Les détails sont répartis en sous-pa
         <div class="project-card__main">
           <h3>Catalogue de contenus</h3>
           <p><a href="/presentations-catalog.html">Accéder au catalogue des présentations</a> pour les ressources complémentaires par thème.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="technical-improvements" aria-labelledby="technical-improvements-title">
+    <div class="section__header" markdown="1">
+## Améliorations techniques du site
+{: #technical-improvements-title .section__title}
+
+Améliorations de lisibilité et d'expérience utilisateur sur le rendu de la documentation.
+{: .section__subtitle}
+    </div>
+    <div class="project-list">
+      <article class="project-card">
+        <div class="project-card__main">
+          <h3>Messages d'erreur Mermaid rendus compréhensibles</h3>
+          <p>Les messages techniques bruts comme <code>Syntax error in text</code> (Mermaid 10.9.6) sont remplacés par une explication lisible qui aide à corriger la définition du diagramme.</p>
         </div>
       </article>
     </div>

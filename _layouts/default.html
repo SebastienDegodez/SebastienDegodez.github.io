@@ -643,14 +643,17 @@
       document.querySelectorAll('[data-dropdown]').forEach(d => d.classList.remove('open'));
     });
 
+    // Pattern based on Mermaid 10.9.6 runtime error strings.
     const mermaidSyntaxPattern = /Syntax error in text/i;
     const mermaidVersionPattern = /mermaid version\s+\d+\.\d+\.\d+/i;
-    document.querySelectorAll('pre, code, .mermaid, p, li, div').forEach(node => {
+    document.querySelectorAll('.mermaid').forEach(node => {
       const text = (node.textContent || '').trim();
-      if (!text || text.length > 220 || node.dataset.mermaidErrorFixed === 'true') return;
+      if (!text || node.dataset.mermaidErrorHandled === 'true') return;
       if (mermaidSyntaxPattern.test(text) && mermaidVersionPattern.test(text)) {
-        node.dataset.mermaidErrorFixed = 'true';
-        node.innerHTML = '<strong>Diagramme Mermaid indisponible.</strong> Le texte du diagramme contient une erreur de syntaxe. Corrigez la definition Mermaid puis rechargez la page.';
+        node.dataset.mermaidErrorHandled = 'true';
+        const strong = document.createElement('strong');
+        strong.textContent = 'Diagramme Mermaid indisponible.';
+        node.replaceChildren(strong, document.createTextNode(' Le texte du diagramme contient une erreur de syntaxe. Corrigez la définition Mermaid puis rechargez la page.'));
       }
     });
   </script>

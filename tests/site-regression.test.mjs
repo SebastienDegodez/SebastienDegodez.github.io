@@ -31,6 +31,9 @@ test('homepage keeps critical identity content', () => {
   assert.match(index, /HVE/i, 'Missing HVE phase explanation');
   assert.match(index, /BRD/i, 'Missing BRD phase explanation');
   assert.match(index, /PRD/i, 'Missing PRD phase explanation');
+  assert.match(index, /High Value Exploration/i, 'Missing HVE long-form explanation');
+  assert.match(index, /Business Requirements Document/i, 'Missing BRD long-form explanation');
+  assert.match(index, /Product Requirements Document/i, 'Missing PRD long-form explanation');
   assert.match(index, /Agents & Skills/i, 'Missing agents and skills section');
 });
 
