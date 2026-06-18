@@ -322,6 +322,26 @@
         Sans skill, l'IA improvise. Avec une skill, elle applique une méthode que le développeur a explicitement choisie.
         Autrement dit, la skill est un moyen très concret d'injecter nos principes de craft dans le système.`
       },
+      // ─── SLIDE 2c: Prompt Caching & Cache-Hit ───
+      {
+        kind: 'split',
+        kicker: 'Concept clé · Tokens',
+        title: 'Cache-Hit : pourquoi l\'ordre du contexte compte.',
+        left: '<div class="panel"><div class="head"><span>System Prompt</span><span>toujours en premier</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">┌─────────────────────────────────┐</span>\n<span class="add">│  System Prompt  ← CACHED ✓     │</span>\n<span class="add">│  Instructions   ← CACHED ✓     │</span>\n<span class="add">│  Skills chargés ← CACHED ✓     │</span>\n<span class="add">│  Agent persona  ← CACHED ✓     │</span>\n├─────────────────────────────────┤\n<span class="del">│  Message humain (dynamique)     │</span>\n<span class="del">│  Historique récent              │</span>\n└─────────────────────────────────┘</span>\n\n<span class="add">Cache hit</span>  → tokens non retraités\n<span class="del">Cache miss</span> → recalcul complet</pre></div></div>',
+        right: '<div class="panel"><div class="head"><span>Le standard du marché</span><span>Context Engineering</span></div><div class="body"><ul class="bullets"><li>Latence <b>−80 %</b> · coût <b>×10 moins cher</b> sur les parties stables</li><li>Sans cette discipline → <span style="color:var(--danger)">gaspillage de tokens, latence, coût</span></li><li>Avec → <span style="color:var(--success)">performance, maîtrise, prédictibilité</span></li></ul><div style="margin-top:.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem"><div class="card" style="border-color:rgba(255,123,114,.3)"><p class="small" style="color:var(--danger)">Sans craft</p><ul class="bullets list-tight" style="font-size:.82rem"><li>Skills chargés au hasard</li><li>Cache invalidé à chaque tour</li><li>Tokens × N pour rien</li></ul></div><div class="card" style="border-color:rgba(0,255,65,.25)"><p class="small">Avec craft</p><ul class="bullets list-tight" style="font-size:.82rem"><li>Contexte stable en tête</li><li>Cache hit systématique</li><li>Coût prévisible et réduit</li></ul></div></div><blockquote style="margin-top:.7rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted);font-size:.85rem">L\'ordre du contexte n\'est pas du style.<br>C\'est de l\'<b>ingénierie.</b></blockquote></div></div>',
+        notes: `Le prompt caching est une optimisation fondamentale des LLMs modernes (Claude, GPT-4o, Gemini...).
+        Le principe : si le début d'un prompt est identique à une requête précédente, le modèle réutilise les états KV déjà calculés pour cette partie.
+        Ce "début" correspond au system prompt, aux instructions, aux skills chargés en tête de contexte — et aussi au persona de l'agent (.agent.md).
+        Un agent persona, c'est du contexte stable : la définition de son rôle, ses règles, ses priorités. Il ne change pas d'un tour à l'autre.
+        Donc lui aussi bénéficie du cache autant que les instructions ou les skills.
+        La seule partie vraiment dynamique, c'est le message humain entrant : la tâche, la question, l'input du moment.
+        Impact concret : latence jusqu'à 80% plus basse, coût des tokens cached jusqu'à 10 fois moins cher.
+        Dans un workflow agentique, chaque tour de boucle envoie les mêmes instructions + skills + persona agent au début, puis ajoute seulement le nouveau message.
+        Résultat : tout le contexte stable est en cache hit, seul le message utilisateur est nouveau.
+        C'est exactement pourquoi la structure "contexte stable en tête" n'est pas juste une convention de lisibilité : c'est une décision d'ingénierie qui impacte directement les performances et le coût.
+        Et c'est aussi pour ça que Copilot ne charge pas tous les skills en même temps : chaque skill chargé inutilement grignote le contexte et peut provoquer des cache misses.
+        L'ordre et la sélection du contexte = Context Engineering.`
+      },
       // ─── SLIDE 3: Mon Gherkin de départ ───
       {
         kind: 'split',
