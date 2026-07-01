@@ -95,8 +95,12 @@
     }
     .chrome b { color: var(--accent); }
     .dots { display: flex; gap: .35rem; }
-    .dot { width: .48rem; height: .48rem; border-radius: 50%; background: rgba(215,255,227,.2); }
+    .dot {
+      width: .48rem; height: .48rem; border-radius: 50%; background: rgba(215,255,227,.2);
+      border: 0; padding: 0; cursor: pointer; appearance: none;
+    }
     .dot.active { background: var(--accent); box-shadow: 0 0 16px rgba(0,255,65,.45); }
+    .dot:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 4px; }
     .hint { color: var(--muted); font-size: .78rem; }
     .logo-corner { position: absolute; z-index: 2; max-height: clamp(3rem, 12vh, 5rem); width: auto; opacity: .92; }
     .logo-top-left { top: var(--slide-pad); left: var(--slide-pad); }
@@ -153,7 +157,7 @@
         kind: 'title',
         title: 'Coding with AI',
         subtitle: 'Intégrer Copilot sans sacrifier la qualité',
-        speakers: '<div class="grid-2" style="gap:1.2rem;width:100%;max-width:42rem"><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">François Descamps</strong><br><span class="small" style="margin-top:.3rem;display:block">Principal Engineer</span></div><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">Sébastien Degodez</strong><br><span class="small" style="margin-top:.3rem;display:block">AI Engineer</span></div></div>',
+        speakers: '<div class="grid-2" style="gap:1.2rem;width:100%;max-width:42rem"><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">François Descamps</strong><br><span class="small" style="margin-top:.3rem;display:block">Principal Engineer</span></div><div class="card" style="text-align:center;padding:1rem 1.2rem"><strong style="color:var(--accent-2);font-size:clamp(.9rem,1.5vw,1.1rem)">Sébastien Degodez</strong><br><span class="small" style="margin-top:.3rem;display:block">Software Engineer</span></div></div>',
         meta: '20 mai 2026 &nbsp;·&nbsp; Meetup Interiale',
         logoLeft: '<img class="logo-corner logo-top-left" src="assets/logo-axa.svg" alt="AXA" />',
         logoRight: '<img class="logo-corner logo-top-right" src="assets/github-copilot.png" alt="GitHub Copilot" style="background:transparent;" />'
@@ -299,7 +303,7 @@
         left: '<p class="quote reveal">Le vrai sujet n\'est pas la génération.<br>C\'est la <b>cohérence architecturale</b> et la capacité à <b>prouver le comportement</b>.</p>',
         right: '<div class="panel"><div class="head"><span>Question</span><span>audience</span></div><div class="body"><ul class="bullets"><li>Qui a déjà vu un code "bon à compiler" mais faux métier ?</li><li>Qui a déjà perdu du temps à corriger après coup ?</li><li>Qui veut voir un workflow qui limite ces erreurs ?</li></ul></div></div>'
         ,notes: `Le paradoxe de l'IA, c'est qu'elle veut nous satisfaire.
-        Donc si on lui demande de faire passer quelque chose, elle va tout tenter pour y arriver, parfois même en trichant sans vraiment tricher consciemment.
+        Donc si on lui demande de faire marcher quelque chose, elle fera tout pour réussir, quitte parfois à tricher sans le vouloir.
         Très concrètement, elle peut produire un code qui compile, elle peut même faire disparaître la gêne en supprimant un morceau de test, en affaiblissant une assertion, ou en contournant le vrai problème.
         Le résultat est séduisant, parce que l'écran redevient vert.
         Mais ce vert-là ne prouve rien.
@@ -405,7 +409,8 @@
         left: '<div class="panel"><div class="head"><span>① Wishful Thinking</span><span>Application</span></div><div class="body"><pre class="code"><span class="add">// Application layer — handler n\'existe pas</span>\nvar result = handler.Handle(query);\n\n<span class="del">// CS0234: type does not exist</span>\n<span class="add">→ Discovery: on sait quelle API créer</span></pre><p class="lede" style="margin-top:.6rem">Ce n\'est <b>pas</b> un RED.<br>C\'est de l\'information discovery.</p></div></div>',
         right: '<div class="panel"><div class="head"><span>② True RED</span><span>Application → Domain</span></div><div class="body"><pre class="code"><span class="add">// Le handler existe, le test s\'exécute</span>\nvar query = new CheckEligibilityQuery(\n    DateOfBirth: Today.AddYears(-17),\n    VehicleType: VehicleType.Car);\n\nvar result = handler.Handle(query);\n<span class="del">Assert.False(result.IsEligible);</span>\n<span class="del">// ✗ Expected: False — Got: True</span></pre><p class="lede" style="margin-top:.6rem">Le vrai RED: échec <b>comportemental</b>.</p></div></div>'
         ,notes: `Il y a ici un malentendu très fréquent en TDD : une erreur de compilation n'est pas encore un vrai RED.
-        Quand le test ne compile pas, on est dans ce qu'on appelle le wishful thinking. En pratique, cela nous aide à découvrir l'API dont on a besoin, pas encore à valider le comportement.
+        Quand le test ne compile pas, on est dans ce qu'on appelle le wishful thinking. En pratique, cela nous aide surtout à trouver l'API à créer, mais ce n'est pas encore une validation du comportement.
+        Ici, le vrai sujet n'est pas la découverte du design, mais la validation comportementale.
         Le vrai RED commence seulement quand le test s'exécute et échoue sur le comportement attendu.
         Ici, le code compile, le handler existe, mais le résultat métier est faux. Là, on a enfin prouvé que le test capture bien un défaut réel.
         Cette distinction est importante, parce qu'elle évite de confondre découverte de design et validation de comportement.
@@ -521,6 +526,335 @@
       }
     ];
 
+    // ─── i18n : FR par défaut, ?lang=en pour l'anglais ───
+    const LANG = new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'fr';
+    document.documentElement.lang = LANG;
+    if (LANG === 'en') {
+      document.title = "Coding with AI — Meetup Demo";
+      const chromeTitle = document.querySelector('.chrome b');
+      if (chromeTitle) chromeTitle.textContent = "Coding with AI";
+      const chromeHint = document.querySelector('.chrome .hint');
+      if (chromeHint) chromeHint.textContent = "← → · wheel · swipe · 'S' for notes";
+    }
+
+    const translations = {
+      en: {
+        0: {
+          subtitle: 'Using Copilot without losing quality',
+          meta: 'May 20, 2026 &nbsp;·&nbsp; AXA Meetup'
+        },
+        1: {
+          quote: '"Our tests show that strong engineering practices are the best way to reduce the risks that AI brings."',
+          notes: `AI changes every day. We have already updated this talk several times, and it no longer looks like the first version we gave in November at our Seville tech Summit.
+        At AXA France it is a real principle: you must be both creative and careful when you use Copilot and AI in general.
+        Control the results: strong automated tests (unit, integration, end-to-end) to check AI-generated code in a reliable way.
+        Follow the standards: clear architecture and simple rules (naming, linters, reviews). This stops AI from adding technical debt or messy code.
+        Security from the start: set security rules early and always scan the generated code.
+        In short: automated tests + architecture/standards + security = the safety net against AI.
+        But before we start the demo, let's check that you know GitHub Copilot.`
+        },
+        2: {
+          title: '"I know Copilot"',
+          subtitle: '🤚 Raise your hand &mdash; lower it when you no longer know',
+          notes: `To test what you know about Copilot, let's play a small game.
+        Everyone raises their hand and keeps it up. As soon as you don't know the answer, you put it down.
+        Example: Who is happy that Sfeir hosts us today? / Who knows the 7th decimal of Pi? (π = 3.14159265... it's 6)
+        Real questions: Who knows the 3 modes of the Copilot chat?
+        Who knows what "copilot instructions" are?
+        Who knows what a primitive is in Copilot?
+        Who knows what a premium request is?
+        Who knows that Copilot does not use all the tokens it could send to a model?
+        Who knows what "Fill in the middle" is?
+        Who knows what "0/1/few shots prompting" is?
+        Who knows what a custom agent is? And a handoff?
+        Who knows what a skill is? Who knows what a subagent is?
+        Bring stickers.
+        When you know all this, you are a Context Engineer.
+        Context = all the information, instructions, files, rules, chat history and examples the agent uses.
+        Context has a limited size, so you must choose the most useful items.
+        TIP: When you see "Summary", you have reached the context limit.`
+        },
+        3: {
+          title: 'The 4 Copilot Primitives',
+          content: '<div class="grid4 reveal">'
+            + '<div class="card"><div class="role">The Framework</div><h3>📋 Instructions</h3><p>Permanent global rules — the <strong>"How"</strong>. Define the agent\'s behavior in any context.</p></div>'
+            + '<div class="card"><div class="role">The Tools</div><h3>🔧 Skills</h3><p>Specialized modular capabilities — <strong>"What the system can do"</strong>. APIs, CLI, business personas.</p></div>'
+            + '<div class="card"><div class="role">The Contextual Input</div><h3>💬 Prompts</h3><p>Immediate, contextual trigger — <strong>"What to do right now"</strong>.</p></div>'
+            + '<div class="card"><div class="role">The Orchestrator</div><h3>🤖 Agents</h3><p>Autonomous entity — <strong>"Who acts"</strong>. Combines Instructions + Skills + Prompts to solve complex tasks.</p></div>'
+            + '</div>',
+          notes: `Instructions = the "rules of the game" — global rules (e.g. .github/copilot-instructions.md). They define the "How".
+        Skills = modular abilities (read_a_file, run_tests, call_API). They define "What" the system can do. I like to call them specialized personas.
+        Prompts = a direct request in natural language (e.g. "Find the bug in this function"). They define "What to do right now".
+        Agents = an autonomous entity that combines the three above. It gets a Prompt, uses its Skills, and follows the Instructions to do a complex task. It defines "Who acts".`
+        },
+        4: {
+          left: '<div class="reveal"><ul class="bullets">'
+            + '<li><b>❓ What is it?</b><ul class="bullets" style="margin-top:.4rem"><li>Files in the codebase that enrich the AI prompt</li><li>Define rules, code style, tools, assistant behavior</li></ul></li>'
+            + '<li style="margin-top:.6rem"><b>⚡ Which Priority?</b><ul class="bullets" style="margin-top:.4rem"><li>Take priority over user prompts</li><li>The assistant must follow them systematically</li></ul></li>'
+            + '<li style="margin-top:.6rem"><b>🎯 Purpose?</b><ul class="bullets" style="margin-top:.4rem"><li>Enforce security rules</li><li>Impose formatting conventions</li><li>Guarantee consistent operating rules</li></ul></li>'
+            + '</ul></div>',
+          notes: `These are files in your codebase that add more context to the prompt you write in the chat.
+        Priority: they come before user prompts — the assistant must follow them.
+        Avoid "Spaghetti Code": set the rules early and Copilot will not suggest "dirty" or old solutions.
+        Learning by example: it makes the AI write code that follows company standards — a simple way to guide juniors.
+        Concrete examples: libraries (no Axios → fetch), naming (uppercase I for TS interfaces), JSDoc, .spec.ts Vitest tests.
+        Placement: global (IDE settings) or local (.github/copilot-instructions.md) — the local one is shared through Git.
+        Pro-tip: instructions reduce mistakes but do not replace code review.`
+        },
+        5: {
+          left: '<div class="reveal"><p style="color:var(--accent-2);font-weight:700;margin-bottom:.7rem">A ready-to-use, actionable ability</p>'
+            + '<ul class="bullets"><li>🔍 <b>GitHub Skill</b> → search open PRs and issues</li><li>📋 <b>Jira Skill</b> → fetch a ticket\'s acceptance criteria</li><li>📚 <b>Documentation Skill</b> → query the internal Design System</li><li>🧠 <b>Tool Calling</b>: the agent decides <em>when</em> to use a skill based on the context</li></ul>'
+            + '<blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted)">Copilot changes from a code generator into an <b>assistant connected to your tools</b></blockquote>'
+            + '</div>',
+          notes: `A raw LLM is like a "brain" stuck in a box. Skills are the hands of that brain.
+        It is not just text — it runs a real function (a REST API call, a terminal command, a database query).
+        Tool Calling: the AI reads the prompt, decides if it needs outside information, picks the Skill, sets the parameters, runs it, and reads the result.
+        In short: Skills turn Copilot from a simple text generator into a real assistant connected to the company tools.`
+        },
+        6: {
+          left: '<div class="reveal"><p style="color:var(--accent-2);font-weight:700;margin-bottom:.7rem">FIM — Completion in the middle of the file</p>'
+            + '<ul class="bullets"><li>The cursor can be <b>anywhere</b> in the file</li><li>Copilot analyzes the code <b>before AND after</b> the position</li><li><b>Variable consistency</b> guaranteed</li><li><b>Avoids duplicating</b> logic</li><li>Ideal for <b>refactoring</b> and inserting blocks (<code>try/catch</code>, validations…)</li></ul>'
+            + '</div>',
+          right: '<div class="reveal"><pre class="code">function computeTotal(cart) {\n  const vat = 0.20;\n  <span class="del">// 🔴 Without FIM → ignores the return</span>\n  <span class="add">// ✅ With FIM → Copilot generates:</span>\n  const total = cart.reduce(\n    (acc, item) =&gt; acc + item.price, 0\n  );\n  return total * (1 + vat);\n}</pre><blockquote style="margin-top:.8rem;border-left:2px solid rgba(0,255,65,.4);padding-left:.8rem;color:var(--muted);font-size:.9rem">Copilot sees the <code>return total</code> <b>after</b> the cursor → generates exactly the right variable</blockquote></div>',
+          notes: `A technique that lets Copilot complete code not only at the end, but also in the middle or at the start.
+        Models usually read from top to bottom — without FIM, they ignore what is just below the cursor.
+        With FIM: if return total * (1+vat) already exists, Copilot understands it must create the total variable in the middle.
+        Great to add try/catch or if conditions around code that is already there.`
+        },
+        7: {
+          content: '<p class="lede reveal" style="margin-bottom:.5rem">Put <b>instructions and examples</b> in the context to guide the AI</p>'
+            + '<div class="grid-3 reveal">'
+            + '<div class="card"><span class="badge">Zero-Shot</span><h3 style="margin-top:.5rem">Direct instruction</h3><p>No example — the AI relies on its <b>pre-existing knowledge</b>.</p><p class="example">"Write a Python function that computes the factorial of a number."</p></div>'
+            + '<div class="card"><span class="badge">One-Shot</span><h3 style="margin-top:.5rem">One example provided</h3><p>Clarifies expectations: <b>style, naming, return format</b>. The AI mirrors the given example.</p></div>'
+            + '<div class="card"><span class="badge">Few-Shot</span><h3 style="margin-top:.5rem">Two or more examples</h3><p><b>Pattern</b> recognition · complex tasks · more precise and consistent answers.</p></div>'
+            + '</div>',
+          notes: `Zero-shot = no example, just an instruction. The AI uses what it learned during training.
+        One-shot = one example to show the style, the return format and the naming you want.
+        Few-shot = 2 or more examples for harder patterns — the AI sees the structure and repeats it.
+        Direct use in Copilot: putting examples in copilot-instructions.md or in the prompt = few-shot without saying it.`
+        },
+        8: {
+          title: 'The AI workflow ecosystem.',
+          left: '<div class="panel"><div class="head"><span>Approaches</span><span>landscape</span></div><div class="body"><pre class="code" style="font-size:clamp(.68rem,1vw,.85rem);line-height:1.5"><span class="add">Superpowers</span>  skills + discipline\n             workflow rigid/flexible\n\n<span class="add">BMAD</span>         multi-agent orchestration\n             role-based personas\n\n<span class="add">Genesis</span>      design-first modules\n             8-step agentic primitives\n\n<span class="add">Custom</span>       .agent.md + SKILL.md\n             VS Code / Claude Code</pre></div></div>',
+          right: '<div class="panel"><div class="head"><span>Common thread</span><span>takeaway</span></div><div class="body"><ul class="bullets"><li>AI alone is not enough</li><li>You need a <b>structured workflow</b></li><li><b>Skills</b> = injected context</li><li><b>Agents</b> = orchestrated specialists</li><li>The <b>human</b> stays the decision-maker</li></ul><p class="lede" style="margin-top:.8rem">Today: we show what it looks like in practice on a real .NET project.</p></div></div>',
+          notes: `In 2026, several families of AI workflows are appearing.
+        Some focus on discipline and context, others on multi-agent orchestration, others on fully custom agents and modules.
+        We can mention BMAD, Superpowers, custom approaches in VS Code, and also Genesis.
+        Genesis is interesting because it pushes the idea of building the workflow in modules: you split the work, structure it, and specialize it, instead of putting everything in one giant prompt.
+        But the goal is not to pick a side.
+        The goal is that everyone reaches the same conclusion: AI alone is not enough. You need a workflow, the right context at the right time, and a human who makes the final call.
+        So we are not selling a magic framework here. We simply show how these ideas work in a real delivery flow.`
+        },
+        9: {
+          title: 'AI compiles. That\'s not enough.',
+          left: '<p class="quote reveal">The real topic isn\'t generation.<br>It\'s <b>architectural consistency</b> and the ability to <b>prove behavior</b>.</p>',
+          right: '<div class="panel"><div class="head"><span>Question</span><span>audience</span></div><div class="body"><ul class="bullets"><li>Who has seen code "good enough to compile" but wrong business-wise?</li><li>Who has wasted time fixing it afterward?</li><li>Who wants to see a workflow that limits these errors?</li></ul></div></div>',
+          notes: `The problem with AI is that it wants to please us.
+So if you ask it to make something work, it will do anything to succeed, even cheating sometimes without realizing it.
+To be very concrete, AI can write code that compiles. 
+        It can even hide the problem by deleting part of a test, an assertion, or bypassing the real issue.
+        It looks good because the screen turns green again.
+        But green does not prove the behavior is correct.
+        That is why our topic is not code generation itself.
+        Our topic is keeping the architecture consistent and proving the expected behavior, even when AI tries to please us as fast as possible.`
+        },
+        10: {
+          title: 'A Skill = compressed context.',
+          right: '<div class="panel"><div class="head"><span>Why</span><span>it changes everything</span></div><div class="body"><ul class="bullets"><li>Loaded <b>at the right moment</b> by the agent</li><li>Reduces noise and tokens</li><li>Encodes the <b>discipline</b> of craft</li><li>Evolves with the project (versioned in git)</li></ul><p class="lede" style="margin-top:.8rem">Without a skill: the AI improvises.<br>With a skill: the AI applies<br>a proven method.</p></div></div>',
+          notes: `A skill is more than documentation in a repo.
+It is engineering experience, packaged so the agent can load it at the right moment.
+Instead of starting from zero every time, we give AI a clear frame: rules, guardrails, and usual mistakes.
+That is what I call compressed context.
+Without a skill, AI improvises.
+With a skill, it follows a method we chose and applies our craft.`
+        },
+        11: {
+          title: 'My starting Gherkin.',
+          left: '<div class="panel"><div class="head"><span>Prompt</span><span>gherkin-gate</span></div><div class="body"><p class="lede">I hand my .feature to the agent.<br>It validates, brainstorms, improves.</p><pre class="code"><span class="add">@gherkin-gate</span>\n\nHere is my .feature file.\nValidate the scenarios, spot\nthe missing edge cases,\nand propose an improved version.</pre></div></div>',
+          notes: `
+          Now I’ll show two or three concrete examples of using AI to improve our workflow.
+We’re still in the Three Amigos phase, not in code yet.
+The goal is to align business, tests, and implementation around the right behavior.
+AI helps us sharpen BDD thinking, not invent the need.
+Many Gherkins become too technical, so I use an imperfect one and let the agent make it clearer, more business-focused, and easier to test.
+It doesn’t replace the Three Amigos, it makes them better.`
+        },
+        12: {
+          kicker: '3 Amigos with AI · commit 403a344 → 0a82358',
+          title: 'The diff that changes everything.',
+          notes: `This diff shows the value of AI when it has a clear frame.
+We do not change the business need, we improve how we describe it.
+We turn an early scenario into something clearer, better organized, and more useful for the next steps.
+Shared context is extracted, examples are grouped, and boundaries become clear.
+So we move from a Gherkin people can read to a Gherkin that helps both people and AI reason clearly.
+When we are clear at the start, testing and implementation are easier later.`
+        },
+        13: {
+          title: 'Discovering what we don\'t know.',
+          right: '<div class="panel"><div class="head"><span>Goal</span><span>before the code</span></div><div class="body"><ul class="bullets"><li>Surfaces hidden business rules</li><li>Forces concrete examples</li><li>The <span style="color:var(--danger)">Red Cards</span> = open questions</li><li>Avoids coding on assumptions</li></ul><p class="lede" style="margin-top:.8rem">Per rule: 2-3 Green cards<br>happy path · boundary · error path</p></div></div>',
+          notes: `The first step is finding the right examples.
+The happy path is usually easy to spot.
+The difficult part is edge cases, boundary cases, and tricky situations that reveal the real business rules.
+This is where AI really helps: it suggests ideas, offers variations, and shows us cases we might miss.
+But one rule is critical: AI must not decide for us.
+Its role is to widen our options, not choose the business rule.
+Red cards are useful here because they capture questions we still need to answer as humans.
+So we use AI to explore edge cases better, not to define the business for us.`
+        },
+        14: {
+          title: 'Structuring into executable Gherkin.',
+          right: '<div class="panel"><div class="head"><span>Result</span><span>commit 0a82358</span></div><div class="body"><ul class="bullets"><li>1 scenario = 1 behavior</li><li>Declarative, not imperative</li><li>Concrete examples (17 years, not "minor")</li><li>3-5 steps max per scenario</li><li>Spec leakage eliminated</li></ul><p class="lede" style="margin-top:.8rem">A far more stable AI prompt.<br>A test plan ready to run.</p></div></div>',
+          notes: `We turn the questions into executable Gherkin.
+        One scenario covers one behavior, with concrete examples.
+        We keep it declarative, short, and free of technical leakage.
+        Result: a stable AI prompt and a test plan ready to run.
+        In practice, this step turns the business discussion into a clear plan for the rest of Test Driven Development.`
+        },
+        15: {
+          title: 'We start from observable behavior.',
+          left: '<div class="panel"><div class="head"><span>The Iron Rule</span><span>testing</span></div><div class="body"><ul class="bullets"><li>The test starts in <b>Application</b></li><li><b>Zero mocks</b> on the Domain</li><li>The design <b>emerges</b> by necessity</li><li>Domain unit tests: complex cases</li></ul><p class="lede" style="margin-top:.8rem">Real domain objects.<br>Mocked external boundaries.</p></div></div>',
+          right: '<div class="reveal"><img class="img" src="assets/outside-in-tdd.png" alt="Outside-In TDD" style="max-height:min(60vh, 480px);" /><div class="caption">Application → Domain → Infrastructure. The design emerges from the outside.</div></div>',
+          notes: `I want to remind you of a good engineering practice.
+For us, that is Outside-In TDD with Clean Architecture.
+
+We start from what the business can see.
+And we start in the Application layer, not in the REST API.
+Why not the API? Because it is mostly technical plumbing.
+If we start here, we mix technical details with business rules too early, and the tests get slow and fragile.
+A better entry point is the use case, or the handler.
+It covers the full behavior, but stays close to the business.
+The Domain appears only when the tests need it.
+And one key rule: never mock the Domain. Mock only external things, database or a third-party service.
+
+But AI was trained on internet code, and that code does not always follow these practices.
+So first we have to be clear about our own principles.
+Then we can teach them to the AI.`
+        },
+        16: {
+          title: 'Wishful → True RED.',
+          left: '<div class="panel"><div class="head"><span>① Wishful Thinking</span><span>Application</span></div><div class="body"><pre class="code"><span class="add">// Application layer — handler does not exist</span>\nvar result = handler.Handle(query);\n\n<span class="del">// CS0234: type does not exist</span>\n<span class="add">→ Discovery: we know which API to create</span></pre><p class="lede" style="margin-top:.6rem">This is <b>not</b> a RED.<br>It\'s information discovery.</p></div></div>',
+          right: '<div class="panel"><div class="head"><span>② True RED</span><span>Application → Domain</span></div><div class="body"><pre class="code"><span class="add">// The handler exists, the test runs</span>\nvar query = new CheckEligibilityQuery(\n    DateOfBirth: Today.AddYears(-17),\n    VehicleType: VehicleType.Car);\n\nvar result = handler.Handle(query);\n<span class="del">Assert.False(result.IsEligible);</span>\n<span class="del">// ✗ Expected: False — Got: True</span></pre><p class="lede" style="margin-top:.6rem">The real RED: a <b>behavioral</b> failure.</p></div></div>',
+          notes: `There is a very common misunderstanding in TDD: a compilation error is not yet a real RED.
+        When the test does not compile, we are in what we call wishful thinking. In practice, it mainly helps us find the API to create, but it is not yet behavioral validation.
+        Here, the real goal is not design discovery, but behavior validation.
+        The real RED only starts when the test runs and fails on the expected behavior.
+        Here, the code compiles, the handler exists, but the business result is wrong. There, we have finally proven that the test catches a real defect.
+        This difference matters, because it stops us from mixing design discovery with behavior validation.
+        In other words: as long as we fight the compiler, we improve the design. When the assertion breaks, we finally do real TDD.`
+        },
+        17: {
+          title: 'The Domain emerges.',
+          notes: `Once we get the real RED, we move to the green phase.
+Normally, the first green is a bit rough. You write something dirty, then you clean it.
+With AI, you can skip that step.
+Ask directly for a clean, minimal implementation in the right layer.
+But you must be strict: write only what the test needs. No extra branches. No "just in case".
+
+Look at the split of roles.
+The Application handler orchestrates. It creates the business objects and delegates the decision.
+The real business rule lives in the Domain Policy.
+That is what "the Domain emerges" means: we extract it only because the test asked for it.
+And one principle from Evans: a domain model should show business intent, not pile up defensive logic.`
+        },
+        18: {
+          title: 'Where each file lives.',
+          notes: `What we see here is what happened while we implemented from the Gherkin.
+
+        We did not start from a big Clean Architecture diagram drawn in advance. 
+        We started from a business behavior, and the code found its place step by step.
+        
+        The API receives the HTTP request. It does not carry the business decision.
+        The Application carries the use case: here, checking eligibility.
+        The Domain holds the pure business rules, independent from web and database.
+        And The same logic applies to the tests.
+Application tests cover the full behavior.
+Domain tests focus on pure rules, only when they are rich enough to justify it.
+That is Evans's idea: code that speaks the domain language, not mixed with HTTP, SQL, or frameworks.`
+        },
+        19: {
+          title: 'Why also test the Domain?',
+          right: '<div class="panel"><div class="head"><span>EligibilityPolicy</span><span>qualifies ✓</span></div><div class="body"><ul class="bullets"><li>Complex edge-case matrix:<br><span style="color:var(--accent-2)">17/18 years · 15/16 years · 100/101 hp</span></li><li>Extracted into a reusable Policy</li><li>9 [Fact] cover all the boundaries</li></ul><p class="lede" style="margin-top:.6rem">Application test = "it works end to end"<br>Domain test = "every business boundary is locked"</p></div></div>',
+          notes: `Without guidance, AI often follows a simple pattern: one class, one test.
+It looks clean at first.
+But it ties the tests to the internal structure.
+When you refactor the Domain, tests break — not because the business changed, but because the code moved.
+
+Our approach is different.
+We protect behavior at the Application level first.
+We only add Domain tests when a rule becomes complex enough to justify them.
+The result: a test suite that survives refactoring, and a healthier test pyramid.`
+        },
+        20: {
+          title: 'The safeguard before "Done".',
+          left: '<div class="panel"><div class="head"><span>Finding</span><span>test assertion</span></div><div class="body"><pre class="code"><span class="del">- result.Match(</span>\n<span class="del">-   onAccepted: () =&gt; true,</span>\n<span class="del">-   onRefused: _ =&gt;</span>\n<span class="del">-     throw new Exception());</span>\n\n<span class="add">+ var ok = result.Match(</span>\n<span class="add">+   onAccepted: () =&gt; true,</span>\n<span class="add">+   onRefused: _ =&gt; false);</span>\n<span class="add">+ Assert.True(ok);</span></pre><p class="lede" style="margin-top:.6rem">Match without Assert = potential false positive.</p></div></div>',
+          right: '<div class="panel"><div class="head"><span>craft-discipline checks</span><span>before commit</span></div><div class="body"><ul class="bullets"><li>tests, build, static analysis</li><li>no unsuitable mock in Domain</li><li>business conventions + clean commit</li><li>explicit, readable assertions</li></ul><p class="lede" style="margin-top:.8rem">Without this step:<br>— "works on my machine" in prod<br>— silent regressions<br>— loss of trust</p></div></div>',
+          notes: `Good. The test is green.
+But wait — is it really correct?
+
+The reviewer finds a very concrete problem: a Match was called, but without a clear assertion.
+Useful. But the real point is not just having a reviewer at the end.
+The real point is that the developer must bring their own principles into the way they work with AI.
+If I want solid tests, I ask for explicit assertions — tests that fail for the right reasons.
+If I want clean code, I set my rules: layer separation, no mock in the Domain, minimal code, no extra branches.
+AI amplifies what you give it.
+Unclear developer → AI speeds up the noise. Disciplined developer → AI speeds up discipline.
+The reviewer is the final guard. It confirms the principles were followed`
+        },
+        21: {
+          title: 'Imagining the perfect SDLC.',
+          content: '<div class="reveal"><div class="sequence-track" style="margin-bottom:.8rem;"><div class="sequence-node"><strong>DISCOVER</strong><span>triage · priority</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISCUSS</strong><span>stories · AC</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DESIGN</strong><span>ADR · contracts</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DISTILL</strong><span>Gherkin · plan</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>DELIVER</strong><span>TDD · code</span></div></div><div class="sequence-track"><div class="sequence-node human-node"><strong>👤 Human</strong><span>arbitrates at every phase</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Specialist agent</strong><span>produces the artifacts</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Reviewer agent</strong><span>4 adversarial lenses</span></div><div class="sequence-arrow">→</div><div class="sequence-node"><strong>Skills</strong><span>context loaded at the right moment</span></div></div><div class="grid-2" style="margin-top:.9rem;"><div class="card"><p class="small">Agent + Reviewer pattern</p><ul class="bullets list-tight"><li>1 specialist + 1 reviewer per phase</li><li>auto retry, escalation on blockage</li><li>the human arbitrates, never bypassed</li></ul></div><div class="card"><p class="small">Skills per phase</p><ul class="bullets list-tight"><li>DISCOVER: triage, search protocol</li><li>DESIGN: patterns, ADR, contracts</li><li>DISTILL: BDD, test-design-mandates</li><li>DELIVER: outside-in, RSG, craft</li></ul></div></div></div>',
+          notes: `When I talk about the perfect SDLC, I do not mean a perfect process because there are more agents everywhere.
+        I mean a process where the developer's discipline is made clear, split into steps, and reusable at every phase.
+        Each agent has a clear responsibility, each reviewer checks a precise angle, and skills add the right context at the right moment.
+        What makes this model interesting is not raw autonomy.
+        It is that we manage to spread our engineering rigor across the whole flow, from finding the need to the final review.
+        And even with all that, the human stays at the center.
+        It is the human who arbitrates, decides, and chooses when to move to the next step.`
+        },
+        22: {
+          left: '<div class="panel"><div class="head"><span>github/gh-aw</span><span>2026</span></div><div class="body"><ul class="bullets"><li>Workflows defined in <b>markdown</b></li><li>Multi-engine: Copilot, Claude, Codex</li><li>Triggers: issues, PRs, push, schedule</li><li>5 security layers:<ul style="margin-top:.4rem;font-size:.9em"><li>① Read-only tokens</li><li>② Zero secrets in the agent</li><li>③ Network firewall (isolated container)</li><li>④ Safe outputs — agent proposes, job applies</li><li>⑤ AI threat detection before any write</li></ul></li></ul><p class="lede" style="margin-top:.7rem"><span class="badge">Continuous AI</span></p></div></div>',
+          right: '<div class="panel"><div class="head"><span>Evolutions</span><span>what we imagine</span></div><div class="body"><ul class="bullets"><li>Full SDLC pipeline orchestrated by agents</li><li>Automatic adversarial review at each phase</li><li>Improvements delivered every morning, ready to review</li><li>Autoloop: continuous measurable optimization</li></ul><p class="lede" style="margin-top:.7rem">AI orchestrates,<br>the human supervises and arbitrates.</p></div></div>',
+          notes: `The next step is to turn this discipline into an industrial process.
+        Platforms like GitHub Agentic Workflows show a world where these chains of agents, reviewers and guardrails can run at scale.
+        But what interests me here is not to say that tomorrow AI will code all by itself in GitHub.
+        What interests me is that we will be able to make a healthy way of working repeatable.
+        In other words: industrialize not just automation, but disciplined engineering.
+        The more power we give these workflows, the more strongly we must frame what they are allowed to do.`
+        },
+        23: {
+          title: 'Workflow discipline + code discipline.',
+          left: '<p class="quote reveal">The process doesn\'t hide bugs. It makes them appear earlier and more clearly.</p><div style="margin-top:1.2rem"><span class="badge">Plan → Code</span> <span class="badge">Skills = context</span> <span class="badge">Review = safety net</span></div>',
+          right: '<div class="panel"><div class="head"><span>Repo</span><span>try it</span></div><div class="body"><p class="lede">The commits, the spec, the journal and the skills are in the repo.</p><img class="img" src="assets/devops-ia.png" alt="SDLC workflow" style="max-height:min(28vh, 220px);" /></div></div>',
+          notes: `If I had to sum up the whole session in one idea, it would be this: AI does not bring quality for us.
+        It amplifies what we put in.
+        If we give it fuzziness, it speeds up fuzziness.
+        If we give it rigor, design rules, good examples, solid tests and real review discipline, then it speeds up that quality.
+        So the key skill for us developers is not just knowing how to prompt.
+        It is knowing how to add our craft principles into the workflow, the context, the skills, the tests and the review.
+        Adding these craft principles lets us frame the AI much better.
+        It also makes sure we can review very fast, because the produced code is more predictable, more consistent and closer to what we expect.
+        Along the way, we also reduce the number of tokens, because we avoid explaining the same rules again and again and we give the right frame directly.
+        And when we do this well, AI becomes a great amplifier of craft, not a random generator of code that only compiles.`
+        }
+      }
+    };
+
+    if (LANG === 'en' && translations.en) {
+      slides.forEach(function(slide, i) {
+        if (translations.en[i]) Object.assign(slide, translations.en[i]);
+      });
+      // Translate business strings still shown inside code panels
+      var codeStrings = { 'Conducteur trop jeune': 'Driver too young' };
+      slides.forEach(function(slide) {
+        ['left', 'right', 'content', 'code'].forEach(function(field) {
+          if (typeof slide[field] === 'string') {
+            Object.keys(codeStrings).forEach(function(fr) {
+              slide[field] = slide[field].split(fr).join(codeStrings[fr]);
+            });
+          }
+        });
+      });
+    }
 
     if (new URLSearchParams(window.location.search).has('speaker')) {
       document.body.innerHTML = `
@@ -537,20 +871,43 @@
       `;
       setInterval(() => {
         const d = new Date();
-        document.getElementById('spk-time').innerText = d.toLocaleTimeString('fr-FR');
+        document.getElementById('spk-time').innerText = d.toLocaleTimeString(LANG === 'en' ? 'en-US' : 'fr-FR');
       }, 1000);
+      const formatSpeakerNotes = (notes) => (notes || "—")
+        .split('\n')
+        .map(line => line.trimStart())
+        .join('\n');
       const syncSpeaker = (index) => {
         document.getElementById('spk-current').innerText = index + 1;
-        document.getElementById('spk-notes').innerText = slides[index]?.notes || "—";
+        document.getElementById('spk-notes').innerText = formatSpeakerNotes(slides[index]?.notes);
         document.getElementById('spk-next').innerText = index + 1 < slides.length ? (slides[index + 1].title || "Unknown") : "End";
       };
+      // Primary channel: direct postMessage to/from the opener window (works on file://).
+      const spkChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('meetup_nav') : null;
+      if (spkChannel) {
+        spkChannel.onmessage = e => {
+          const msg = e.data || {};
+          if (msg.type === 'slide') syncSpeaker(Number(msg.index));
+        };
+      }
+      window.addEventListener('message', e => {
+        const msg = e.data || {};
+        if (msg.type === 'slide') syncSpeaker(Number(msg.index));
+      });
       window.addEventListener('storage', e => {
         if (e.key === 'meetup_slide') syncSpeaker(Number(e.newValue));
       });
       syncSpeaker(Number(localStorage.getItem('meetup_slide') || 0));
+      // Ask the opener to push its current slide right away.
+      if (window.opener && !window.opener.closed) window.opener.postMessage({ type: 'speaker-ready' }, '*');
+      const sendNav = dir => {
+        if (window.opener && !window.opener.closed) window.opener.postMessage({ type: 'cmd', dir: dir }, '*');
+        if (spkChannel) spkChannel.postMessage({ type: 'cmd', dir: dir });
+        localStorage.setItem('meetup_slide_cmd', dir + '_' + Date.now());
+      };
       window.addEventListener('keydown', e => {
-         if (['ArrowDown','PageDown','ArrowRight',' '].includes(e.key)) localStorage.setItem('meetup_slide_cmd', 'next_' + Date.now());
-         if (['ArrowUp','PageUp','ArrowLeft'].includes(e.key)) localStorage.setItem('meetup_slide_cmd', 'prev_' + Date.now());
+         if (['ArrowDown','PageDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); sendNav('next'); }
+         if (['ArrowUp','PageUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); sendNav('prev'); }
       });
       throw new Error("Speaker View active - stopping normal execution");
     }
@@ -603,21 +960,40 @@
 
     slides.forEach(function(slide, index) {
       deck.appendChild(slideMarkup(slide, index));
-      var dot = document.createElement('span');
+      var dot = document.createElement('button');
       dot.className = 'dot' + (index === 0 ? ' active' : '');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Aller au slide ' + (index + 1));
+      dot.setAttribute('aria-current', index === 0 ? 'true' : 'false');
+      dot.addEventListener('click', function() {
+        goTo(index);
+      });
       dots.appendChild(dot);
     });
 
     var sections = Array.from(document.querySelectorAll('.slide'));
+    var currentIndex = 0;
+    var speakerWin = null;
+    var navChannel = ('BroadcastChannel' in window) ? new BroadcastChannel('meetup_nav') : null;
+    function pushSlide() {
+      if (speakerWin && !speakerWin.closed) speakerWin.postMessage({ type: 'slide', index: currentIndex }, '*');
+      if (navChannel) navChannel.postMessage({ type: 'slide', index: currentIndex });
+    }
     var io = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
           entry.target.querySelectorAll('.reveal').forEach(function(el, i) {
             setTimeout(function() { el.classList.add('in'); }, i * 80);
           });
-          document.querySelectorAll('.dot').forEach(function(dot, idx) { dot.classList.toggle('active', idx === Number(entry.target.dataset.index)); });
-                    counter.textContent = (Number(entry.target.dataset.index) + 1) + ' / ' + sections.length;
-          localStorage.setItem('meetup_slide', entry.target.dataset.index);
+          currentIndex = Number(entry.target.dataset.index);
+          document.querySelectorAll('.dot').forEach(function(dot, idx) {
+            var isActive = idx === currentIndex;
+            dot.classList.toggle('active', isActive);
+            dot.setAttribute('aria-current', isActive ? 'true' : 'false');
+          });
+          counter.textContent = (currentIndex + 1) + ' / ' + sections.length;
+          localStorage.setItem('meetup_slide', String(currentIndex));
+          pushSlide();
         }
       });
     }, { threshold: 0.58 });
@@ -625,21 +1001,25 @@
     sections.forEach(function(section) { io.observe(section); });
 
     var lock = false;
-    function go(delta) {
+    function goTo(index) {
       if (lock) return;
       lock = true;
-      var current = sections.findIndex(function(s) { var r = s.getBoundingClientRect(); return r.top >= -10 && r.top < window.innerHeight / 2; });
-      var next = Math.min(sections.length - 1, Math.max(0, current + delta));
-      sections[next].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      var target = Math.min(sections.length - 1, Math.max(0, index));
+      currentIndex = target;
+      sections[target].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
       setTimeout(function() { lock = false; }, 420);
     }
 
+    function go(delta) {
+      goTo(currentIndex + delta);
+    }
+
     window.addEventListener('keydown', function(e) {
-      if (e.key === 's' || e.key === 'S') { e.preventDefault(); window.open(window.location.href.split('?')[0] + '?speaker=true', 'SpeakerView', 'width=800,height=600'); }
+      if (e.key === 's' || e.key === 'S') { e.preventDefault(); speakerWin = window.open(window.location.href.split('?')[0] + '?speaker=true' + (LANG === 'en' ? '&lang=en' : ''), 'SpeakerView', 'width=800,height=600'); }
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
       if (e.key === 'ArrowUp' || e.key === 'PageUp' || e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
-      if (e.key === 'Home') { e.preventDefault(); sections[0].scrollIntoView({ behavior: 'smooth' }); }
-      if (e.key === 'End') { e.preventDefault(); sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' }); }
+      if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+      if (e.key === 'End') { e.preventDefault(); goTo(sections.length - 1); }
     }, { passive: false });
 
     var wheel = 0;
@@ -658,11 +1038,24 @@
     }, { passive: true });
 
     window.addEventListener('storage', function(e) {
-      if (e.key === 'meetup_slide_cmd') {
-        if (e.newValue.startsWith('next_')) go(1);
-        if (e.newValue.startsWith('prev_')) go(-1);
+      if (e.key === 'meetup_slide_cmd' && e.newValue) {
+        if (e.newValue.indexOf('next_') === 0) go(1);
+        if (e.newValue.indexOf('prev_') === 0) go(-1);
       }
     });
+
+    window.addEventListener('message', function(e) {
+      var msg = e.data || {};
+      if (msg.type === 'cmd') { go(msg.dir === 'prev' ? -1 : 1); }
+      if (msg.type === 'speaker-ready') { if (e.source) speakerWin = e.source; pushSlide(); }
+    });
+
+    if (navChannel) {
+      navChannel.onmessage = function(e) {
+        var msg = e.data || {};
+        if (msg.type === 'cmd') { go(msg.dir === 'prev' ? -1 : 1); }
+      };
+    }
 
   </script>
 </body>
