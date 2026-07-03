@@ -6,7 +6,7 @@
   source_path: "presentation-skraft-agents.html"
   visibility: "private"
   updated_at: "2026-07-02"
-  source_commit: "b5026e1"
+  source_commit: "e2fa78c"
   url: "/presentations/skraft-agents/"
 - id: "meetup-coding-with-ai"
   title: "Meetup - SKRAFT Workflow Demo"
