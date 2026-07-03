@@ -1,5 +1,46 @@
 [
   {
+    "sort_key": 20260702,
+    "icon": "fa-solid fa-robot",
+    "title": "Coding with AI - AXA Group Meetup",
+    "meta": "AXA Group (en anglais) · Juillet 2026",
+    "description": "Session en anglais donnee dans le cadre du groupe AXA. Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes: retours d'experience chez AXA France, workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.",
+    "category": "Communauté & Mentoring",
+    "tags": [
+      "AI",
+      "GitHub Agentic Workflow",
+      "TDD"
+    ]
+  },
+  {
+    "sort_key": 20260618,
+    "icon": "fa-solid fa-robot",
+    "title": "Coding with AI - Meetup @ AXA France (2 sessions)",
+    "meta": "AXA France · 140 participants · Juin 2026",
+    "description": "Deux sessions du meetup donnees le meme jour devant 140 personnes chez AXA France. Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes: retours d'experience chez AXA France, workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.",
+    "category": "Communauté & Mentoring",
+    "tags": [
+      "AI",
+      "GitHub Agentic Workflow",
+      "TDD"
+    ]
+  },
+  {
+    "sort_key": 20260612,
+    "icon": "fa-solid fa-flask",
+    "title": "Codelab: Fini l'incertitude - Testcontainers + Microcks pour valider vos Microservices et APIs !",
+    "meta": "DevLille 2026 · Juin 2026",
+    "description": "Selon l'adage: « Tester, c'est douter ! » A l'ere des architectures distribuees, microservices et APIs, il est essentiel d'etre bien prepare pour bannir l'incertitude et le doute, y compris pour la configuration d'un environnement de dev complet en local. Testcontainers s'est impose comme une solution incontournable pour les tests d'integration de bases de donnees, de middleware et de services cloud. Ce hands-on introduit Microcks, un outil cloud-natif et open source (projet CNCF Sandbox), pret a fonctionner avec Testcontainers pour simuler et tester vos microservices en local: simplifier la gestion des dependances via des simulations, gagner en confiance avec du contract-testing sans effort, et etendre le perimetre des tests (y compris EDA) sans sacrifier la vitesse du flow. Methodologie universellement applicable a tous types d'APIs (REST, gRPC, GraphQL, Async) quelle que soit la pile technologique (Java, Go, Node, .NET...), avec ateliers pratiques au choix en Java ou en .NET.",
+    "category": "Communauté & Mentoring",
+    "tags": [
+      "Testcontainers",
+      "Microcks",
+      "Testing",
+      "Java",
+      ".NET"
+    ]
+  },
+  {
     "sort_key": 20260530,
     "icon": "fa-solid fa-robot",
     "title": "Coding with AI - Meetup @ HoppR",
