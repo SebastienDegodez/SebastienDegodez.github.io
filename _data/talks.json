@@ -17,7 +17,7 @@
     "icon": "fa-solid fa-robot",
     "title": "Coding with AI - Meetup @ AXA France (2 sessions)",
     "meta": "AXA France · 140 participants · Juin 2026",
-    "description": "Deux sessions du meetup donnees le meme jour devant 140 personnes chez AXA France. Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes: retours d'experience chez AXA France, workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.",
+    "description": "Comment l'IA (Copilot, Claude...) s'integre dans les pratiques de developpement modernes: retours d'experience chez AXA France, workflow TDD en 2 phases (Synthesize Green), tests Outside-In via Gherkin, et role des phases amont (Event Storming, Example Mapping, 3 Amigos) comme carburant de l'IA.",
     "category": "Communauté & Mentoring",
     "tags": [
       "AI",
