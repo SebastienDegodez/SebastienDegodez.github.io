@@ -3,53 +3,58 @@
  * Thème Tech Glass inspiré des présentations meetup
  * Utilisable en CSS natif ou importable dans Figma via un plugin tokens.
  *
+ * Source de vérité : assets/css/tech-glass.css (palette & classes Tech Glass Green).
+ * Ce fichier réutilise les mêmes couleurs afin de rester cohérent avec le site.
+ *
  * Source : SebastienDegodez/slide-marp & SebastienDegodez/MCP.Pack
  */
 
 :root {
   /* ─────────────────────────────────────────────────────────────
    * PALETTE DE COULEURS
+   * Alignée sur assets/css/tech-glass.css (Tech Glass Green)
    * ───────────────────────────────────────────────────────────── */
 
   /* Couleurs de base Tech Glass */
-  --color-light:     #eef6ff;
-  --color-dark:      #0f1722;
-  --color-primary:   #24b5ff;
-  --color-secondary: #7fd3ff;
+  --color-light:     #e9f7ef;
+  --color-dark:      #0e1618;
+  --color-primary:   #4ed58a;
+  --color-secondary: #8be5b1;
 
   /* Couleurs dérivées */
-  --color-dimmed:    #b7c6d8;
-  --color-stripe:    rgba(127, 211, 255, 0.16);
+  --color-dimmed:    #b8d0c1;
+  --color-stripe:    rgba(139, 229, 177, 0.14);
 
   /* Alias sémantiques (mode principal = invert/sombre) */
-  --color-background:        var(--color-dark);      /* #0f1722 */
-  --color-foreground:        var(--color-light);     /* #eef6ff */
-  --color-highlight:         var(--color-secondary); /* #7fd3ff */
-  --color-code-bg:           var(--color-dimmed);    /* #b7c6d8 */
-  --color-code-text:         var(--color-dark);      /* #0f1722 */
-  --color-pre-bg:            var(--color-foreground);/* #eef6ff */
-  --color-link:              var(--color-secondary); /* #7fd3ff */
-  --color-heading-strong:    var(--color-secondary); /* #7fd3ff */
-  --color-muted:             var(--color-dimmed);    /* #b7c6d8 */
+  --color-background:        var(--color-dark);      /* #0e1618 */
+  --color-foreground:        var(--color-light);     /* #e9f7ef */
+  --color-highlight:         var(--color-secondary); /* #8be5b1 */
+  --color-code-bg:           var(--color-dimmed);    /* #b8d0c1 */
+  --color-code-text:         var(--color-dark);      /* #0e1618 */
+  --color-pre-bg:            var(--color-foreground);/* #e9f7ef */
+  --color-link:              var(--color-secondary); /* #8be5b1 */
+  --color-heading-strong:    var(--color-secondary); /* #8be5b1 */
+  --color-muted:             var(--color-dimmed);    /* #b8d0c1 */
 
   /* Variante slide accent */
   --color-gaia-bg:           var(--color-primary);
   --color-gaia-fg:           var(--color-light);
   --color-gaia-highlight:    var(--color-secondary);
-  --color-gaia-dimmed:       #c8d8e6;
+  --color-gaia-dimmed:       var(--color-dimmed);
 
   /* Accent secondaire technique (inspire des slides meetup) */
   --color-tech-mint:         #80cbc4;
 
   /* ─────────────────────────────────────────────────────────────
    * TOKENS GLASS V2
+   * Alignés sur assets/css/tech-glass.css
    * ───────────────────────────────────────────────────────────── */
 
-  --glass-bg:                rgba(17, 28, 40, 0.88);
-  --glass-bg-strong:         rgba(12, 22, 33, 0.94);
-  --glass-border:            rgba(127, 211, 255, 0.26);
-  --glass-border-strong:     rgba(127, 211, 255, 0.4);
-  --glass-highlight:         rgba(238, 246, 255, 0.12);
+  --glass-bg:                rgba(15, 27, 24, 0.9);
+  --glass-bg-strong:         rgba(10, 20, 18, 0.95);
+  --glass-border:            rgba(139, 229, 177, 0.22);
+  --glass-border-strong:     rgba(139, 229, 177, 0.34);
+  --glass-highlight:         rgba(233, 247, 239, 0.12);
   --glass-shadow:            0 18px 60px rgba(0, 0, 0, 0.42);
   --glass-shadow-hover:      0 24px 70px rgba(0, 0, 0, 0.55);
   --glass-blur:              14px;
@@ -62,15 +67,15 @@
    * ───────────────────────────────────────────────────────────── */
 
   /* Fond principal des pages */
-  --bg-slide:        var(--color-dark);   /* #0f1722 */
+  --bg-slide:        var(--color-dark);   /* #0e1618 */
 
   /* Gradient subtil appliqué sur chaque section */
   --bg-gradient: linear-gradient(
     135deg,
-    rgba(136, 136, 136, 0)    0%,
-    rgba(136, 136, 136, 0.02) 50%,
-    rgba(255, 255, 255, 0)    50%,
-    rgba(255, 255, 255, 0.05) 100%
+    rgba(78, 213, 138, 0.08) 0%,
+    rgba(78, 213, 138, 0.03) 50%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.2) 100%
   );
 
   /* Image de fond (slides titre / fin) */
