@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('home page loads critical identity content', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: /DEGODEZ Sebastien|DEGODEZ Sébastien/i })).toBeVisible();
-  await expect(page.locator('.hero__role')).toContainText(/Software Engineer/i);
+  await expect(page.locator('.hero__role')).toContainText(/Tech Lead/i);
 });
 
 test('brag page loads projects section', async ({ page }) => {
