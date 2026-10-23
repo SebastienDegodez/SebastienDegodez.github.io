@@ -181,3 +181,22 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(page, /for presentation in site\.data\.presentations/i, 'Synced catalog loop must stay');
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
 });
+
+test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
+  const deploy = yaml.load(read('.github/workflows/deploy-pages.yml'));
+  const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
+  const step = (wf, job, re) => wf.jobs[job].steps.find((s) => re.test(s.uses || ''));
+
+  const publish = step(deploy, 'deploy', /github-pages-deploy-action/);
+  assert.equal(publish.with.branch, 'gh-pages');
+  assert.match(publish.with['clean-exclude'], /pr-preview\//, 'deploying main must not erase PR previews');
+  assert.ok(deploy.jobs.deploy.steps.some((s) => /\.nojekyll/.test(s.run || '')), 'gh-pages must not be rebuilt by Pages');
+
+  const action = step(preview, 'preview', /pr-preview-action/);
+  assert.equal(action.with['umbrella-dir'], 'pr-preview');
+  assert.equal(action.with['preview-branch'], 'gh-pages');
+  const build = preview.jobs.preview.steps.find((s) => /jekyll build/.test(s.run || ''));
+  assert.match(build.run, /--baseurl "\/pr-preview\/pr-\$\{\{ github\.event\.number \}\}"/, 'preview baseurl must match its folder');
+  assert.deepEqual(preview.on.pull_request.types.sort(), ['closed', 'opened', 'reopened', 'synchronize']);
+  assert.equal(deploy.concurrency.group, preview.concurrency.group, 'both workflows write gh-pages: same concurrency group');
+});

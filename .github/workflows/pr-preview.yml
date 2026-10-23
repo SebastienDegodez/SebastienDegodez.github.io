@@ -1,0 +1,43 @@
+name: PR Preview
+
+# Aperçu hébergé de chaque Pull Request :
+#   https://sebastiendegodez.github.io/pr-preview/pr-<numéro>/
+# Le site est construit avec --baseurl pour vivre dans ce sous-dossier de la branche gh-pages.
+# L'URL est commentée sur la PR ; l'aperçu est supprimé à la fermeture de la PR.
+# Prérequis : GitHub Pages servi depuis la branche gh-pages (voir deploy-pages.yml).
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    # Les PR venant d'un fork n'ont pas le droit d'écrire sur gh-pages.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build site under /pr-preview/pr-${{ github.event.number }}
+        if: github.event.action != 'closed'
+        run: |
+          docker run --rm -v "$PWD":/srv/jekyll jekyll/jekyll:4 \
+            jekyll build --source /srv/jekyll --destination /srv/jekyll/_site \
+            --baseurl "/pr-preview/pr-${{ github.event.number }}"
+
+      - name: Deploy or remove preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./_site/
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto

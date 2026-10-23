@@ -52,6 +52,9 @@ npm run test:site     # structure + rendu des templates (liquidjs + jsdom), ~1 s
   Un nouveau filtre Jekyll dans un template = l'ajouter là, sinon le test plante.
 - Le **vrai build Jekyll** n'existe qu'en CI (`Site Regression` : `jekyll/jekyll:4` dans Docker, puis Playwright).
   Dans un bac à sable sans Docker ni RubyGems, le dire clairement : « templates testés, rendu réel non vu ».
+- **Aperçu hébergé de chaque PR** (`pr-preview.yml`) : `https://sebastiendegodez.github.io/pr-preview/pr-<n>/`,
+  URL commentée sur la PR, supprimée à la fermeture. La production est publiée par `deploy-pages.yml` sur la branche
+  `gh-pages` (Pages : *Deploy from a branch → gh-pages*), sans jamais effacer `pr-preview/`.
 - Les tests **figent le titre de l'accueil** (`Staff Engineer`) dans `tests/site-regression.test.mjs` et
   `tests/e2e/site-smoke.spec.mjs` : les changer avec `index.md`.
 - Tout nouveau comportement reçoit un test qui **échoue sans lui** (vérifié en cassant volontairement le code).
@@ -101,6 +104,7 @@ Guide complet : [`docs/020-presentations-reveal.md`](docs/020-presentations-reve
 | `divided_by` : division entière dans Jekyll, réelle dans liquidjs | Déjà compensé dans `liquid-env.mjs` |
 | `page.url contains 'presentations'` est vrai sur `/presentations-catalog.html` **et** `/presentations/<id>/` | En tenir compte pour l'état actif du menu |
 | Version d'un CDN non épinglée | Toujours une version exacte (`reveal.js@5.2.1`) |
+| Lien interne en dur (`href="/assets/…"`) : l'aperçu de PR (servi sous `/pr-preview/pr-N/`) charge alors la production | `{{ '/chemin' \| relative_url }}` ou `{% link page.md %}` ; vérifié par `tests/render/baseurl.test.mjs` |
 | Le filtre « Tech Lead » de `brag.md` n'a plus d'entrée (`impact.type: techleader`) | Connu, laissé tel quel (historique) |
 
 ## 7. Environnement d'exécution des agents
