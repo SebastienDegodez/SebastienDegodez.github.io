@@ -23,10 +23,10 @@ jobs:
 
     steps:
       - name: Checkout website repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Checkout meetup-coding-with-ai
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: SebastienDegodez/meetup-coding-with-ai
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.meetup_ref || 'main' }}
@@ -34,7 +34,7 @@ jobs:
           path: sources/meetup-coding-with-ai
 
       - name: Checkout skraft-plugin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: SebastienDegodez/skraft-plugin
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.skraft_ref || 'main' }}
