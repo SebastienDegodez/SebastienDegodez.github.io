@@ -25,7 +25,7 @@ test('homepage keeps critical identity content', () => {
   const index = read('index.md');
 
   assert.match(index, /DEGODEZ Sébastien/i, 'Missing main identity heading');
-  assert.match(index, /Software Engineer.+AXA France/i, 'Missing current role');
+  assert.match(index, /Staff Engineer.+AXA France/i, 'Missing current role');
   assert.match(index, /Brag Document/i, 'Missing Brag Document CTA');
   assert.match(index, /LinkedIn/i, 'Missing LinkedIn link');
 });

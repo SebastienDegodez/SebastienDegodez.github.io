@@ -6,7 +6,7 @@
         "wide": true,
         "icon": "fa-solid fa-building",
         "label": "Rôle actuel",
-        "title": "Software Engineer @ AXA France",
+        "title": "Staff Engineer @ AXA France",
         "body_html": "Développement d'applications d'entreprise en <strong>.NET</strong>, conception de solutions <strong>Cloud</strong> et accompagnement technique des équipes dans l'adoption de pratiques modernes (Clean Architecture, DDD, tests automatisés).",
         "tags": [
           { "text": ".NET", "class": "tag" },
@@ -15,6 +15,24 @@
           { "text": "Azure", "class": "tag" },
           { "text": "DDD", "class": "tag" }
         ]
+      },
+      {
+        "icon": "fa-solid fa-diagram-project",
+        "label": "Projet open source",
+        "title": "skraft — pipeline SDLC agentique",
+        "body_html": "Pipeline déterministe pour <strong>Claude Code</strong> et <strong>GitHub Copilot</strong> : agents spécialisés, relecteurs adversariaux, Outside-In TDD et garde-fous mécaniques (hooks) pour livrer du code piloté par des assistants, sans improviser.",
+        "tags": [
+          { "text": "skraft", "class": "tag" },
+          { "text": "Claude Code", "class": "tag" },
+          { "text": "GitHub Copilot", "class": "tag" },
+          { "text": "TDD", "class": "tag" }
+        ],
+        "link": {
+          "href": "https://github.com/SebastienDegodez/skraft-plugin",
+          "text": "skraft-plugin",
+          "icon": "fa-brands fa-github",
+          "external": true
+        }
       },
       {
         "icon": "fa-brands fa-github",
