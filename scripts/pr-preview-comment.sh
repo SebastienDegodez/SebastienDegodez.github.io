@@ -4,7 +4,7 @@
 #   pr-preview-comment.sh deployed <url_aperçu> <sha> [fichiers modifiés…]
 #   pr-preview-comment.sh removed  <numéro_pr> <merged:true|false>
 #
-# Les présentations Reveal.js (_decks/NNN-slug.md publiées) modifiées par la PR reçoivent un lien direct.
+# Les présentations (_decks/NNN-slug.md ou .html publiées) modifiées par la PR reçoivent un lien direct.
 set -euo pipefail
 
 mode="${1:-}"
@@ -17,7 +17,7 @@ case "$mode" in
     shift 2
     decks=""
     for file in "$@"; do
-      case "$file" in _decks/[0-9][0-9][0-9]-*.md) ;; *) continue ;; esac
+      case "$file" in _decks/[0-9][0-9][0-9]-*.md|_decks/[0-9][0-9][0-9]-*.html) ;; *) continue ;; esac
       [ -f "$file" ] || continue
       grep -qE '^published:[[:space:]]*false' "$file" && continue
       slug=$(sed -n 's/^slug:[[:space:]]*//p' "$file" | head -n 1 | tr -d "\"' \r")
