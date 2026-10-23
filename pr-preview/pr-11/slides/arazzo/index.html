@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Arazzo : le contrat d'API du parcours — Sébastien Degodez</title>
+  
+  <meta name="description" content="Découvrir Arazzo, la norme de l&#39;OpenAPI Initiative qui spécifie l&#39;enchaînement des appels d&#39;API, puis discuter d&#39;une hypothèse pour Microcks V2." />
+  <meta property="og:site_name" content="Sébastien Degodez" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arazzo : le contrat d&#39;API du parcours" />
+  <meta property="og:description" content="Découvrir Arazzo, la norme de l&#39;OpenAPI Initiative qui spécifie l&#39;enchaînement des appels d&#39;API, puis discuter d&#39;une hypothèse pour Microcks V2." />
+  <meta property="og:url" content="https://sebastiendegodez.github.io/pr-preview/pr-11/slides/arazzo/" />
+  <meta property="og:image" content="https://sebastiendegodez.github.io/pr-preview/pr-11/assets/img/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="alternate" type="application/rss+xml" title="Blog — Sébastien Degodez" href="/pr-preview/pr-11/feed.xml" />
+
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=Lato:400,700,900|Fira+Code:400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css" />
+  <link rel="stylesheet" href="/pr-preview/pr-11/design-tokens.css" />
+  <link rel="stylesheet" href="/pr-preview/pr-11/assets/css/reveal-tech-glass.css" />
+</head>
+<body>
+  <a class="deck-back" href="/pr-preview/pr-11/presentations-catalog.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Présentations</a>
+
+  <div class="reveal">
+    <div class="slides">
+      <section class="slide-title" data-background-image="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/bg.jpg" data-background-opacity="0.7">
+        <p class="slide-title__eyebrow">Communauté AXA</p>
+        <h1>Arazzo : le contrat d'API du parcours</h1>
+        <p class="slide-title__subtitle">Chaque API a son contrat. Le parcours qui les enchaîne n'en a pas.</p>
+        <div class="presenter">
+          <img class="presenter__avatar" src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png" alt="" width="80" height="80" />
+          <div>
+            <strong class="presenter__name">Sébastien Degodez</strong>
+            <span class="presenter__role">Staff Engineer · AXA France</span>
+          </div>
+        </div>
+        <p class="slide-title__date">23 octobre 2026
+</p>
+      </section>
+      <section>
+<h2 id="-qui-suis-je-"><i class="fa-solid fa-user"></i> Qui suis-je ?</h2>
+
+<div class="columns columns--1-2">
+<img class="avatar-xl" src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png" alt="Photo de Sébastien Degodez" />
+<div>
+<h3>Sébastien Degodez</h3>
+<ul>
+<li><strong>Staff Engineer</strong> chez AXA France</li>
+<li><strong>Maintainer Microcks</strong>, projet CNCF Incubating</li>
+<li><strong>Auteur de skraft</strong>, pipeline SDLC agentique open source</li>
+</ul>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 0:30 — Se présenter en une minute. Double chapeau : Staff Engineer chez AXA et maintainer Microcks. La partie Microcks de la fin est une idée de mainteneur, pas un produit.</p>
+</aside>
+      </section>
+      <section>
+<h2 id="-au-programme"><i class="fa-solid fa-map"></i> Au programme</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Partie</th>
+      <th>Durée</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i class="fa-solid fa-puzzle-piece"></i></td>
+      <td><strong>Le problème</strong> : pourquoi les contrats d’API ne suffisent pas</td>
+      <td>5 min</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-book-open"></i></td>
+      <td><strong>Arazzo</strong> : définition, état des lieux, lire un fichier</td>
+      <td>15 min</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-route"></i></td>
+      <td><strong>Un exemple</strong> : un parcours complet, avec <code class="language-plaintext highlighter-rouge">dependsOn</code></td>
+      <td>10 min</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-flask"></i></td>
+      <td><strong>Une hypothèse</strong> : Microcks V2, sur prototype</td>
+      <td>10 min</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-comments"></i></td>
+      <td><strong>Échange</strong> : votre avis, vos parcours</td>
+      <td>5 min</td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="notes">
+<p>⏱ 1:30 — Pas besoin de connaître Arazzo. Il faut juste savoir ce qu'est un contrat d'API OpenAPI.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">01 · Le problème</p>
+
+<h2 id="-le-constat"><i class="fa-solid fa-puzzle-piece"></i> Le constat</h2>
+
+<p class="statement">Une souscription habitation s'appuie sur <strong>3 contrats d'API</strong>. Le parcours qui les enchaîne, lui, <span class="warn">n'est décrit nulle part</span>.</p>
+
+<p class="muted">Dans quel ordre appeler ? Quelle donnée passe d'un appel au suivant ? Que faire si un appel échoue ? Aujourd'hui : un wiki, un diagramme de séquence qui vieillit, ou la tête d'un architecte.</p>
+
+<aside class="notes">
+<p>⏱ 3:00 — Vocabulaire : ici « contrat » = contrat d'API (OpenAPI / AsyncAPI), pas contrat d'assurance. D'où « police » dans l'exemple.</p>
+<p>Question à la salle : qui a déjà eu une recette cassée alors que chaque API respectait son contrat ?</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">01 · Le problème</p>
+
+<h2 id="-un-contrat-par-api-aucun-pour-le-parcours"><i class="fa-solid fa-layer-group"></i> Un contrat par API, aucun pour le parcours</h2>
+
+<svg class="dg" viewBox="0 0 960 290" role="img" aria-label="Trois API ont chacune un contrat ; aujourd'hui le parcours vit dans un wiki, avec Arazzo il devient un contrat versionné qui les relie.">
+  <g class="fragment fade-out" data-fragment-index="1">
+    <rect class="dg-box--muted" x="230" y="6" width="500" height="64" rx="32" />
+    <text class="dg-t" x="480" y="34" text-anchor="middle" style="fill:var(--color-dimmed)">Le parcours ?</text>
+    <text class="dg-s" x="480" y="54" text-anchor="middle">wiki · Confluence · séquence PlantUML · tête de l'archi</text>
+    <path class="dg-line--dim" d="M300 70 L165 150" />
+    <path class="dg-line--dim" d="M480 70 L480 150" />
+    <path class="dg-line--dim" d="M660 70 L795 150" />
+    <g class="dg-pulse"><circle cx="322" cy="210" r="15" class="dg-box--warn" /><text x="322" y="216" text-anchor="middle" class="dg-t dg-t--warn">?</text></g>
+    <g class="dg-pulse"><circle cx="637" cy="210" r="15" class="dg-box--warn" /><text x="637" y="216" text-anchor="middle" class="dg-t dg-t--warn">?</text></g>
+    <path class="dg-line--dim" d="M270 210 H307 M337 210 H375" />
+    <path class="dg-line--dim" d="M585 210 H622 M652 210 H690" />
+  </g>
+  <g class="fragment" data-fragment-index="1">
+    <rect class="dg-band" x="60" y="6" width="840" height="64" rx="10" />
+    <text class="dg-t" x="480" y="34" text-anchor="middle">Contrat Arazzo · workflow <tspan class="dg-m" style="font-size:14px">souscrireHabitation</tspan></text>
+    <text class="dg-s" x="480" y="54" text-anchor="middle">ordre des étapes · données échangées · critères de succès · reprises, versionné dans git</text>
+    <path class="dg-line dg-flow" d="M165 70 V150" />
+    <path class="dg-line dg-flow" d="M480 70 V150" />
+    <path class="dg-line dg-flow" d="M795 70 V150" />
+    <path id="gap-l1" class="dg-line" d="M270 210 H375" />
+    <path id="gap-l2" class="dg-line" d="M585 210 H690" />
+    <text class="dg-m" x="322" y="198" text-anchor="middle" style="font-size:11px">quoteId</text>
+    <text class="dg-m" x="637" y="198" text-anchor="middle" style="font-size:11px">paymentId</text>
+    <circle r="5" class="dg-dot"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#gap-l1" /></animateMotion></circle>
+    <circle r="5" class="dg-dot"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#gap-l2" /></animateMotion></circle>
+  </g>
+  <rect class="dg-box" x="60" y="150" width="210" height="120" rx="10" />
+  <text class="dg-t" x="165" y="185" text-anchor="middle">API Devis</text>
+  <text class="dg-m" x="165" y="210" text-anchor="middle">POST /quotes</text>
+  <rect class="dg-chip" x="100" y="230" width="130" height="24" rx="12" />
+  <text class="dg-s" x="165" y="246" text-anchor="middle" style="fill:var(--color-highlight)">contrat OpenAPI ✓</text>
+  <rect class="dg-box" x="375" y="150" width="210" height="120" rx="10" />
+  <text class="dg-t" x="480" y="185" text-anchor="middle">API Paiement</text>
+  <text class="dg-m" x="480" y="210" text-anchor="middle">POST /payments</text>
+  <rect class="dg-chip" x="415" y="230" width="130" height="24" rx="12" />
+  <text class="dg-s" x="480" y="246" text-anchor="middle" style="fill:var(--color-highlight)">contrat OpenAPI ✓</text>
+  <rect class="dg-box" x="690" y="150" width="210" height="120" rx="10" />
+  <text class="dg-t" x="795" y="185" text-anchor="middle">API Police</text>
+  <text class="dg-m" x="795" y="210" text-anchor="middle">POST /policies</text>
+  <rect class="dg-chip" x="730" y="230" width="130" height="24" rx="12" />
+  <text class="dg-s" x="795" y="246" text-anchor="middle" style="fill:var(--color-highlight)">contrat OpenAPI ✓</text>
+</svg>
+
+<div class="caption r-stack">
+<p class="fragment fade-out" data-fragment-index="1"><strong>Aujourd'hui</strong> : chaque API a son contrat d'API. Les « ? » sont là où les recettes cassent.</p>
+<p class="fragment" data-fragment-index="1"><strong>Avec Arazzo</strong> : les contrats d'API ne changent pas, on ajoute le contrat <em>du parcours</em> au-dessus.</p>
+</div>
+
+<aside class="notes">
+<p>⏱ 4:30 — Clic : bascule « Avec Arazzo ». On ne touche pas aux contrats d'API existants : on ajoute un contrat de plus, celui DU parcours.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">02 · Définition</p>
+
+<h2 id="-arazzo-cest-quoi-"><i class="fa-solid fa-book-open"></i> Arazzo, c’est quoi ?</h2>
+
+<blockquote>
+  <p>Une norme de l’<strong>OpenAPI Initiative</strong> (Linux Foundation) pour décrire, en YAML ou JSON, <strong>une suite d’appels d’API</strong> : leur ordre, les données qui passent de l’un à l’autre, et ce qui fait qu’une étape est <strong>réussie</strong>.</p>
+</blockquote>
+
+<p class="muted small"><code>arazzo</code> signifie « tapisserie » en italien : on <em>tisse</em> des API existantes en un parcours.</p>
+
+<div class="columns columns--3 small">
+<div class="card"><h3><i class="fa-solid fa-eye"></i> Lisible</h3><p>Un format structuré, relu en PR comme du code.</p></div>
+<div class="card"><h3><i class="fa-solid fa-equals"></i> Déterministe</h3><p>Même entrée, mêmes étapes, mêmes critères.</p></div>
+<div class="card"><h3><i class="fa-solid fa-check-double"></i> Spécifié</h3><p>« Réussi » est écrit, pas supposé.</p></div>
+</div>
+
+<aside class="notes">
+<p>⏱ 7:00 — Définition à retenir : Arazzo spécifie une suite d'appels d'API, leur ordre, les données échangées et les critères de succès. Arazzo = tapisserie : il tisse des API qui existent déjà.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">02 · Définition</p>
+
+<h2 id="-ce-quarazzo-est-et-ce-quil-nest-pas"><i class="fa-solid fa-scale-balanced"></i> Ce qu’Arazzo est, et ce qu’il n’est pas</h2>
+
+<div class="columns small">
+<div class="card card--ok">
+<h3><i class="fa-solid fa-check"></i> C'est</h3>
+<ul>
+<li>Un <strong>contrat</strong> : la description de référence d'un parcours</li>
+<li>Une couche <strong>au-dessus</strong> d'OpenAPI et d'AsyncAPI</li>
+<li>Un fichier versionné <strong>dans git</strong>, revu en PR</li>
+<li>Une <strong>spécification</strong> : ordre, données, critères, reprises</li>
+</ul>
+</div>
+<div class="card card--warn">
+<h3><i class="fa-solid fa-xmark"></i> Ce n'est pas</h3>
+<ul>
+<li>Un <strong>orchestrateur</strong> : ni BPMN, ni Temporal, ni saga</li>
+<li>Un <strong>remplaçant</strong> d'OpenAPI ou d'AsyncAPI</li>
+<li>Un <strong>programme</strong> : il spécifie, il n'exécute rien</li>
+<li>Un <strong>diagramme</strong> : c'est une spécification structurée</li>
+</ul>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 9:30 — Le malentendu le plus fréquent : « c'est un moteur de workflow ». Non. Arazzo spécifie ; il ne remplace pas notre code d'orchestration.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">03 · État des lieux, octobre 2026</p>
+
+<h2 id="-trois-normes-trois-questions"><i class="fa-solid fa-map"></i> Trois normes, trois questions</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Norme</th>
+      <th>Répond à</th>
+      <th>Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><i class="fa-solid fa-arrow-right-arrow-left"></i> OpenAPI</td>
+      <td>Que fait <em>cet</em> appel HTTP ?</td>
+      <td><code class="language-plaintext highlighter-rouge">3.2.0</code> · sept. 2025</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-tower-broadcast"></i> AsyncAPI</td>
+      <td>Quel message circule sur <em>ce</em> canal ?</td>
+      <td><code class="language-plaintext highlighter-rouge">3.1.0</code> · janv. 2026</td>
+    </tr>
+    <tr>
+      <td><i class="fa-solid fa-route"></i> Arazzo</td>
+      <td>Dans quel ordre, avec quelles données, et quand est-ce réussi ?</td>
+      <td><code class="language-plaintext highlighter-rouge">1.1.0</code> · mai 2026</td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="muted small">OpenAPI 3.2 : QUERY, streaming, tags hiérarchiques. AsyncAPI 3.1 : mineure. <strong>Arazzo 1.1 ajoute les étapes AsyncAPI</strong> : REST et événements dans un même parcours.</p>
+
+<aside class="notes">
+<p>⏱ 12:00 — OpenAPI décrit une opération. AsyncAPI décrit un message. Arazzo décrit l'enchaînement. Arazzo 1.0 ne parlait que REST ; la 1.1 gère aussi Kafka.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">03 · État des lieux</p>
+
+<h2 id="-arazzo-ne-remplace-rien--il-référence"><i class="fa-solid fa-layer-group"></i> Arazzo ne remplace rien : il référence</h2>
+
+<svg class="dg" viewBox="0 0 960 285" role="img" aria-label="Arazzo se place au-dessus des contrats OpenAPI et AsyncAPI et les référence ; eux décrivent les services.">
+  <rect class="dg-band" x="200" y="6" width="560" height="62" rx="10" />
+  <text class="dg-t" x="480" y="34" text-anchor="middle">Arazzo, le contrat du parcours</text>
+  <text class="dg-s" x="480" y="54" text-anchor="middle">sourceDescriptions · workflows · steps · successCriteria · outputs</text>
+  <path class="dg-line dg-flow" d="M330 68 V116" />
+  <path class="dg-line--async dg-flow" d="M630 68 V116" />
+  <text class="dg-s" x="345" y="98">operationId</text>
+  <text class="dg-s" x="645" y="98">operationId · action</text>
+  <rect class="dg-box dg-box--accent" x="200" y="116" width="260" height="70" rx="10" />
+  <text class="dg-t" x="330" y="146" text-anchor="middle">OpenAPI, synchrone</text>
+  <text class="dg-m" x="330" y="168" text-anchor="middle">createQuote · pay · issuePolicy</text>
+  <rect class="dg-box dg-box--async" x="500" y="116" width="260" height="70" rx="10" />
+  <text class="dg-t" x="630" y="146" text-anchor="middle">AsyncAPI, événements</text>
+  <text class="dg-m dg-m--async" x="630" y="168" text-anchor="middle">receive policy.issued</text>
+  <path class="dg-line--dim" d="M330 186 V226" />
+  <path class="dg-line--dim" d="M630 186 V226" />
+  <rect class="dg-box" x="200" y="226" width="560" height="44" rx="10" />
+  <text class="dg-s" x="480" y="253" text-anchor="middle" style="fill:var(--color-foreground)">Nos services : .NET, Java, Kafka, API Gateway…</text>
+</svg>
+
+<p class="muted">Corollaire : <strong>pas de contrat OpenAPI / AsyncAPI à jour, pas d'Arazzo.</strong></p>
+
+<aside class="notes">
+<p>⏱ 14:00 — Arazzo pointe vers nos contrats d'API existants via sourceDescriptions. Aucun schéma n'est dupliqué. Si nos OpenAPI ne sont pas à jour, c'est LE premier chantier.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">03 · État des lieux</p>
+
+<h2 id="-une-norme-jeune-une-famille-mature"><i class="fa-solid fa-clock-rotate-left"></i> Une norme jeune, une famille mature</h2>
+
+<svg class="dg" viewBox="0 0 960 190" role="img" aria-label="Frise : OpenAPI 3.0 en 2017, OpenAPI 3.1 en 2021, AsyncAPI 3.0 en décembre 2023, Arazzo 1.0 en mai 2024, OpenAPI 3.2 en septembre 2025, AsyncAPI 3.1 en janvier 2026, Arazzo 1.1 en mai 2026.">
+  <path class="dg-line" d="M30 40 H930" style="opacity:0.6" />
+  <circle cx="60" cy="40" r="9" class="dg-box" /><text class="dg-m" x="60" y="80" text-anchor="middle">2017</text><text class="dg-t" x="60" y="104" text-anchor="middle">OpenAPI 3.0</text><text class="dg-s" x="60" y="126" text-anchor="middle">norme ouverte</text>
+  <circle cx="200" cy="40" r="9" class="dg-box" /><text class="dg-m" x="200" y="80" text-anchor="middle">2021</text><text class="dg-t" x="200" y="104" text-anchor="middle">OpenAPI 3.1</text><text class="dg-s" x="200" y="126" text-anchor="middle">JSON Schema</text>
+  <circle cx="340" cy="40" r="9" class="dg-box" /><text class="dg-m" x="340" y="80" text-anchor="middle">déc. 2023</text><text class="dg-t" x="340" y="104" text-anchor="middle">AsyncAPI 3.0</text><text class="dg-s" x="340" y="126" text-anchor="middle">send / receive</text>
+  <circle cx="480" cy="40" r="11" class="dg-band" /><text class="dg-m" x="480" y="80" text-anchor="middle">mai 2024</text><text class="dg-t" x="480" y="104" text-anchor="middle">Arazzo 1.0</text><text class="dg-s" x="480" y="126" text-anchor="middle">workflows REST</text>
+  <circle cx="620" cy="40" r="9" class="dg-box" /><text class="dg-m" x="620" y="80" text-anchor="middle">sept. 2025</text><text class="dg-t" x="620" y="104" text-anchor="middle">OpenAPI 3.2</text><text class="dg-s" x="620" y="126" text-anchor="middle">QUERY, streaming</text>
+  <circle cx="760" cy="40" r="9" class="dg-box" /><text class="dg-m" x="760" y="80" text-anchor="middle">janv. 2026</text><text class="dg-t" x="760" y="104" text-anchor="middle">AsyncAPI 3.1</text><text class="dg-s" x="760" y="126" text-anchor="middle">mineure</text>
+  <circle cx="900" cy="40" r="11" class="dg-band" /><text class="dg-m" x="900" y="80" text-anchor="middle">mai 2026</text><text class="dg-t" x="900" y="104" text-anchor="middle">Arazzo 1.1</text><text class="dg-s" x="900" y="126" text-anchor="middle">+ étapes AsyncAPI</text>
+</svg>
+
+<p class="muted">Même gouvernance qu'OpenAPI : <strong>OpenAPI Initiative</strong>, Linux Foundation.</p>
+
+<aside class="notes">
+<p>⏱ 15:30 — Arazzo est jeune (2024) mais portée par la même organisation qu'OpenAPI. La 1.1 de mai 2026 est celle qui nous intéresse.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">04 · Lire un fichier</p>
+
+<h2 id="-anatomie-12--le-fichier"><i class="fa-solid fa-sitemap"></i> Anatomie (1/2) : le fichier</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bloc</th>
+      <th>Question</th>
+      <th>Exemple</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">sourceDescriptions</code></td>
+      <td>Avec quels contrats d’API ?</td>
+      <td><code class="language-plaintext highlighter-rouge">quote-api.openapi.yaml</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">workflows</code></td>
+      <td>Quel parcours ?</td>
+      <td><code class="language-plaintext highlighter-rouge">souscrireHabitation</code></td>
+    </tr>
+    <tr>
+      <td>↳ <code class="language-plaintext highlighter-rouge">dependsOn</code></td>
+      <td>Quel parcours doit passer avant ?</td>
+      <td><code class="language-plaintext highlighter-rouge">identifierClient</code></td>
+    </tr>
+    <tr>
+      <td>↳ <code class="language-plaintext highlighter-rouge">inputs</code></td>
+      <td>De quoi a-t-il besoin ?</td>
+      <td>un JSON Schema</td>
+    </tr>
+    <tr>
+      <td>↳ <code class="language-plaintext highlighter-rouge">steps</code></td>
+      <td>Quelles étapes, dans quel ordre ?</td>
+      <td><code class="language-plaintext highlighter-rouge">creerDevis</code> → …</td>
+    </tr>
+    <tr>
+      <td>↳ <code class="language-plaintext highlighter-rouge">outputs</code></td>
+      <td>Que produit le parcours ?</td>
+      <td><code class="language-plaintext highlighter-rouge">policyId</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">components</code></td>
+      <td>Qu’est-ce qui se réutilise ?</td>
+      <td>paramètres, reprises</td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="notes">
+<p>⏱ 17:00 — Lire de haut en bas : avec quels contrats, quel parcours, ce qui doit passer avant, ce dont il a besoin, ce qu'il produit.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">04 · Lire un fichier</p>
+
+<h2 id="-anatomie-22--une-étape"><i class="fa-solid fa-sitemap"></i> Anatomie (2/2) : une étape</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Champ</th>
+      <th>Question</th>
+      <th>Exemple</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">operationId</code></td>
+      <td>Quel appel ?</td>
+      <td><code class="language-plaintext highlighter-rouge">createQuote</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">parameters</code></td>
+      <td>Avec quelles données ?</td>
+      <td><code class="language-plaintext highlighter-rouge">$steps…outputs.quoteId</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dependsOn</code></td>
+      <td>Qui doit passer avant ?</td>
+      <td><code class="language-plaintext highlighter-rouge">verifierEligibilite</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">successCriteria</code></td>
+      <td>Réussi quand ?</td>
+      <td><code class="language-plaintext highlighter-rouge">$statusCode == 201</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">onFailure</code></td>
+      <td>Et si ça échoue ?</td>
+      <td><code class="language-plaintext highlighter-rouge">retry</code>, <code class="language-plaintext highlighter-rouge">goto</code>, <code class="language-plaintext highlighter-rouge">end</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">outputs</code></td>
+      <td>Que transmet l’étape ?</td>
+      <td><code class="language-plaintext highlighter-rouge">quoteId</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="notes">
+<p>⏱ 18:30 — Aussi : requestBody (le corps de la requête) et onSuccess (goto / end en cas de succès). dependsOn existe à deux niveaux : entre workflows (composer des parcours) et entre étapes (prérequis explicite).</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">04 · Lire un fichier</p>
+
+<h2 id="-les-expressions--le-fil-entre-les-étapes"><i class="fa-solid fa-dollar-sign"></i> Les expressions : le fil entre les étapes</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Expression</th>
+      <th>Lit…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$inputs.address</code></td>
+      <td>une entrée du workflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$statusCode == 201</code></td>
+      <td>le code HTTP de la réponse</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$response.body#/id</code></td>
+      <td>un champ de la réponse (JSON Pointer)</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$steps.creerDevis.outputs.quoteId</code></td>
+      <td>une sortie d’une étape précédente</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$workflows.identifierClient.outputs.customerId</code></td>
+      <td>une sortie d’un autre workflow</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$sourceDescriptions.quoteApi.createQuote</code></td>
+      <td>une opération d’un contrat d’API</td>
+    </tr>
+  </tbody>
+</table>
+
+<aside class="notes">
+<p>⏱ 20:00 — Les expressions rendent la spécification précise : on sait exactement d'où vient chaque valeur. À retenir : $steps…outputs rend explicite ce qu'on se transmet entre équipes.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">05 · Un exemple complet</p>
+
+<h2 id="-du-devis-à-la-police-en-un-workflow"><i class="fa-solid fa-route"></i> Du devis à la police, en un workflow</h2>
+
+<svg class="dg" viewBox="0 0 960 300" role="img" aria-label="Le workflow souscrireHabitation dépend du workflow identifierClient, puis enchaîne quatre étapes : créer le devis, vérifier l'éligibilité, payer (qui dépend de la vérification) et émettre la police.">
+  <defs>
+    <marker id="wf-arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrow" d="M0 0 L10 5 L0 10 z" /></marker>
+    <marker id="wf-arr-w" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="dg-arrow--warn" d="M0 0 L10 5 L0 10 z" /></marker>
+    <path id="wf-p-nominal" d="M70 150 H935" />
+    <path id="wf-p-retry" d="M70 150 H625 C705 290 545 290 625 150 H935" />
+    <path id="wf-p-order" d="M70 150 H255 C300 285 560 285 615 205" />
+  </defs>
+  <path class="dg-line--dim" d="M130 150 H935" />
+  <g class="fragment fade-in-then-out" data-fragment-index="1">
+    <path class="dg-line--warn" d="M625 150 C705 290 545 290 625 150" />
+    <text class="dg-m dg-m--warn" x="625" y="272" text-anchor="middle">onFailure: retry ×3 (2 s)</text>
+  </g>
+  <g class="fragment" data-fragment-index="2">
+    <path class="dg-line--warn" d="M255 150 C300 285 560 285 615 205" marker-end="url(#wf-arr-w)" />
+  </g>
+  <rect class="dg-box--muted" x="8" y="108" width="122" height="84" rx="10" />
+  <text class="dg-s" x="69" y="130" text-anchor="middle">workflow</text>
+  <text class="dg-m" x="69" y="152" text-anchor="middle" style="font-size:11px">identifierClient</text>
+  <text class="dg-s" x="69" y="174" text-anchor="middle">→ customerId</text>
+  <path class="dg-line" d="M130 150 H168" marker-end="url(#wf-arr)" />
+  <text class="dg-m" x="150" y="98" text-anchor="middle" style="font-size:10.5px">dependsOn</text>
+  <rect class="dg-box dg-box--accent" x="175" y="100" width="160" height="100" rx="10" />
+  <text class="dg-s" x="189" y="122">step 1</text>
+  <text class="dg-m" x="189" y="146" style="font-size:12.5px">creerDevis</text>
+  <text class="dg-s" x="189" y="168">POST /quotes</text>
+  <text class="dg-s" x="189" y="186">→ quoteId</text>
+  <rect class="dg-box dg-box--accent" x="360" y="100" width="160" height="100" rx="10" />
+  <text class="dg-s" x="374" y="122">step 2</text>
+  <text class="dg-m" x="374" y="146">verifierEligibilite</text>
+  <text class="dg-s" x="374" y="168">POST …/eligibility</text>
+  <text class="dg-s" x="374" y="186">→ eligible == true</text>
+  <rect class="dg-box dg-box--accent" x="545" y="100" width="160" height="100" rx="10" />
+  <text class="dg-s" x="559" y="122">step 3</text>
+  <text class="dg-m" x="559" y="146" style="font-size:12.5px">payer</text>
+  <text class="dg-s" x="559" y="168">POST /payments</text>
+  <text class="dg-s" x="559" y="186">→ paymentId</text>
+  <rect class="dg-box dg-box--accent" x="730" y="100" width="160" height="100" rx="10" />
+  <text class="dg-s" x="744" y="122">step 4</text>
+  <text class="dg-m" x="744" y="146" style="font-size:12.5px">emettrePolice</text>
+  <text class="dg-s" x="744" y="168">POST /policies</text>
+  <text class="dg-s" x="744" y="186">→ policyId</text>
+  <path class="dg-line" d="M445 100 C470 34 600 34 622 96" marker-end="url(#wf-arr)" />
+  <text class="dg-m" x="533" y="40" text-anchor="middle">dependsOn: [verifierEligibilite]</text>
+  <g class="fragment" data-fragment-index="2">
+    <path class="dg-line--warn" d="M445 100 C470 34 600 34 622 96" marker-end="url(#wf-arr-w)" />
+    <rect class="dg-box dg-box--warn" x="700" y="230" width="252" height="56" rx="10" />
+    <text class="dg-m dg-m--warn" x="826" y="252" text-anchor="middle">dependsOn non respecté</text>
+    <text class="dg-s" x="826" y="272" text-anchor="middle">payer appelé avant verifierEligibilite</text>
+  </g>
+  <circle cx="935" cy="150" r="16" class="dg-band" />
+  <text class="dg-t" x="935" y="155" text-anchor="middle" style="font-size:13px">✓</text>
+  <text class="dg-s" x="935" y="190" text-anchor="middle">policyId</text>
+  <g class="fragment fade-out" data-fragment-index="1"><circle r="7" class="dg-dot"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#wf-p-nominal" /></animateMotion></circle></g>
+  <g class="fragment fade-in-then-out" data-fragment-index="1"><circle r="7" class="dg-dot--warn"><animateMotion dur="8s" repeatCount="indefinite"><mpath href="#wf-p-retry" /></animateMotion></circle></g>
+  <g class="fragment" data-fragment-index="2"><circle r="7" class="dg-dot--warn"><animateMotion dur="4s" repeatCount="indefinite"><mpath href="#wf-p-order" /></animateMotion></circle></g>
+</svg>
+
+<div class="caption r-stack">
+<p class="fragment fade-out" data-fragment-index="1"><strong>Nominal</strong> : le parcours démarre après <code>identifierClient</code> (<code>dependsOn</code> de workflow), puis chaque étape lit les <code>outputs</code> de la précédente.</p>
+<p class="fragment fade-in-then-out" data-fragment-index="1"><strong>503 → retry</strong> : <code>payer</code> répond 503, <code>onFailure</code> relance jusqu'à 3 fois, toutes les 2 s. La reprise est écrite dans le contrat.</p>
+<p class="fragment" data-fragment-index="2"><strong>Ordre non respecté</strong> : <code>payer</code> appelé avant <code>verifierEligibilite</code>, or le contrat <em>spécifie</em> que <code>payer</code> en dépend.</p>
+</div>
+
+<aside class="notes">
+<p>⏱ 22:30 — Deux clics : nominal → retry → ordre non respecté.</p>
+<p>Ordre non respecté : on ne paie jamais avant l'éligibilité. Le dependsOn rend cette règle contractuelle : le parcours la spécifie noir sur blanc.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">05 · Un exemple complet</p>
+
+<h2 id="-le-fichier-13--sources-et-workflows"><i class="fa-solid fa-file-code"></i> Le fichier (1/3) : sources et workflows</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">arazzo</span><span class="pi">:</span> <span class="s">1.1.0</span>
+<span class="na">info</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">title</span><span class="pi">:</span> <span class="nv">Souscription habitation</span><span class="pi">,</span> <span class="nv">version</span><span class="pi">:</span> <span class="nv">1.0.0</span> <span class="pi">}</span>
+<span class="na">sourceDescriptions</span><span class="pi">:</span>                         <span class="c1"># les contrats d'API, référencés</span>
+  <span class="pi">-</span> <span class="pi">{</span> <span class="nv">name</span><span class="pi">:</span> <span class="nv">quoteApi</span><span class="pi">,</span>   <span class="nv">type</span><span class="pi">:</span> <span class="nv">openapi</span><span class="pi">,</span> <span class="nv">url</span><span class="pi">:</span> <span class="nv">./quote-api.openapi.yaml</span> <span class="pi">}</span>
+  <span class="pi">-</span> <span class="pi">{</span> <span class="nv">name</span><span class="pi">:</span> <span class="nv">paymentApi</span><span class="pi">,</span> <span class="nv">type</span><span class="pi">:</span> <span class="nv">openapi</span><span class="pi">,</span> <span class="nv">url</span><span class="pi">:</span> <span class="nv">./payment-api.openapi.yaml</span> <span class="pi">}</span>
+  <span class="pi">-</span> <span class="pi">{</span> <span class="nv">name</span><span class="pi">:</span> <span class="nv">policyApi</span><span class="pi">,</span>  <span class="nv">type</span><span class="pi">:</span> <span class="nv">openapi</span><span class="pi">,</span> <span class="nv">url</span><span class="pi">:</span> <span class="nv">./policy-api.openapi.yaml</span> <span class="pi">}</span>
+<span class="na">workflows</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">workflowId</span><span class="pi">:</span> <span class="s">identifierClient</span>            <span class="c1"># étapes non détaillées ici</span>
+  <span class="pi">-</span> <span class="na">workflowId</span><span class="pi">:</span> <span class="s">souscrireHabitation</span>
+    <span class="na">dependsOn</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">identifierClient</span> <span class="pi">]</span>         <span class="c1"># un parcours prérequis</span>
+    <span class="na">steps</span><span class="pi">:</span>                                  <span class="c1"># diapos suivantes</span>
+</code></pre></div></div>
+
+<aside class="notes">
+<p>⏱ 25:00 — dependsOn de workflow : souscrireHabitation ne démarre qu'une fois identifierClient terminé. On compose des parcours comme des briques.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">05 · Un exemple complet</p>
+
+<h2 id="-le-fichier-23--les-premières-étapes"><i class="fa-solid fa-file-code"></i> Le fichier (2/3) : les premières étapes</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">stepId</span><span class="pi">:</span> <span class="s">creerDevis</span>
+        <span class="na">operationId</span><span class="pi">:</span> <span class="s">$sourceDescriptions.quoteApi.createQuote</span>
+        <span class="na">requestBody</span><span class="pi">:</span>
+          <span class="na">payload</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">customerId</span><span class="pi">:</span> <span class="nv">$workflows.identifierClient.outputs.customerId</span> <span class="pi">}</span>
+        <span class="na">successCriteria</span><span class="pi">:</span> <span class="pi">[</span> <span class="pi">{</span> <span class="nv">condition</span><span class="pi">:</span> <span class="nv">$statusCode == 201</span> <span class="pi">}</span> <span class="pi">]</span>
+        <span class="na">outputs</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">quoteId</span><span class="pi">:</span> <span class="nv">$response.body#/id</span> <span class="pi">}</span>
+      <span class="pi">-</span> <span class="na">stepId</span><span class="pi">:</span> <span class="s">verifierEligibilite</span>
+        <span class="na">operationId</span><span class="pi">:</span> <span class="s">$sourceDescriptions.quoteApi.checkEligibility</span>
+        <span class="na">parameters</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="pi">{</span> <span class="nv">name</span><span class="pi">:</span> <span class="nv">id</span><span class="pi">,</span> <span class="nv">in</span><span class="pi">:</span> <span class="nv">path</span><span class="pi">,</span> <span class="nv">value</span><span class="pi">:</span> <span class="nv">$steps.creerDevis.outputs.quoteId</span> <span class="pi">}</span>
+        <span class="na">successCriteria</span><span class="pi">:</span> <span class="pi">[</span> <span class="pi">{</span> <span class="nv">condition</span><span class="pi">:</span> <span class="nv">$response.body#/eligible == true</span> <span class="pi">}</span> <span class="pi">]</span>
+</code></pre></div></div>
+
+<aside class="notes">
+<p>⏱ 26:30 — Montrer : operationId pointe vers le contrat OpenAPI ; $workflows… réutilise la sortie du parcours prérequis ; $steps.creerDevis.outputs.quoteId fait circuler la donnée.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">05 · Un exemple complet</p>
+
+<h2 id="-le-fichier-33--dependson-détape"><i class="fa-solid fa-sitemap"></i> Le fichier (3/3) : <code class="language-plaintext highlighter-rouge">dependsOn</code> d’étape</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      <span class="pi">-</span> <span class="na">stepId</span><span class="pi">:</span> <span class="s">payer</span>
+        <span class="na">operationId</span><span class="pi">:</span> <span class="s">$sourceDescriptions.paymentApi.pay</span>
+        <span class="c1"># Prérequis explicite. Selon la spec Arazzo, en synchrone l'ordre</span>
+        <span class="c1"># de steps suffit : dependsOn sert surtout à l'asynchrone (annexe).</span>
+        <span class="na">dependsOn</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">verifierEligibilite</span> <span class="pi">]</span>    <span class="c1"># jamais payer avant</span>
+        <span class="na">requestBody</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">payload</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">quoteId</span><span class="pi">:</span> <span class="nv">$steps.creerDevis.outputs.quoteId</span> <span class="pi">}</span> <span class="pi">}</span>
+        <span class="na">successCriteria</span><span class="pi">:</span> <span class="pi">[</span> <span class="pi">{</span> <span class="nv">condition</span><span class="pi">:</span> <span class="nv">$statusCode == 201</span> <span class="pi">}</span> <span class="pi">]</span>
+        <span class="na">onFailure</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="pi">{</span> <span class="nv">name</span><span class="pi">:</span> <span class="nv">indispo</span><span class="pi">,</span> <span class="nv">type</span><span class="pi">:</span> <span class="nv">retry</span><span class="pi">,</span> <span class="nv">retryAfter</span><span class="pi">:</span> <span class="nv">2</span><span class="pi">,</span> <span class="nv">retryLimit</span><span class="pi">:</span> <span class="nv">3</span><span class="pi">,</span>
+              <span class="nv">criteria</span><span class="pi">:</span> <span class="pi">[</span> <span class="pi">{</span> <span class="nv">condition</span><span class="pi">:</span> <span class="nv">$statusCode == 503</span> <span class="pi">}</span> <span class="pi">]</span> <span class="pi">}</span>
+        <span class="na">outputs</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">paymentId</span><span class="pi">:</span> <span class="nv">$response.body#/id</span> <span class="pi">}</span>
+      <span class="pi">-</span> <span class="na">stepId</span><span class="pi">:</span> <span class="s">emettrePolice</span>
+        <span class="na">operationId</span><span class="pi">:</span> <span class="s">$sourceDescriptions.policyApi.issuePolicy</span>
+        <span class="na">outputs</span><span class="pi">:</span> <span class="pi">{</span> <span class="nv">policyId</span><span class="pi">:</span> <span class="nv">$response.body#/policyId</span> <span class="pi">}</span>
+</code></pre></div></div>
+
+<aside class="notes">
+<p>⏱ 28:00 — dependsOn d'étape : « liste des étapes qui DOIVENT être terminées avant celle-ci ». Il n'exécute rien : il pose un prérequis.</p>
+<p>Être honnête : la spec recommande l'ordre du tableau pour le synchrone ; dependsOn est surtout pensé pour l'asynchrone (annexe). Son intérêt ici : rendre la règle métier explicite dans le contrat.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">06 · Esprit critique</p>
+
+<h2 id="-pourquoi-y-aller-et-ce-qui-peut-coincer"><i class="fa-solid fa-scale-balanced"></i> Pourquoi y aller, et ce qui peut coincer</h2>
+
+<div class="columns small">
+<div class="card card--ok">
+<h3><i class="fa-solid fa-thumbs-up"></i> Ce qu'on gagne</h3>
+<ul>
+<li><strong>Une source de vérité</strong> du parcours, revue en PR</li>
+<li><strong>Spécifié</strong> : ordre, données, critères de succès</li>
+<li><strong>Norme ouverte</strong> : pas de verrou éditeur</li>
+<li><strong>Partagé</strong> : archis, devs et QA lisent le même fichier</li>
+<li><strong>REST + Kafka</strong> dans un même parcours (1.1)</li>
+</ul>
+</div>
+<div class="card card--warn">
+<h3><i class="fa-solid fa-triangle-exclamation"></i> Ce qui peut coincer</h3>
+<ul>
+<li><strong>Norme jeune</strong> : peu de retours d'expérience</li>
+<li><strong>Prérequis</strong> : sans contrats d'API à jour, l'Arazzo ment</li>
+<li><strong>Maintenance</strong> : qui est propriétaire du fichier ?</li>
+<li><strong>Hors norme</strong> : les jeux de données</li>
+</ul>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 30:00 — Être honnête sur les limites : c'est ce qui rend crédible.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">06 · Esprit critique</p>
+
+<h2 id="-mon-parti-pris"><i class="fa-solid fa-bullseye"></i> Mon parti pris</h2>
+
+<p class="statement">Ne pas tout « arazzo-iser ». <strong>Un parcours critique</strong>, multi-équipes, qui casse en recette.</p>
+
+<p class="muted">Si en 3 mois il n'a pas clarifié le parcours entre les équipes, on arrête.</p>
+
+<aside class="notes">
+<p>⏱ 31:00 — Critère de succès explicite pour l'expérimentation : un parcours mieux compris entre équipes en 3 mois.</p>
+</aside>
+      </section>
+      <section>
+<p class="proto"><span class="tag tag--warn"><i class="fa-solid fa-flask"></i> Prototype · pas une version de Microcks</span></p>
+<p class="eyebrow eyebrow--warn">07 · Une hypothèse</p>
+
+<h2 id="-et-si-demain-microcks-v2"><i class="fa-solid fa-lightbulb"></i> Et si demain, Microcks V2…</h2>
+
+<p class="statement">… vérifiait que nos applications <strong>respectent leurs workflows Arazzo</strong> ?</p>
+
+<div class="columns columns--3 small">
+<div class="card card--warn"><h3><i class="fa-solid fa-xmark"></i> Pas une release</h3><p>Aucune version de Microcks ne fait ça aujourd'hui.</p></div>
+<div class="card card--warn"><h3><i class="fa-solid fa-xmark"></i> Pas une roadmap</h3><p>Rien n'est décidé par le projet Microcks.</p></div>
+<div class="card card--ok"><h3><i class="fa-solid fa-microscope"></i> Un prototype</h3><p>Sur mon fork, pour tester l'idée et <strong>recueillir votre avis</strong>.</p></div>
+</div>
+
+<aside class="notes">
+<p>⏱ 32:00 — Changer de ton : on quitte la norme, on entre dans une hypothèse. Prototype sur un fork, pas une version, pas une roadmap.</p>
+<p>Microcks mocke et teste déjà nos contrats OpenAPI, AsyncAPI, gRPC, GraphQL. L'idée : faire la même chose pour les parcours.</p>
+</aside>
+      </section>
+      <section>
+<p class="proto"><span class="tag tag--warn"><i class="fa-solid fa-flask"></i> Prototype · pas une version de Microcks</span></p>
+<p class="eyebrow eyebrow--warn">07 · Une hypothèse</p>
+
+<h2 id="-microcks-v2--un-fichier-deux-vérifications"><i class="fa-solid fa-lightbulb"></i> Microcks V2 ? Un fichier, deux vérifications</h2>
+
+<svg class="dg" viewBox="0 0 960 360" role="img" aria-label="Les contrats sont importés dans Microcks, qui rejouerait le workflow sur ses mocks ou sur l'application réelle ; la CI le déclencherait par API.">
+  <defs>
+    <path id="mk-in1" d="M190 60 C260 60 270 160 360 160" />
+    <path id="mk-in2" d="M190 160 H360" />
+    <path id="mk-in3" d="M190 260 C260 260 270 160 360 160" />
+    <path id="mk-o1" d="M600 140 C660 140 660 70 715 70" />
+    <path id="mk-o2" d="M600 180 C660 180 660 250 715 250" />
+    <path id="mk-ci" d="M480 310 V230" />
+  </defs>
+  <rect class="dg-band" x="30" y="35" width="160" height="50" rx="10" />
+  <text class="dg-t" x="110" y="66" text-anchor="middle">Arazzo</text>
+  <rect class="dg-box dg-box--accent" x="30" y="135" width="160" height="50" rx="10" />
+  <text class="dg-t" x="110" y="166" text-anchor="middle">OpenAPI</text>
+  <rect class="dg-box dg-box--async" x="30" y="235" width="160" height="50" rx="10" />
+  <text class="dg-t" x="110" y="266" text-anchor="middle">AsyncAPI</text>
+  <text class="dg-s" x="110" y="310" text-anchor="middle">import · liaison nom + version</text>
+  <use href="#mk-in1" class="dg-line dg-flow" />
+  <use href="#mk-in2" class="dg-line dg-flow" />
+  <use href="#mk-in3" class="dg-line--async dg-flow" />
+  <rect class="dg-box dg-box--warn" x="360" y="90" width="240" height="140" rx="12" style="stroke-width:2" />
+  <text class="dg-t" x="480" y="125" text-anchor="middle" style="font-size:18px">Microcks V2 ?</text>
+  <text class="dg-s" x="480" y="148" text-anchor="middle">le workflow devient un objet testable</text>
+  <rect class="dg-chip" x="395" y="165" width="170" height="26" rx="13" />
+  <text class="dg-m" x="480" y="182" text-anchor="middle">rejoue les étapes</text>
+  <text class="dg-s" x="480" y="212" text-anchor="middle">diagramme · résultat · historique</text>
+  <use href="#mk-o1" class="dg-line dg-flow" />
+  <use href="#mk-o2" class="dg-line dg-flow" />
+  <rect class="dg-box" x="715" y="35" width="215" height="72" rx="10" />
+  <text class="dg-t" x="822" y="64" text-anchor="middle">Sur les mocks</text>
+  <text class="dg-s" x="822" y="86" text-anchor="middle">je code sans attendre les autres</text>
+  <rect class="dg-box" x="715" y="215" width="215" height="72" rx="10" />
+  <text class="dg-t" x="822" y="244" text-anchor="middle">Sur l'application</text>
+  <text class="dg-s" x="822" y="266" text-anchor="middle">je prouve que je le respecte</text>
+  <use href="#mk-ci" class="dg-line dg-flow" />
+  <rect class="dg-box" x="380" y="310" width="200" height="40" rx="10" />
+  <text class="dg-m" x="480" y="335" text-anchor="middle">CI → API Microcks</text>
+  <circle r="5" class="dg-dot"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#mk-in1" /></animateMotion></circle>
+  <circle r="5" class="dg-dot"><animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite"><mpath href="#mk-in2" /></animateMotion></circle>
+  <circle r="5" class="dg-dot--async"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#mk-in3" /></animateMotion></circle>
+  <circle r="5" class="dg-dot"><animateMotion dur="2s" begin="0.3s" repeatCount="indefinite"><mpath href="#mk-o1" /></animateMotion></circle>
+  <circle r="5" class="dg-dot"><animateMotion dur="2s" begin="1.3s" repeatCount="indefinite"><mpath href="#mk-o2" /></animateMotion></circle>
+  <circle r="5" class="dg-dot--warn"><animateMotion dur="1.8s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#mk-ci" /></animateMotion></circle>
+</svg>
+
+<aside class="notes">
+<p>⏱ 34:00 — Deux cibles pour un même fichier : les mocks (côté consommateur) et l'application réelle (côté fournisseur). La CI pourrait déclencher la vérification par API.</p>
+</aside>
+      </section>
+      <section>
+<p class="proto"><span class="tag tag--warn"><i class="fa-solid fa-flask"></i> Prototype · pas une version de Microcks</span></p>
+<p class="eyebrow eyebrow--warn">07 · Ce que montre le prototype</p>
+
+<h2 id="-microcks-lirait-le-workflow"><i class="fa-solid fa-diagram-project"></i> Microcks lirait le workflow</h2>
+
+<div class="columns columns--3-2">
+<a href="/pr-preview/pr-11/assets/img/decks/arazzo/microcks-arazzo-workflow.png"><img src="/pr-preview/pr-11/assets/img/decks/arazzo/microcks-arazzo-workflow-crop.png" alt="Capture du prototype Microcks : un workflow Arazzo importé, affiché en diagramme avec une étape REST createOrder puis deux étapes événement, et les données qui circulent entre elles." /></a>
+<div class="small">
+<ul>
+<li>Le fichier Arazzo importé, relié à ses contrats d'API</li>
+<li>Étapes <strong>REST</strong> et <strong>événement</strong> dans un même diagramme</li>
+<li>Les données qui circulent : <code>orderId → correlationId</code></li>
+<li>Le critère de succès de chaque étape</li>
+</ul>
+<p class="muted"><strong>Pour l'architecte</strong> : le parcours devient visible et revu, pas seulement dessiné.</p>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 35:30 — Capture du prototype, sur une API d'exemple (commande / expédition), pas sur nos API. Clic sur l'image : capture complète.</p>
+</aside>
+      </section>
+      <section>
+<p class="proto"><span class="tag tag--warn"><i class="fa-solid fa-flask"></i> Prototype · pas une version de Microcks</span></p>
+<p class="eyebrow eyebrow--warn">07 · Ce que montre le prototype</p>
+
+<h2 id="-microcks-vérifierait-les-appels-reçus"><i class="fa-solid fa-magnifying-glass-chart"></i> Microcks vérifierait les appels reçus</h2>
+
+<div class="columns columns--3-2">
+<a href="/pr-preview/pr-11/assets/img/decks/arazzo/microcks-arazzo-verification.png"><img src="/pr-preview/pr-11/assets/img/decks/arazzo/microcks-arazzo-verification-crop.png" alt="Capture du prototype Microcks : vérification en échec du workflow placeOrderSaga ; reserveStock était attendu avant chargePayment." /></a>
+<div class="small">
+<ul>
+<li>L'application a appelé les mocks Microcks</li>
+<li>Microcks compare ces appels au workflow Arazzo</li>
+<li>Verdict : <strong>échec</strong>, le paiement est arrivé <em>avant</em> la réservation de stock, exactement un prérequis de type <code>dependsOn</code></li>
+</ul>
+<p class="muted"><strong>Pour le QA et le dev</strong> : un verdict qui pointe l'étape, pas un log de 3 000 lignes.</p>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 37:00 — C'est le « check » de l'hypothèse : vérifier qu'une application respecte ce que le contrat Arazzo spécifie. Question : ce verdict vous aurait-il fait gagner du temps sur votre dernier incident de recette ?</p>
+</aside>
+      </section>
+      <section>
+<p class="proto"><span class="tag tag--warn"><i class="fa-solid fa-flask"></i> Hypothèse · à valider ensemble</span></p>
+<p class="eyebrow eyebrow--warn">08 · Si l'hypothèse tient</p>
+
+<h2 id="-un-fichier-trois-métiers"><i class="fa-solid fa-users"></i> Un fichier, trois métiers</h2>
+
+<div class="columns">
+<svg class="dg" viewBox="135 0 685 350" role="img" aria-label="Boucle : l'architecte écrit le workflow, le développeur code contre ses mocks, le QA le vérifie en CI ; les régressions reviennent à l'architecte.">
+  <defs><path id="loop" d="M480 45 A130 130 0 1 1 479.9 45 Z" /></defs>
+  <use href="#loop" class="dg-line--dim" />
+  <rect class="dg-band" x="380" y="150" width="200" height="50" rx="10" />
+  <text class="dg-m" x="480" y="173" text-anchor="middle">workflow.arazzo.yaml</text>
+  <text class="dg-s" x="480" y="191" text-anchor="middle">dans git, revu en PR</text>
+  <rect class="dg-box dg-box--accent" x="390" y="13" width="180" height="64" rx="10" />
+  <text class="dg-t" x="480" y="39" text-anchor="middle">Architecte</text>
+  <text class="dg-s" x="480" y="61" text-anchor="middle">décrit le parcours</text>
+  <rect class="dg-box dg-box--accent" x="560" y="245" width="200" height="64" rx="10" />
+  <text class="dg-t" x="660" y="271" text-anchor="middle">Développeur</text>
+  <text class="dg-s" x="660" y="293" text-anchor="middle">code contre les mocks</text>
+  <rect class="dg-box dg-box--async" x="200" y="245" width="200" height="64" rx="10" />
+  <text class="dg-t" x="300" y="271" text-anchor="middle">Testeur / QA</text>
+  <text class="dg-s" x="300" y="293" text-anchor="middle">vérifie en CI</text>
+  <text class="dg-s" x="640" y="125">1 · PR du workflow</text>
+  <text class="dg-s" x="480" y="338" text-anchor="middle">2 · implémentation vérifiée</text>
+  <text class="dg-s" x="320" y="125" text-anchor="end">3 · régression → retour archi</text>
+  <circle r="7" class="dg-dot"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#loop" /></animateMotion></circle>
+</svg>
+<div class="small">
+<ul>
+<li><strong>Architecte</strong> : d'un wiki vite obsolète à un workflow revu en PR avec les contrats d'API</li>
+<li><strong>Développeur</strong> : au lieu d'attendre l'équipe voisine, il code contre les mocks du parcours</li>
+<li><strong>Testeur / QA</strong> : des scénarios manuels hors contrat remplacés par une vérification en CI qui pointe l'étape en échec</li>
+</ul>
+</div>
+</div>
+
+<aside class="notes">
+<p>⏱ 38:30 — Si l'hypothèse se confirme : le fichier vit dans git, à côté des contrats d'API. Architectes : contribuer à l'écriture des workflows. QA : utiliser ces workflows pour vérifier nos applications.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">09 · À vous</p>
+
+<h2 id="-on-a-besoin-de-votre-avis"><i class="fa-solid fa-comments"></i> On a besoin de votre avis</h2>
+
+<ol>
+  <li>Quel parcours casse le plus souvent en recette ? <span class="muted">Notre pilote.</span></li>
+  <li>Ses contrats OpenAPI / AsyncAPI sont-ils à jour ? <span class="muted">Sinon, premier chantier.</span></li>
+  <li>La vérification par Microcks vous servirait-elle ? <span class="muted">Mocks, recette, CI ?</span></li>
+  <li>Qui serait propriétaire du workflow ? <span class="muted">Archi, produit, QA ?</span></li>
+</ol>
+
+<aside class="notes">
+<p>⏱ 40:00 — Garder 4 à 5 minutes. Noter les parcours candidats et les avis sur la vérification Microcks : ils décident si on pousse l'hypothèse V2.</p>
+</aside>
+      </section>
+      <section>
+<h2 id="-pour-aller-plus-loin"><i class="fa-solid fa-book"></i> Pour aller plus loin</h2>
+
+<ul>
+  <li><a href="https://spec.openapis.org/arazzo/v1.1.0">Arazzo Specification v1.1.0</a></li>
+  <li><a href="https://www.openapis.org/arazzo-specification">OpenAPI Initiative : Arazzo</a></li>
+  <li><a href="https://www.speakeasy.com/openapi/release-notes">OpenAPI 3.2 : notes de version</a></li>
+  <li><a href="https://www.asyncapi.com/blog/release-notes-3.1.0">AsyncAPI 3.1.0 : notes de version</a></li>
+  <li><a href="https://www.cncf.io/blog/2026/05/07/microcks-becomes-a-cncf-incubating-project/">Microcks devient CNCF Incubating</a></li>
+  <li><a href="https://github.com/sebastiendegodez/microcks/tree/feature/arazzo">Prototype Microcks × Arazzo (fork)</a></li>
+</ul>
+
+<aside class="notes">
+<p>⏱ 44:00 — Rappeler le lien du prototype et inviter à rejoindre la communauté Microcks.</p>
+</aside>
+      </section>
+      <section>
+<p class="eyebrow">Annexe · nouveau en Arazzo 1.1</p>
+
+<h2 id="-létape-événementielle"><i class="fa-solid fa-tower-broadcast"></i> L’étape événementielle</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="pi">-</span> <span class="na">stepId</span><span class="pi">:</span> <span class="s">attendrePoliceEmise</span>
+  <span class="na">operationId</span><span class="pi">:</span> <span class="s">$sourceDescriptions.policyEvents.onPolicyIssued</span>
+  <span class="na">action</span><span class="pi">:</span> <span class="s">receive</span>                       <span class="c1"># send publie, receive attend</span>
+  <span class="na">dependsOn</span><span class="pi">:</span> <span class="pi">[</span> <span class="nv">payer</span> <span class="pi">]</span>                  <span class="c1"># ici, dependsOn prend tout son sens</span>
+  <span class="na">correlationId</span><span class="pi">:</span> <span class="s">$steps.payer.outputs.paymentId</span>
+  <span class="na">timeout</span><span class="pi">:</span> <span class="m">30000</span>                        <span class="c1"># ms</span>
+  <span class="na">successCriteria</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">context</span><span class="pi">:</span> <span class="s">$message.payload</span>
+      <span class="na">condition</span><span class="pi">:</span> <span class="s">$.status == 'ISSUED'</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">jsonpath</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="na">policyId</span><span class="pi">:</span> <span class="s">$message.payload.policyId</span>
+</code></pre></div></div>
+
+<p class="muted small">Source <code>type: asyncapi</code> · <code>correlationId</code> aligné avec celui du contrat AsyncAPI · <code>$message.payload</code> lit le message reçu.</p>
+
+<aside class="notes">
+<p>Annexe, à montrer si la question Kafka vient. C'est le cas d'usage principal de dependsOn d'étape selon la spec : coordonner l'asynchrone.</p>
+</aside>
+      </section>
+      <section class="slide-end" data-background-image="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/bg.jpg" data-background-opacity="0.7">
+        <h2>Merci !</h2>
+        <ul class="slide-end__links">
+          <li><a href="https://sebastiendegodez.github.io">sebastiendegodez.github.io</a></li>
+          <li><a href="https://github.com/SebastienDegodez">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/sebastien-degodez">LinkedIn</a></li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0.06,
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controlsTutorial: false,
+      plugins: [RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>

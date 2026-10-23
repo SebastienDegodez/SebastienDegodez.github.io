@@ -1,0 +1,368 @@
+/* ================================================================
+   REVEAL.JS — thème Tech Glass
+   Même identité que le site : tokens de design-tokens.css (chargé avant ce fichier).
+   Repli sur les valeurs en dur si les tokens sont absents.
+   ================================================================ */
+
+:root {
+  --r-background-color: var(--color-background, #0e1618);
+  --r-main-font: var(--font-sans, Lato, 'Segoe UI', sans-serif);
+  --r-main-font-size: var(--font-size-base, 35px);
+  --r-main-color: var(--color-foreground, #e9f7ef);
+  --r-block-margin: 20px;
+  --r-heading-margin: 0 0 24px 0;
+  --r-heading-font: var(--font-sans, Lato, 'Segoe UI', sans-serif);
+  --r-heading-color: var(--color-foreground, #e9f7ef);
+  --r-heading-line-height: 1.2;
+  --r-heading-letter-spacing: 0.02em;
+  --r-heading-text-transform: none;
+  --r-heading-text-shadow: none;
+  --r-heading-font-weight: 900;
+  --r-heading1-size: 2.4em;
+  --r-heading2-size: 1.7em;
+  --r-heading3-size: 1.3em;
+  --r-heading4-size: 1em;
+  --r-code-font: var(--font-mono, 'Fira Code', Menlo, monospace);
+  --r-link-color: var(--color-highlight, #8be5b1);
+  --r-link-color-dark: var(--color-primary, #4ed58a);
+  --r-link-color-hover: var(--color-foreground, #e9f7ef);
+  --r-selection-background-color: rgba(78, 213, 138, 0.4);
+  --r-selection-color: #fff;
+}
+
+html,
+body {
+  background: var(--r-background-color);
+}
+
+.reveal-viewport {
+  background:
+    radial-gradient(circle at 80% 10%, rgba(78, 213, 138, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(78, 213, 138, 0.08) 0%, rgba(78, 213, 138, 0.03) 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%),
+    var(--r-background-color);
+}
+
+.reveal {
+  font-family: var(--r-main-font);
+  font-size: var(--r-main-font-size);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--r-main-color);
+}
+
+.reveal .slides section {
+  text-align: left;
+}
+
+/* ── Titres ────────────────────────────────────────────────────── */
+/* reveal.css ne lit pas les variables --r-heading* : ce sont les thèmes qui les appliquent. */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  margin: var(--r-heading-margin);
+  font-family: var(--r-heading-font);
+  font-weight: var(--r-heading-font-weight);
+  line-height: var(--r-heading-line-height);
+  letter-spacing: var(--r-heading-letter-spacing);
+  text-transform: var(--r-heading-text-transform);
+  text-shadow: var(--r-heading-text-shadow);
+  color: var(--r-heading-color);
+  word-wrap: break-word;
+}
+.reveal h1 { font-size: var(--r-heading1-size); }
+.reveal h2 { font-size: var(--r-heading2-size); }
+.reveal h3 { font-size: var(--r-heading3-size); }
+.reveal h4 { font-size: var(--r-heading4-size); }
+.reveal h2 {
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--color-stripe, rgba(139, 229, 177, 0.14));
+}
+.reveal h3,
+.reveal h4 { color: var(--color-highlight, #8be5b1); }
+.reveal strong,
+.reveal b { color: var(--color-highlight, #8be5b1); font-weight: 900; }
+
+/* ── Texte, listes, liens ──────────────────────────────────────── */
+.reveal ul,
+.reveal ol {
+  display: block;
+  margin-left: 1em;
+  text-align: left;
+}
+.reveal li + li { margin-top: 0.3em; }
+.reveal li::marker { color: var(--color-primary, #4ed58a); }
+
+.reveal a {
+  color: var(--r-link-color);
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 229, 177, 0.4);
+  text-underline-offset: 0.18em;
+}
+.reveal a:hover { text-decoration-color: currentColor; }
+
+/* ── Citations & cartes « verre » ──────────────────────────────── */
+.reveal blockquote,
+.reveal .card {
+  width: auto;
+  margin: var(--r-block-margin) 0;
+  padding: 0.6em 1em;
+  background: var(--glass-bg, rgba(15, 27, 24, 0.9));
+  border: 1px solid var(--glass-border, rgba(139, 229, 177, 0.22));
+  border-radius: 10px;
+  box-shadow: var(--glass-shadow, 0 18px 60px rgba(0, 0, 0, 0.42));
+}
+.reveal blockquote {
+  border-left: 4px solid var(--color-primary, #4ed58a);
+  font-style: normal;
+  color: var(--color-dimmed, #b8d0c1);
+}
+.reveal blockquote p { margin: 0; }
+
+/* ── Code ──────────────────────────────────────────────────────── */
+.reveal code {
+  font-family: var(--r-code-font);
+  font-size: 0.8em;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  background: rgba(139, 229, 177, 0.12);
+  color: var(--color-highlight, #8be5b1);
+}
+.reveal pre {
+  width: 100%;
+  margin: var(--r-block-margin) 0;
+  font-size: 0.6em;
+  line-height: 1.5;
+  background: var(--glass-bg-strong, rgba(10, 20, 18, 0.95));
+  border: 1px solid var(--glass-border, rgba(139, 229, 177, 0.22));
+  border-radius: 10px;
+  box-shadow: var(--glass-shadow, 0 18px 60px rgba(0, 0, 0, 0.42));
+}
+.reveal pre code {
+  max-height: 520px;
+  padding: 0.9em 1.1em;
+  background: none;
+  color: var(--color-foreground, #e9f7ef);
+  font-size: inherit;
+}
+
+/* Coloration syntaxique (highlight.js) */
+.reveal .hljs { background: transparent; color: var(--color-foreground, #e9f7ef); }
+.reveal .hljs-comment,
+.reveal .hljs-quote { color: #7f9a8b; font-style: italic; }
+.reveal .hljs-keyword,
+.reveal .hljs-selector-tag,
+.reveal .hljs-literal,
+.reveal .hljs-doctag { color: #4ed58a; }
+.reveal .hljs-string,
+.reveal .hljs-regexp,
+.reveal .hljs-addition { color: #80cbc4; }
+.reveal .hljs-number,
+.reveal .hljs-meta,
+.reveal .hljs-symbol,
+.reveal .hljs-bullet { color: #ffca28; }
+.reveal .hljs-title,
+.reveal .hljs-section,
+.reveal .hljs-built_in,
+.reveal .hljs-type,
+.reveal .hljs-class .hljs-title { color: #8be5b1; }
+.reveal .hljs-attr,
+.reveal .hljs-attribute,
+.reveal .hljs-variable,
+.reveal .hljs-template-variable { color: #b8d0c1; }
+.reveal .hljs-deletion { color: #ff7b72; }
+
+/* ── Images & tableaux ─────────────────────────────────────────── */
+.reveal section img {
+  max-height: 520px;
+  margin: var(--r-block-margin) auto;
+  background: none;
+  border: 1px solid var(--glass-border, rgba(139, 229, 177, 0.22));
+  border-radius: 10px;
+  box-shadow: none;
+}
+.reveal section img.presenter__avatar { margin: 0; }
+
+.reveal table { margin: var(--r-block-margin) 0; font-size: 0.8em; }
+.reveal table th,
+.reveal table td {
+  padding: 0.4em 0.8em;
+  text-align: left;
+  border-bottom: 1px solid var(--color-stripe, rgba(139, 229, 177, 0.14));
+}
+.reveal table th { color: var(--color-highlight, #8be5b1); font-weight: 900; }
+
+/* Pastille, comme .tag du site : <span class="tag">.NET</span> */
+.reveal .tag {
+  display: inline-block;
+  padding: 0.05em 0.5em;
+  font-size: 0.6em;
+  font-weight: 700;
+  border-radius: 4px;
+  background: rgba(78, 213, 138, 0.2);
+  color: var(--color-highlight, #8be5b1);
+  border: 1px solid rgba(139, 229, 177, 0.25);
+}
+
+/* ── Utilitaires de mise en page ───────────────────────────────── */
+/* Surtitre de section, au-dessus d'un ## */
+.reveal .eyebrow {
+  margin: 0 0 0.3em;
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-highlight, #8be5b1);
+}
+.reveal .eyebrow--warn { color: var(--color-warn, #ffca28); }
+/* Phrase-choc, plus grande que le texte courant */
+.reveal .statement { font-size: 1.3em; font-weight: 900; line-height: 1.2; }
+.reveal .warn { color: var(--color-warn, #ffca28); }
+.reveal .muted { color: var(--color-dimmed, #b8d0c1); }
+.reveal .small { font-size: 0.7em; }
+.reveal .small h3 { font-size: 1.15em; margin-bottom: 0.4em; }
+.reveal .small li + li { margin-top: 0.4em; }
+/* Variantes de .columns (design-tokens.css) */
+.reveal .columns--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.reveal .columns--1-2 { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); align-items: center; }
+.reveal .columns--3-2 { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; }
+.reveal .columns { gap: 0.8em; }
+.reveal .columns .card { margin: 0; }
+.reveal .columns > a { display: block; min-width: 0; }
+.reveal .columns img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.reveal .card--warn { border-top: 3px solid var(--color-warn, #ffca28); }
+.reveal .card--ok { border-top: 3px solid var(--color-primary, #4ed58a); }
+/* Photo ronde (diapo « Qui suis-je ») */
+.reveal section img.avatar-xl {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--color-highlight, #8be5b1);
+}
+/* Pastille d'avertissement et bandeau « prototype » en haut à droite */
+.reveal .tag--warn {
+  color: var(--color-warn, #ffca28);
+  background: color-mix(in srgb, var(--color-warn, #ffca28) 12%, transparent);
+  border-color: color-mix(in srgb, var(--color-warn, #ffca28) 45%, transparent);
+}
+.reveal .proto { position: absolute; top: 0; right: 0; margin: 0; }
+.reveal .proto .tag { font-size: 0.45em; letter-spacing: 0.08em; text-transform: uppercase; }
+/* Légende sous un schéma ; avec .r-stack, une légende par étape (fragments) */
+.reveal .caption { margin: 0.4em 0 0; font-size: 0.55em; color: var(--color-dimmed, #b8d0c1); }
+.reveal .caption.r-stack { display: grid; }
+.reveal .caption.r-stack > * { margin: 0; text-align: left; }
+
+/* ── Schémas SVG (diapos) ──────────────────────────────────────── */
+/* <svg class="dg" viewBox="…"> : formes et textes ne lisent que les tokens */
+.reveal svg.dg { display: block; width: 100%; height: auto; max-height: 440px; margin: 0.2em auto; }
+.dg-box { fill: var(--glass-bg-strong, rgba(10, 20, 18, 0.95)); stroke: var(--glass-border-strong, rgba(139, 229, 177, 0.34)); stroke-width: 1.5; }
+.dg-box--accent { stroke: var(--color-primary, #4ed58a); }
+.dg-box--async { stroke: var(--color-tech-mint, #80cbc4); }
+.dg-box--warn { stroke: var(--color-warn, #ffca28); fill: color-mix(in srgb, var(--color-warn, #ffca28) 8%, var(--color-background, #0e1618)); }
+.dg-box--muted { stroke: var(--color-dimmed, #b8d0c1); stroke-dasharray: 6 6; fill: color-mix(in srgb, var(--color-dimmed, #b8d0c1) 5%, transparent); }
+.dg-band { fill: color-mix(in srgb, var(--color-primary, #4ed58a) 14%, transparent); stroke: var(--color-primary, #4ed58a); stroke-width: 1.5; }
+.dg-chip { fill: color-mix(in srgb, var(--color-highlight, #8be5b1) 14%, transparent); stroke: color-mix(in srgb, var(--color-highlight, #8be5b1) 35%, transparent); }
+.dg-t { fill: var(--color-foreground, #e9f7ef); font-family: var(--font-sans, Lato, sans-serif); font-size: 15px; font-weight: 900; }
+.dg-s { fill: var(--color-dimmed, #b8d0c1); font-family: var(--font-sans, Lato, sans-serif); font-size: 12.5px; }
+.dg-m { fill: var(--color-highlight, #8be5b1); font-family: var(--font-mono, 'Fira Code', monospace); font-size: 12px; }
+.dg-m--async { fill: var(--color-tech-mint, #80cbc4); }
+.dg-m--warn, .dg-t--warn { fill: var(--color-warn, #ffca28); }
+.dg-line { stroke: var(--color-highlight, #8be5b1); stroke-width: 2; fill: none; }
+.dg-line--async { stroke: var(--color-tech-mint, #80cbc4); stroke-width: 2; fill: none; }
+.dg-line--warn { stroke: var(--color-warn, #ffca28); stroke-width: 2; fill: none; stroke-dasharray: 6 6; }
+.dg-line--dim { stroke: var(--color-dimmed, #b8d0c1); stroke-width: 1.5; fill: none; stroke-dasharray: 5 7; opacity: 0.7; }
+.dg-flow { stroke-dasharray: 8 8; animation: dg-dash 1.2s linear infinite; }
+.dg-dot { fill: var(--color-primary, #4ed58a); }
+.dg-dot--async { fill: var(--color-tech-mint, #80cbc4); }
+.dg-dot--warn { fill: var(--color-warn, #ffca28); }
+.dg-arrow { fill: var(--color-highlight, #8be5b1); }
+.dg-arrow--warn { fill: var(--color-warn, #ffca28); }
+.dg-pulse { animation: dg-pulse 1.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes dg-dash { to { stroke-dashoffset: -32; } }
+@keyframes dg-pulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .dg-flow, .dg-pulse { animation: none; }
+}
+
+/* ── Diapo de titre ────────────────────────────────────────────── */
+.reveal .slides section.slide-title,
+.reveal .slides section.slide-end { text-align: center; }
+
+.slide-title__eyebrow {
+  margin: 0 0 0.4em;
+  font-size: 0.6em;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-highlight, #8be5b1);
+}
+.slide-title__subtitle {
+  margin: 0 0 1.2em;
+  font-size: 0.85em;
+  color: var(--color-dimmed, #b8d0c1);
+}
+.presenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  text-align: left;
+}
+.presenter__avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--color-highlight, #8be5b1) !important;
+}
+.presenter__name { display: block; font-size: 0.85em; color: var(--color-foreground, #e9f7ef); }
+.presenter__role { display: block; font-size: 0.6em; color: var(--color-highlight, #8be5b1); }
+.slide-title__date { margin-top: 1.2em; font-size: 0.55em; color: var(--color-dimmed, #b8d0c1); }
+
+/* ── Diapo de fin ──────────────────────────────────────────────── */
+.slide-end h2 { border-bottom: 0; }
+.reveal .slide-end__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em 1.4em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.7em;
+}
+.slide-end__links li + li { margin-top: 0; }
+
+/* ── Interface Reveal ──────────────────────────────────────────── */
+.reveal .progress { color: var(--color-primary, #4ed58a); }
+.reveal .controls { color: var(--color-primary, #4ed58a); }
+.reveal .slide-number {
+  background: transparent;
+  color: var(--color-dimmed, #b8d0c1);
+  font-size: 18px;
+}
+
+/* Lien de retour vers la galerie (masqué à l'impression / export PDF) */
+.deck-back {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 30;
+  padding: 0.3em 0.8em;
+  font: 700 13px/1.4 var(--font-sans, sans-serif);
+  color: var(--color-highlight, #8be5b1);
+  background: var(--glass-bg, rgba(15, 27, 24, 0.9));
+  border: 1px solid var(--glass-border, rgba(139, 229, 177, 0.22));
+  border-radius: 6px;
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 160ms ease;
+}
+.deck-back:hover,
+.deck-back:focus-visible { opacity: 1; }
+
+@media print {
+  .deck-back { display: none; }
+}
