@@ -1,0 +1,7 @@
+{%- comment -%}
+  Date en français : {% include date-fr.html date=page.date %} → « 23 octobre 2026 ».
+  Liquid ne localise pas les noms de mois, d'où ce petit include.
+{%- endcomment -%}
+{%- assign mois_fr = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," -%}
+{%- assign mois_idx = include.date | date: "%-m" | minus: 1 -%}
+{{ include.date | date: "%-d" }} {{ mois_fr[mois_idx] }} {{ include.date | date: "%Y" }}

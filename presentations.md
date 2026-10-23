@@ -19,6 +19,8 @@ Catalogues publies depuis mes autres projets. Cette page est alimentee par un sc
   </div>
 </header>
 
+{% include decks-gallery.html %}
+
 <section class="section" aria-labelledby="presentations-title">
   <div class="section__header" markdown="1">
 

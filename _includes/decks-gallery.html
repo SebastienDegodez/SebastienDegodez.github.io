@@ -1,0 +1,40 @@
+{%- comment -%}
+  Galerie des présentations Reveal.js (collection `decks`), plus récente en premier.
+  Rien n'est affiché tant qu'aucune présentation n'est publiée.
+  Champs de front matter utilisés : title, date, event, description, tags, thumbnail (optionnel, 16:9).
+{%- endcomment -%}
+{%- assign decks = site.decks | sort: 'date' | reverse -%}
+{%- if decks.size > 0 -%}
+<section class="section" aria-labelledby="decks-title">
+  <div class="section__header">
+    <h2 id="decks-title" class="section__title">Dernières <span>présentations</span></h2>
+    <p class="section__subtitle">Slides au même thème que ce site. Dans une présentation : touche S pour les notes, ? pour l'aide.</p>
+  </div>
+
+  <div class="deck-grid">
+    {%- for deck in decks %}
+    <article class="deck-card">
+      <a class="deck-card__thumb" href="{{ deck.url | relative_url }}" tabindex="-1" aria-hidden="true">
+        {%- if deck.thumbnail %}
+        <img src="{{ deck.thumbnail | relative_url }}" alt="" loading="lazy" />
+        {%- else %}
+        <i class="fa-solid fa-display"></i>
+        {%- endif %}
+      </a>
+      <div class="deck-card__body">
+        <p class="deck-card__meta">{% if deck.event %}{{ deck.event }} · {% endif %}{% include date-fr.html date=deck.date %}</p>
+        <h3 class="deck-card__title"><a href="{{ deck.url | relative_url }}">{{ deck.title }}</a></h3>
+        {%- if deck.description %}
+        <p class="deck-card__desc">{{ deck.description }}</p>
+        {%- endif %}
+        {%- if deck.tags and deck.tags.size > 0 %}
+        <div class="deck-card__tags">
+          {%- for tag in deck.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {%- endif %}
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif -%}

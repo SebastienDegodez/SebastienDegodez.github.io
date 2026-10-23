@@ -4,7 +4,7 @@
   project: "SKRAFT"
   source_repository: "skraft-plugin"
   source_path: "presentation-skraft-agents.html"
-  visibility: "private"
+  visibility: "public"
   updated_at: "2026-10-11"
   source_commit: "1e41a98"
   url: "/presentations/skraft-agents/"

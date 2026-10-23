@@ -22,7 +22,7 @@ cat > "$DATA_FILE" <<'YAML'
 YAML
 
 ENTRIES=$(cat <<'EOF'
-skraft-agents|SKRAFT - Agents|SKRAFT|skraft-plugin|presentation-skraft-agents.html|private
+skraft-agents|SKRAFT - Agents|SKRAFT|skraft-plugin|presentation-skraft-agents.html|public
 meetup-coding-with-ai|Meetup - SKRAFT Workflow Demo|meetup-coding-with-ai|meetup-coding-with-ai|meetup-coding-with-ai.html|public
 EOF
 )

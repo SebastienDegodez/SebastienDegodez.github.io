@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>{{ page.title }} — Sébastien Degodez</title>
+  {% include head-extra.html %}
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link href="https://fonts.bunny.net/css?family=Lato:400,700,900|Fira+Code:400,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reset.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css" />
+  <link rel="stylesheet" href="{{ '/design-tokens.css' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/reveal-tech-glass.css' | relative_url }}" />
+</head>
+<body>
+  <a class="deck-back" href="{{ '/presentations-catalog.html' | relative_url }}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Présentations</a>
+
+  <div class="reveal">
+    <div class="slides">
+
+      {%- comment -%} Diapo de titre : générée depuis le front matter {%- endcomment %}
+      <section class="slide-title" data-background-image="{{ site.data.author.background }}" data-background-opacity="0.7">
+        {% if page.event %}<p class="slide-title__eyebrow">{{ page.event }}</p>{% endif %}
+        <h1>{{ page.title }}</h1>
+        {% if page.subtitle %}<p class="slide-title__subtitle">{{ page.subtitle }}</p>{% endif %}
+        <div class="presenter">
+          <img class="presenter__avatar" src="{{ site.data.author.avatar }}" alt="" width="80" height="80" />
+          <div>
+            <strong class="presenter__name">{{ site.data.author.name }}</strong>
+            <span class="presenter__role">{{ site.data.author.role }}</span>
+          </div>
+        </div>
+        <p class="slide-title__date">{% include date-fr.html date=page.date %}</p>
+      </section>
+
+      {%- comment -%} Une diapo par bloc séparé par une ligne --- dans le Markdown (kramdown la rend en <hr />) {%- endcomment %}
+      {%- assign normalized = content | replace: '<hr>', '<hr />' | replace: '<hr/>', '<hr />' %}
+      {%- assign slides = normalized | split: '<hr />' %}
+      {%- for slide in slides %}
+      {%- assign trimmed = slide | strip %}
+      {%- if trimmed != '' %}
+      <section>
+{{ trimmed }}
+      </section>
+      {%- endif %}
+      {%- endfor %}
+
+      {%- unless page.end_slide == false %}
+      <section class="slide-end" data-background-image="{{ site.data.author.background }}" data-background-opacity="0.7">
+        <h2>Merci !</h2>
+        <ul class="slide-end__links">
+          {%- for link in site.data.author.links %}
+          <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </section>
+      {%- endunless %}
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0.06,
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controlsTutorial: false,
+      plugins: [RevealHighlight, RevealNotes]
+    });
+  </script>
+</body>
+</html>

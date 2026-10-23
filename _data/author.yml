@@ -1,0 +1,12 @@
+# Identité affichée sur les présentations Reveal.js (diapo de titre et de fin).
+name: Sébastien Degodez
+role: Staff Engineer · AXA France
+avatar: https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png
+background: https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/bg.jpg
+links:
+  - label: sebastiendegodez.github.io
+    url: https://sebastiendegodez.github.io
+  - label: GitHub
+    url: https://github.com/SebastienDegodez
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/sebastien-degodez

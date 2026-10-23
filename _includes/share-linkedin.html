@@ -1,0 +1,37 @@
+{%- comment -%}
+  Partage LinkedIn d'un article.
+
+  LinkedIn n'accepte que l'URL dans son lien de partage : le texte du post ne peut pas être pré-rempli.
+  Le bouton fait donc deux choses d'un clic : copie le texte du post dans le presse-papiers, puis ouvre
+  LinkedIn avec l'URL de l'article (la carte d'aperçu vient des balises Open Graph, voir head-extra.html).
+  Il ne reste qu'à coller.
+
+  Texte du post : champ `linkedin_text` du front matter ; à défaut, titre + description + hashtags des tags.
+  Le lien n'est pas dans le texte : LinkedIn ajoute lui-même la carte de l'article.
+{%- endcomment -%}
+{%- capture default_linkedin_text -%}
+{{ page.title }}
+
+{{ page.description }}
+
+{% for tag in page.tags %}#{{ tag | replace: ' ', '' | replace: '.', '' | replace: '-', '' }} {% endfor %}
+{%- endcapture -%}
+{%- assign linkedin_text = page.linkedin_text | default: default_linkedin_text | strip -%}
+
+<section class="share" aria-labelledby="share-title" data-share-linkedin data-share-url="{{ page.url | absolute_url }}">
+  <h2 id="share-title" class="share__title">Cet article vous a été utile ?</h2>
+  <p class="share__hint">Un clic copie le texte du post, puis ouvre LinkedIn : il n'y a plus qu'à coller.</p>
+
+  <button type="button" class="share__btn" data-share-button>
+    <i class="fa-brands fa-linkedin" aria-hidden="true"></i> Partager sur LinkedIn
+  </button>
+  <p class="share__status" role="status" aria-live="polite" data-share-status></p>
+
+  <details class="share__details">
+    <summary>Voir ou modifier le texte du post</summary>
+    <label class="share__label" for="linkedin-text">Texte copié dans le presse-papiers</label>
+    <textarea id="linkedin-text" class="share__text" rows="7" data-share-text>{{ linkedin_text | escape }}</textarea>
+  </details>
+</section>
+
+<script src="{{ '/assets/js/share-linkedin.js' | relative_url }}" defer></script>

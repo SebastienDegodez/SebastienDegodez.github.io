@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<header class="page-header">
+  <div class="page-header__bg" role="presentation" aria-hidden="true"></div>
+  <div class="page-header__content">
+    <p class="page-header__eyebrow">Articles</p>
+    <h1 class="page-header__title">Blog</h1>
+    <p class="page-header__subtitle">Ingénierie logicielle, .NET, skraft, Microcks et assistants de code.</p>
+  </div>
+</header>
+
+<main>
+<section class="section" aria-labelledby="blog-list-title">
+  <div class="section__header">
+    <h2 id="blog-list-title" class="section__title">Derniers <span>articles</span></h2>
+  </div>
+
+  {% assign articles = site.blog | sort: 'date' | reverse %}
+  {% if articles.size == 0 %}
+  <p class="blog-empty">Les premiers articles arrivent bientôt.</p>
+  {% else %}
+  <div class="project-list">
+    {% for article in articles %}
+    <article class="project-card">
+      <div>
+        <h3 class="project-card__name"><a href="{{ article.url | relative_url }}">{{ article.title }}</a></h3>
+        {% if article.description %}<p class="project-card__desc">{{ article.description }}</p>{% endif %}
+        {% if article.tags and article.tags.size > 0 %}
+        <div class="project-card__tags">
+          {% for tag in article.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <div class="project-card__side">
+        <time class="project-card__date" datetime="{{ article.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=article.date %}</time>
+        <a class="project-card__link" href="{{ article.url | relative_url }}"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Lire</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+</main>

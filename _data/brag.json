@@ -536,8 +536,15 @@
       ]
     },
     {
+      "icon": "fa-solid fa-map-location-dot",
+      "title": "Staff Engineer (AXA) — depuis juin 2026",
+      "paragraphs": [
+        "Prise de poste Staff Engineer chez AXA France en juin 2026, dans la continuité des impacts transverses détaillés dans les projets : standardisation architecturelle, DevEx & IA, accompagnement des Tech Leads."
+      ]
+    },
+    {
       "icon": "fa-solid fa-user-tie",
-      "title": "Tech Leader d'Équipe (AXA)",
+      "title": "Tech Leader d'Équipe (AXA) — juin 2023 à juin 2026",
       "paragraphs": [
         "Rôle de TechLead opérationnel : accompagnement quotidien, revues de code et coaching des membres de mon équipe.",
         "Instauration d'une culture de responsabilité produit et d'excellence technique (Quality First)."
