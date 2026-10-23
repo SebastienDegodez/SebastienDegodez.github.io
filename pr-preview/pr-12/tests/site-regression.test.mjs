@@ -200,3 +200,52 @@ test('hosted PR previews: main deploy keeps pr-preview/, previews are built unde
   assert.deepEqual(preview.on.pull_request.types.sort(), ['closed', 'opened', 'reopened', 'synchronize']);
   assert.equal(deploy.concurrency.group, preview.concurrency.group, 'both workflows write gh-pages: same concurrency group');
 });
+
+test('PR preview: one sticky comment, written by scripts/pr-preview-comment.sh', () => {
+  const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
+  const steps = preview.jobs.preview.steps;
+  const action = steps.find((s) => /pr-preview-action/.test(s.uses || ''));
+  assert.equal(action.with.comment, false, 'the action must not post its own comment');
+  const sticky = steps.find((s) => /sticky-pull-request-comment/.test(s.uses || ''));
+  assert.ok(sticky, 'a sticky comment step is required (one comment per PR, updated)');
+  assert.equal(sticky.with.header, 'pr-preview');
+  assert.equal(sticky.with.path, 'preview-comment.md');
+  const write = steps.find((s) => /pr-preview-comment\.sh/.test(s.run || ''));
+  assert.match(write.run, /removed[\s\S]*pull_request\.merged/, 'closing the PR must update the comment');
+  assert.ok(steps.indexOf(write) < steps.indexOf(sticky));
+});
+
+test('PR preview comment: preview URL, links to changed decks, removal message', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const os = await import('node:os');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'preview-'));
+  fs.mkdirSync(path.join(dir, '_decks'));
+  fs.writeFileSync(path.join(dir, '_decks/010-arazzo.md'), '---\ntitle: "Arazzo : le contrat"\nslug: arazzo\n---\n');
+  fs.writeFileSync(path.join(dir, '_decks/000-modele-deck.md'), '---\npublished: false\ntitle: Modèle\nslug: modele\n---\n');
+  const script = path.join(root, 'scripts/pr-preview-comment.sh');
+  const run = (...args) => execFileSync('bash', [script, ...args], { cwd: dir, encoding: 'utf8' });
+
+  const url = 'https://sebastiendegodez.github.io/pr-preview/pr-11';
+  const deployed = run('deployed', url, '4d0d1979abcdef', '_decks/010-arazzo.md', '_decks/000-modele-deck.md', 'index.md');
+  assert.match(deployed, /\*\*https:\/\/sebastiendegodez\.github\.io\/pr-preview\/pr-11\/\*\*/);
+  assert.match(deployed, /- \[Arazzo : le contrat\]\(https:\/\/sebastiendegodez\.github\.io\/pr-preview\/pr-11\/slides\/arazzo\/\)/);
+  assert.doesNotMatch(deployed, /modele/, 'unpublished template deck is not listed');
+  assert.match(deployed, /`4d0d197`/);
+  assert.doesNotMatch(run('deployed', url + '/', 'abc', 'index.md'), /Présentations modifiées/);
+
+  assert.match(run('removed', '11', 'true'), /fusionnée[\s\S]*pr-preview\/pr-11\//);
+  assert.match(run('removed', '11', 'false'), /fermée/);
+});
+
+test('PR preview: bootstraps the production site at the gh-pages root when it is missing', () => {
+  const steps = yaml.load(read('.github/workflows/pr-preview.yml')).jobs.preview.steps;
+  const check = steps.find((s) => s.id === 'prod');
+  assert.match(check.run, /cat-file -e FETCH_HEAD:index\.html/, 'detects an empty gh-pages root');
+  const publish = steps.find((s) => /github-pages-deploy-action/.test(s.uses || ''));
+  assert.equal(publish.if, "steps.prod.outputs.missing == 'true'", 'only when the root is missing');
+  assert.match(publish.with['clean-exclude'], /pr-preview\//, 'never erases previews');
+  const build = steps.find((s) => /worktree add -q main-site/.test(s.run || ''));
+  assert.match(build.run, /origin main/, 'the root is the site of main, not of the PR');
+  const prBuild = steps.findIndex((s) => /--baseurl/.test(s.run || ''));
+  assert.ok(prBuild < steps.indexOf(build), 'PR site is built before main-site/ exists in the workspace');
+});
