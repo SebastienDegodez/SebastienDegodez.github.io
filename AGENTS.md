@@ -52,9 +52,11 @@ npm run test:site     # structure + rendu des templates (liquidjs + jsdom), ~1 s
   Un nouveau filtre Jekyll dans un template = l'ajouter là, sinon le test plante.
 - Le **vrai build Jekyll** n'existe qu'en CI (`Site Regression` : `jekyll/jekyll:4` dans Docker, puis Playwright).
   Dans un bac à sable sans Docker ni RubyGems, le dire clairement : « templates testés, rendu réel non vu ».
-- **Aperçu hébergé de chaque PR** (`pr-preview.yml`) : `https://sebastiendegodez.github.io/pr-preview/pr-<n>/`,
-  URL commentée sur la PR, supprimée à la fermeture. La production est publiée par `deploy-pages.yml` sur la branche
-  `gh-pages` (Pages : *Deploy from a branch → gh-pages*), sans jamais effacer `pr-preview/`.
+- **Aperçu hébergé de chaque PR** (`pr-preview.yml`) : `https://sebastiendegodez.github.io/pr-preview/pr-<n>/`.
+  Un **commentaire unique** (`scripts/pr-preview-comment.sh`) donne le lien et ceux des présentations modifiées ; il
+  est mis à jour à chaque push. Au merge ou à la fermeture, l'aperçu est supprimé et le commentaire le signale.
+  La production est publiée par `deploy-pages.yml` à la racine de la branche `gh-pages` (Pages : *Deploy from a branch
+  → gh-pages*), sans jamais effacer `pr-preview/` ; si cette racine est vide, `pr-preview.yml` y publie d'abord `main`.
 - Les tests **figent le titre de l'accueil** (`Staff Engineer`) dans `tests/site-regression.test.mjs` et
   `tests/e2e/site-smoke.spec.mjs` : les changer avec `index.md`.
 - Tout nouveau comportement reçoit un test qui **échoue sans lui** (vérifié en cassant volontairement le code).

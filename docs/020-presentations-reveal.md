@@ -47,8 +47,9 @@ docker run --rm -v "$PWD:/srv/jekyll" -p 4000:4000 -p 35729:35729 --entrypoint b
 Puis ouvrir `http://localhost:4000/slides/<slug>/`.
 
 **Sans rien installer, depuis une Pull Request** : chaque PR est publiée sur
-`https://sebastiendegodez.github.io/pr-preview/pr-<numéro>/` (lien commenté sur la PR, supprimé à sa fermeture).
-La présentation est alors sur `…/pr-preview/pr-<numéro>/slides/<slug>/`. Dans un deck, les liens internes passent
+`https://sebastiendegodez.github.io/pr-preview/pr-<numéro>/`. Un commentaire unique sur la PR donne ce lien et le lien
+direct de chaque présentation modifiée (`…/pr-preview/pr-<numéro>/slides/<slug>/`) ; il est mis à jour à chaque push,
+et l'aperçu est supprimé au merge ou à la fermeture. Dans un deck, les liens internes passent
 par `relative_url` (`{{ '/assets/img/…' | relative_url }}`) pour rester dans cet aperçu.
 
 ## Export PDF

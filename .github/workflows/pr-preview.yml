@@ -4,7 +4,8 @@ name: PR Preview
 #   https://sebastiendegodez.github.io/pr-preview/pr-<numéro>/
 # Le site est construit avec --baseurl pour vivre dans ce sous-dossier de la branche gh-pages.
 # L'URL est commentée sur la PR ; l'aperçu est supprimé à la fermeture de la PR.
-# Prérequis : GitHub Pages servi depuis la branche gh-pages (voir deploy-pages.yml).
+# Prérequis : GitHub Pages servi depuis la branche gh-pages, dont la racine porte le site de main
+# (deploy-pages.yml, ou l'amorçage ci-dessous la première fois).
 
 on:
   pull_request:
@@ -26,6 +27,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # commit de merge de la PR et sa base : liste des fichiers modifiés
 
       - name: Build site under /pr-preview/pr-${{ github.event.number }}
         if: github.event.action != 'closed'
@@ -34,10 +37,60 @@ jobs:
             jekyll build --source /srv/jekyll --destination /srv/jekyll/_site \
             --baseurl "/pr-preview/pr-${{ github.event.number }}"
 
+      # Amorçage : tant que deploy-pages.yml n'a jamais tourné sur main, la racine de gh-pages est vide.
+      # On y publie alors le site de main, pour servir Pages depuis gh-pages sans attendre de merge
+      # (le site de production reste en ligne, les aperçus vivent dans pr-preview/).
+      - name: Is the production site already on gh-pages?
+        id: prod
+        if: github.event.action != 'closed'
+        run: |
+          if git fetch -q --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:index.html 2>/dev/null; then
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build main for the gh-pages root (first time only)
+        if: steps.prod.outputs.missing == 'true'
+        run: |
+          git fetch -q --depth=1 origin main
+          git worktree add -q main-site FETCH_HEAD
+          docker run --rm -v "$PWD/main-site":/srv/jekyll jekyll/jekyll:4 \
+            jekyll build --source /srv/jekyll --destination /srv/jekyll/_site
+          sudo touch main-site/_site/.nojekyll
+
+      - name: Publish main at the gh-pages root (first time only)
+        if: steps.prod.outputs.missing == 'true'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: main-site/_site
+          clean: true
+          clean-exclude: pr-preview/
+
+      # Déploie à l'ouverture et à chaque push ; supprime l'aperçu au merge ou à la fermeture (action: auto).
       - name: Deploy or remove preview
+        id: preview
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./_site/
           preview-branch: gh-pages
           umbrella-dir: pr-preview
           action: auto
+          comment: false # remplacé par le commentaire unique ci-dessous
+
+      - name: Write preview comment
+        run: |
+          if [ "${{ github.event.action }}" = "closed" ]; then
+            bash scripts/pr-preview-comment.sh removed "${{ github.event.number }}" "${{ github.event.pull_request.merged }}" > preview-comment.md
+          else
+            bash scripts/pr-preview-comment.sh deployed "${{ steps.preview.outputs.preview-url }}" \
+              "${{ github.event.pull_request.head.sha }}" $(git diff --name-only HEAD^1 HEAD) > preview-comment.md
+          fi
+
+      # Un seul commentaire par PR (repéré par son header), mis à jour à chaque push puis à la fermeture.
+      - name: Post or update the single preview comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: pr-preview
+          path: preview-comment.md
