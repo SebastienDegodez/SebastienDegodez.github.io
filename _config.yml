@@ -9,6 +9,11 @@ collections:
   blog:
     output: true
     permalink: /blog/:slug/
+  # Présentations Reveal.js — _decks/NNN-slug.md, publiées sur /slides/<slug>/
+  # (à ne pas confondre avec presentations/, généré par scripts/sync-presentations.sh)
+  decks:
+    output: true
+    permalink: /slides/:slug/
 
 defaults:
   - scope:
@@ -17,3 +22,8 @@ defaults:
     values:
       layout: post
       author: Sébastien Degodez
+  - scope:
+      path: ""
+      type: decks
+    values:
+      layout: deck

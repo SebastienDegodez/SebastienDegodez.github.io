@@ -42,7 +42,10 @@ _layouts/post.html     Layout d'un article
 _includes/             head-extra (Open Graph), share-linkedin, date-fr
 assets/css/blog.css    Style des articles
 assets/js/             Scripts (partage LinkedIn)
-docs/NNN-*.md          Guides d'utilisation (010-blog-ecrire-un-article.md…)
+docs/NNN-*.md          Guides d'utilisation (010-blog…, 020-presentations-reveal…)
+_decks/                Présentations Reveal.js   → /slides/<slug>/   (NNN-slug.md ; layout _layouts/deck.html)
+assets/css/reveal-tech-glass.css  Thème Reveal (tokens Tech Glass)   ·   assets/css/decks.css  Galerie
+_data/author.yml       Identité affichée sur les décks (diapos de titre et de fin)
 presentations/         ⚠ GÉNÉRÉ — voir ci-dessous
 _data/presentations.yml  ⚠ GÉNÉRÉ — voir ci-dessous
 ```
