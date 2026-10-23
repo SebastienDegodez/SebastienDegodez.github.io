@@ -240,6 +240,8 @@ test('PR preview comment: preview URL, links to changed decks, removal message',
   assert.doesNotMatch(deployed, /modele/, 'unpublished template deck is not listed');
   assert.match(deployed, /`4d0d197`/);
   assert.doesNotMatch(run('deployed', url + '/', 'abc', 'index.md'), /Présentations modifiées/);
+  fs.writeFileSync(path.join(dir, '_decks/020-autonome.html'), '---\ntitle: Deck autonome\nslug: autonome\nlayout: null\n---\n<html></html>\n');
+  assert.match(run('deployed', url, 'abc', '_decks/020-autonome.html'), /\[Deck autonome\]\(.*\/slides\/autonome\/\)/, 'standalone HTML decks are listed too');
 
   assert.match(run('removed', '11', 'true'), /fusionnée[\s\S]*pr-preview\/pr-11\//);
   assert.match(run('removed', '11', 'false'), /fermée/);
