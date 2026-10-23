@@ -1,0 +1,16 @@
+{
+  "name": "sebastiendegodez-github-io",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Local regression checks for sebastiendegodez.github.io",
+  "scripts": {
+    "test:site": "node --test tests/site-regression.test.mjs tests/render/blog.test.mjs tests/render/share-linkedin.test.mjs tests/render/decks.test.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.0",
+    "js-yaml": "^4.1.0",
+    "jsdom": "26.1.0",
+    "liquidjs": "10.30.0"
+  }
+}

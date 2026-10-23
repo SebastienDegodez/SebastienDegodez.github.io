@@ -1,0 +1,84 @@
+/* ================================================================
+   GALERIE DE PRÉSENTATIONS (page /presentations-catalog.html)
+   Cartes des présentations Reveal.js ; les cartes synchronisées
+   (presentations/) gardent le style .project-card existant.
+   ================================================================ */
+
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.deck-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  transition: border-color var(--motion-fast), background var(--motion-fast), box-shadow var(--motion-fast), transform var(--motion-fast);
+}
+.deck-card:hover,
+.deck-card:focus-within {
+  border-color: var(--glass-border-strong);
+  box-shadow: var(--glass-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.deck-card__thumb {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(78, 213, 138, 0.18), transparent 40%),
+    var(--color-background);
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--color-highlight);
+  font-size: 2.2rem;
+  text-decoration: none;
+}
+.deck-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.deck-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+.deck-card__meta {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-dimmed);
+}
+.deck-card__title {
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.3;
+  color: var(--color-foreground);
+}
+.deck-card__title a { color: inherit; }
+.deck-card__title a:hover { color: var(--color-highlight); text-decoration: none; opacity: 1; }
+.deck-card__desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-dimmed);
+}
+.deck-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; padding-top: 0.5rem; }
+
+.deck-card a:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
+}
