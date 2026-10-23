@@ -14,7 +14,7 @@ title: Accueil
 
 <p class="hero__role"><i class="fa-solid fa-briefcase" aria-hidden="true"></i> Staff Engineer · AXA France</p>
 
-<p class="hero__tagline"><em>Staff Engineer @ AXA France depuis juin 2023. Auteur de skraft, pipeline SDLC agentique pour Claude Code & GitHub Copilot, et maintainer Microcks (CNCF). Architecte de solutions .NET & speaker communautaire passionné par les LLMs et les outils pour développeurs.</em></p>
+<p class="hero__tagline"><em>Chez AXA France depuis juin 2023, Staff Engineer depuis juin 2026. Auteur de skraft, pipeline SDLC agentique pour Claude Code & GitHub Copilot, et maintainer Microcks (CNCF). Architecte de solutions .NET & speaker communautaire passionné par les LLMs et les outils pour développeurs.</em></p>
 
 <nav class="hero__links" aria-label="Liens rapides">
   <a href="{% link brag.md %}" class="hero__links--cta"><i class="fa-solid fa-star" aria-hidden="true"></i> Brag Document</a>
