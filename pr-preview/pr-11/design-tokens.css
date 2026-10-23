@@ -45,9 +45,6 @@
   /* Accent secondaire technique (inspire des slides meetup) */
   --color-tech-mint:         #80cbc4;
 
-  /* Avertissement / prototype (même jaune que .tag--orange du site) */
-  --color-warn:              #ffca28;
-
   /* ─────────────────────────────────────────────────────────────
    * TOKENS GLASS V2
    * Alignés sur assets/css/tech-glass.css

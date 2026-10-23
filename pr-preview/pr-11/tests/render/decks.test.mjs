@@ -62,17 +62,34 @@ test('every published deck renders', async () => {
   }
 });
 
-// Deck Arazzo : la norme « spécifie » ; aucun outil avant la partie Microcks, et chaque diapo Microcks est marquée prototype.
+// Deck Arazzo (HTML autonome validé) : la norme « spécifie » ; aucun outil avant la partie Microcks,
+// et chaque diapo Microcks porte le bandeau « prototype ».
 test('arazzo deck: no tooling talk before the Microcks hypothesis, Microcks slides flagged as prototype', () => {
-  const body = read('_decks/010-arazzo.md').replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, '');
-  const slides = body.split(/^---\s*$/m);
-  const hypothesis = slides.findIndex((s) => /^## .*Microcks V2/m.test(s));
-  assert.ok(hypothesis > 0, 'the Microcks V2 hypothesis slide must exist');
+  const html = read('_decks/010-arazzo.html');
+  const slides = html.split('<section class="slide').slice(1);
+  const hypothesis = slides.findIndex((s) => /data-title="Hypothèse Microcks/.test(s));
+  assert.ok(hypothesis > 0, 'the Microcks hypothesis slide must exist');
   slides.slice(0, hypothesis).forEach((s, i) => {
     const text = s.replace(/<aside class="notes">[\s\S]*?<\/aside>/g, '');
     assert.doesNotMatch(text, /\boutils?\b|détect|outillage/i, `slide #${i + 1} talks about tooling before the Microcks part`);
   });
-  slides.filter((s) => /^## .*Microcks/m.test(s)).forEach((s) => {
-    assert.match(s, /class="proto"[\s\S]*tag--warn/, `Microcks slide without prototype banner: ${s.match(/^## .*/m)[0]}`);
+  slides.filter((s) => /<h2[^>]*>[\s\S]*?Microcks[\s\S]*?<\/h2>/.test(s) || /data-title="Hypothèse Microcks/.test(s)).forEach((s) => {
+    assert.match(s, /class="proto"/, `Microcks slide without prototype banner: ${s.match(/data-title="([^"]*)"/)[1]}`);
   });
+});
+
+test('arazzo deck: standalone page, no layout, assets resolved relative to /slides/arazzo/', () => {
+  const src = read('_decks/010-arazzo.html');
+  const fm = yaml.load(src.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  assert.equal(fm.layout, null, 'published as is, without the Reveal layout');
+  assert.equal(fm.slug, 'arazzo');
+  for (const key of ['title', 'date', 'description', 'thumbnail']) assert.ok(fm[key], `front matter: ${key}`);
+  assert.ok(fs.existsSync(path.join(root, fm.thumbnail.replace(/^\//, ''))), 'thumbnail exists');
+  const body = src.replace(/^---[\s\S]*?---\r?\n/, '');
+  assert.match(body, /^\{% raw %\}<!doctype html>/, 'Liquid must not touch the deck');
+  assert.match(body, /\{% endraw %\}\s*$/);
+  for (const [, ref] of body.matchAll(/(?:src|data-full|href)="(\.\.\/\.\.\/assets\/[^"]+)"/g)) {
+    assert.ok(fs.existsSync(path.join(root, ref.replace('../../', ''))), `missing asset ${ref}`);
+  }
+  assert.doesNotMatch(body, /(?:src|href|data-full)="\/(?!\/)/, 'no absolute internal path (would escape the PR preview)');
 });

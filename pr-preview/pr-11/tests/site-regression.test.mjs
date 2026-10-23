@@ -192,9 +192,18 @@ test('hosted PR previews: main deploy keeps pr-preview/, previews are built unde
   assert.match(publish.with['clean-exclude'], /pr-preview\//, 'deploying main must not erase PR previews');
   assert.ok(deploy.jobs.deploy.steps.some((s) => /\.nojekyll/.test(s.run || '')), 'gh-pages must not be rebuilt by Pages');
 
-  const action = step(preview, 'preview', /pr-preview-action/);
-  assert.equal(action.with['umbrella-dir'], 'pr-preview');
-  assert.equal(action.with['preview-branch'], 'gh-pages');
+  const steps = preview.jobs.preview.steps;
+  assert.equal(preview.jobs.preview.env.PREVIEW_DIR, 'pr-preview/pr-${{ github.event.number }}');
+  const deployPreview = steps.find((s) => s.name === 'Deploy preview');
+  assert.equal(deployPreview.with.branch, 'gh-pages');
+  assert.equal(deployPreview.with.folder, '_site');
+  assert.equal(deployPreview.with['target-folder'], '${{ env.PREVIEW_DIR }}', 'each PR lives in its own folder');
+  assert.equal(deployPreview.if, "github.event.action != 'closed'");
+  const remove = steps.find((s) => s.name === 'Remove preview');
+  assert.equal(remove.if, "github.event.action == 'closed'", 'merge or close removes the preview');
+  assert.equal(remove.with['target-folder'], '${{ env.PREVIEW_DIR }}');
+  assert.ok(steps.some((s) => /mkdir -p empty-preview/.test(s.run || '') && s.if === remove.if), 'removal deploys an empty folder');
+  assert.equal(remove.with.folder, 'empty-preview');
   const build = preview.jobs.preview.steps.find((s) => /jekyll build/.test(s.run || ''));
   assert.match(build.run, /--baseurl "\/pr-preview\/pr-\$\{\{ github\.event\.number \}\}"/, 'preview baseurl must match its folder');
   assert.deepEqual(preview.on.pull_request.types.sort(), ['closed', 'opened', 'reopened', 'synchronize']);
@@ -204,8 +213,7 @@ test('hosted PR previews: main deploy keeps pr-preview/, previews are built unde
 test('PR preview: one sticky comment, written by scripts/pr-preview-comment.sh', () => {
   const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
   const steps = preview.jobs.preview.steps;
-  const action = steps.find((s) => /pr-preview-action/.test(s.uses || ''));
-  assert.equal(action.with.comment, false, 'the action must not post its own comment');
+  assert.ok(!steps.some((s) => /pr-preview-action/.test(s.uses || '')), 'no third-party action posting its own comment');
   const sticky = steps.find((s) => /sticky-pull-request-comment/.test(s.uses || ''));
   assert.ok(sticky, 'a sticky comment step is required (one comment per PR, updated)');
   assert.equal(sticky.with.header, 'pr-preview');
@@ -232,6 +240,8 @@ test('PR preview comment: preview URL, links to changed decks, removal message',
   assert.doesNotMatch(deployed, /modele/, 'unpublished template deck is not listed');
   assert.match(deployed, /`4d0d197`/);
   assert.doesNotMatch(run('deployed', url + '/', 'abc', 'index.md'), /Présentations modifiées/);
+  fs.writeFileSync(path.join(dir, '_decks/020-autonome.html'), '---\ntitle: Deck autonome\nslug: autonome\nlayout: null\n---\n<html></html>\n');
+  assert.match(run('deployed', url, 'abc', '_decks/020-autonome.html'), /\[Deck autonome\]\(.*\/slides\/autonome\/\)/, 'standalone HTML decks are listed too');
 
   assert.match(run('removed', '11', 'true'), /fusionnée[\s\S]*pr-preview\/pr-11\//);
   assert.match(run('removed', '11', 'false'), /fermée/);
@@ -241,11 +251,31 @@ test('PR preview: bootstraps the production site at the gh-pages root when it is
   const steps = yaml.load(read('.github/workflows/pr-preview.yml')).jobs.preview.steps;
   const check = steps.find((s) => s.id === 'prod');
   assert.match(check.run, /cat-file -e FETCH_HEAD:index\.html/, 'detects an empty gh-pages root');
-  const publish = steps.find((s) => /github-pages-deploy-action/.test(s.uses || ''));
+  const publish = steps.find((s) => s.name === 'Publish main at the gh-pages root (first time only)');
   assert.equal(publish.if, "steps.prod.outputs.missing == 'true'", 'only when the root is missing');
+  assert.equal(publish.with['target-folder'], undefined, 'the production site goes to the root');
   assert.match(publish.with['clean-exclude'], /pr-preview\//, 'never erases previews');
   const build = steps.find((s) => /worktree add -q main-site/.test(s.run || ''));
   assert.match(build.run, /origin main/, 'the root is the site of main, not of the PR');
   const prBuild = steps.findIndex((s) => /--baseurl/.test(s.run || ''));
   assert.ok(prBuild < steps.indexOf(build), 'PR site is built before main-site/ exists in the workspace');
+});
+
+// Les runners GitHub forcent Node 24 : une action encore en Node 20 lève un avertissement à chaque run.
+test('workflows only use actions running on Node 24', () => {
+  const minimum = {
+    'actions/checkout': 5, 'actions/setup-node': 5, 'actions/upload-artifact': 5,
+    'JamesIves/github-pages-deploy-action': [4, 9], 'marocchino/sticky-pull-request-comment': 3,
+  };
+  const banned = ['rossjrw/pr-preview-action']; // embarque une version Node 20 de github-pages-deploy-action
+  for (const file of fs.readdirSync(path.join(root, '.github/workflows'))) {
+    for (const [, action, version] of read(`.github/workflows/${file}`).matchAll(/uses:\s*([\w.-]+\/[\w.-]+)@v?([\d.]+)/g)) {
+      assert.ok(!banned.includes(action), `${file}: ${action} runs Node 20`);
+      const min = minimum[action];
+      if (min === undefined) continue;
+      const [maj, minor = 0] = version.split('.').map(Number);
+      const [minMaj, minMinor = 0] = [].concat(min);
+      assert.ok(maj > minMaj || (maj === minMaj && minor >= minMinor), `${file}: ${action}@v${version} runs Node 20`);
+    }
+  }
 });
