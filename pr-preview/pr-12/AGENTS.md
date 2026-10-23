@@ -106,6 +106,7 @@ Guide complet : [`docs/020-presentations-reveal.md`](docs/020-presentations-reve
 | `divided_by` : division entière dans Jekyll, réelle dans liquidjs | Déjà compensé dans `liquid-env.mjs` |
 | `page.url contains 'presentations'` est vrai sur `/presentations-catalog.html` **et** `/presentations/<id>/` | En tenir compte pour l'état actif du menu |
 | Version d'un CDN non épinglée | Toujours une version exacte (`reveal.js@5.2.1`) |
+| Action GitHub encore en Node 20 : avertissement « Node.js 20 is deprecated » à chaque run | Versions Node 24 (`checkout`/`setup-node`/`upload-artifact` ≥ v5, `github-pages-deploy-action` ≥ v4.9, `sticky-pull-request-comment` ≥ v3) ; vérifié par `tests/site-regression.test.mjs` |
 | Lien interne en dur (`href="/assets/…"`) : l'aperçu de PR (servi sous `/pr-preview/pr-N/`) charge alors la production | `{{ '/chemin' \| relative_url }}` ou `{% link page.md %}` ; vérifié par `tests/render/baseurl.test.mjs` |
 | Le filtre « Tech Lead » de `brag.md` n'a plus d'entrée (`impact.type: techleader`) | Connu, laissé tel quel (historique) |
 
