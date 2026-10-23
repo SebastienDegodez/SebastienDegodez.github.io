@@ -1,2 +1,19 @@
 name: Portfolio
 markdown: kramdown
+url: https://sebastiendegodez.github.io
+lang: fr
+
+# Blog — articles dans _blog/NNN-slug.md, publiés sur /blog/<slug>/
+# Le slug vient du front matter (clé `slug`), le préfixe NNN ne sert qu'à ordonner les fichiers.
+collections:
+  blog:
+    output: true
+    permalink: /blog/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: blog
+    values:
+      layout: post
+      author: Sébastien Degodez

@@ -15,6 +15,8 @@
   />
   <link rel="stylesheet" href="/assets/css/tech-glass.css" />
   <link rel="stylesheet" href="/design-tokens.css" />
+  <link rel="stylesheet" href="/assets/css/blog.css" />
+  {% include head-extra.html %}
   <style>
     /* ============================================================
        HERO
@@ -620,7 +622,12 @@
           </div>
         </div>
         {% else %}
-        <a href="{{ item.url }}"{% if page.url == '/' and item.label == 'Accueil' or page.url contains 'presentations' and item.label == 'Presentations' or page.url contains 'brag' and item.label == 'Brag Document' %} class="active" aria-current="page"{% endif %}>
+        {% assign nav_active = false %}
+        {% if item.label == 'Accueil' and page.url == '/' %}{% assign nav_active = true %}{% endif %}
+        {% if item.label == 'Presentations' and page.url contains 'presentations' %}{% assign nav_active = true %}{% endif %}
+        {% if item.label == 'Blog' and page.url contains '/blog' %}{% assign nav_active = true %}{% endif %}
+        {% if item.label == 'Brag Document' and page.url contains 'brag' %}{% assign nav_active = true %}{% endif %}
+        <a href="{{ item.url }}"{% if nav_active %} class="active" aria-current="page"{% endif %}>
           <i class="{{ item.icon }}" aria-hidden="true"></i> {{ item.label }}
         </a>
         {% endif %}

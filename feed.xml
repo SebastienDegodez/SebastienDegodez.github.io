@@ -1,0 +1,23 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog — Sébastien Degodez</title>
+    <link>{{ '/blog/' | absolute_url }}</link>
+    <atom:link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/rss+xml" />
+    <description>Ingénierie logicielle, .NET, skraft, Microcks et assistants de code.</description>
+    <language>fr</language>
+    {% assign feed_items = site.blog | sort: 'date' | reverse %}
+    {% for article in feed_items limit: 20 %}
+    <item>
+      <title>{{ article.title | xml_escape }}</title>
+      <link>{{ article.url | absolute_url }}</link>
+      <guid isPermaLink="true">{{ article.url | absolute_url }}</guid>
+      <pubDate>{{ article.date | date_to_rfc822 }}</pubDate>
+      <description>{{ article.description | xml_escape }}</description>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

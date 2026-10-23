@@ -1,0 +1,33 @@
+---
+layout: default
+---
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign minutes = words | divided_by: 200 | plus: 1 -%}
+
+<header class="page-header">
+  <div class="page-header__bg" role="presentation" aria-hidden="true"></div>
+  <div class="page-header__content">
+    <p class="page-header__eyebrow">Blog</p>
+    <h1 class="page-header__title">{{ page.title }}</h1>
+    {% if page.description %}<p class="page-header__subtitle">{{ page.description }}</p>{% endif %}
+    <p class="post-meta">
+      <span><i class="fa-regular fa-calendar" aria-hidden="true"></i> <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=page.date %}</time></span>
+      <span><i class="fa-regular fa-clock" aria-hidden="true"></i> {{ minutes }} min de lecture</span>
+      {% for tag in page.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+    </p>
+  </div>
+</header>
+
+<main>
+  <article class="post">
+    <div class="post__body">
+      {{ content }}
+    </div>
+
+    {% include share-linkedin.html %}
+
+    <nav class="post__nav" aria-label="Navigation du blog">
+      <a href="{{ '/blog/' | relative_url }}"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Tous les articles</a>
+    </nav>
+  </article>
+</main>

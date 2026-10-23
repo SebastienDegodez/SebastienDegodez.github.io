@@ -68,3 +68,58 @@ test('presentations data file is valid and points to existing published files', 
     assert.ok(exists(relativeTarget), `${prefix}: published file does not exist (${relativeTarget})`);
   }
 });
+
+// ─── Blog ──────────────────────────────────────────────────────────────────
+
+function frontMatter(file) {
+  const match = read(file).match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  assert.ok(match, `${file}: front matter missing`);
+  return yaml.load(match[1]);
+}
+
+function blogFiles() {
+  return fs.readdirSync(path.join(root, '_blog')).filter((name) => name.endsWith('.md')).sort();
+}
+
+test('blog collection is configured and wired into the navigation', () => {
+  const config = yaml.load(read('_config.yml'));
+  assert.equal(config.collections?.blog?.output, true, 'Collection "blog" must output pages');
+  assert.equal(config.collections.blog.permalink, '/blog/:slug/', 'Blog permalink must stay stable');
+
+  const nav = yaml.load(read('_data/nav.yml'));
+  assert.ok(nav.some((item) => item.url === '/blog/'), 'Navigation must link to /blog/');
+  assert.ok(exists('blog/index.md'), 'Blog index page missing');
+  assert.ok(exists('feed.xml'), 'RSS feed missing');
+});
+
+test('blog articles follow the NNN-slug naming and carry required front matter', () => {
+  const files = blogFiles();
+  assert.ok(files.length > 0, 'At least the article template should exist in _blog/');
+
+  const slugs = new Set();
+  for (const file of files) {
+    assert.match(file, /^\d{3}-[a-z0-9-]+\.md$/, `${file}: expected NNN-slug.md (3 digits, lowercase slug)`);
+    const data = frontMatter(`_blog/${file}`);
+    for (const key of ['title', 'slug', 'date', 'description']) {
+      assert.ok(data[key], `${file}: missing front matter "${key}"`);
+    }
+    assert.match(String(data.slug), /^[a-z0-9-]+$/, `${file}: slug must be lowercase letters, digits, hyphens`);
+    assert.ok(!slugs.has(data.slug), `${file}: duplicate slug "${data.slug}"`);
+    slugs.add(data.slug);
+  }
+});
+
+test('blog articles share on LinkedIn and expose Open Graph metadata', () => {
+  assert.match(read('_layouts/post.html'), /include share-linkedin\.html/, 'Post layout must include the LinkedIn share block');
+  assert.match(read('_layouts/default.html'), /include head-extra\.html/, 'Default layout must include head-extra.html');
+  assert.match(read('_includes/head-extra.html'), /og:image/, 'Open Graph image tag missing');
+
+  const share = read('_includes/share-linkedin.html');
+  assert.match(share, /data-share-button/, 'Share button missing');
+  assert.match(share, /linkedin_text/, 'Share block must read linkedin_text from front matter');
+
+  const script = read('assets/js/share-linkedin.js');
+  assert.match(script, /linkedin\.com\/sharing\/share-offsite/, 'Share script must open the LinkedIn share endpoint');
+  assert.match(script, /clipboard\.writeText/, 'Share script must copy the post text');
+  assert.ok(exists('assets/img/og-default.png'), 'Default Open Graph image missing');
+});

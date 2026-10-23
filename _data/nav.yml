@@ -6,6 +6,10 @@
   icon: fa-solid fa-display
   url: /presentations-catalog.html
 
+- label: Blog
+  icon: fa-solid fa-pen-nib
+  url: /blog/
+
 - label: Brag Document
   icon: fa-solid fa-star
   url: /brag.html

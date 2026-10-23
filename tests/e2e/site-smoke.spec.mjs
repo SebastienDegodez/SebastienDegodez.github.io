@@ -17,3 +17,9 @@ test('presentations catalog loads cards', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: /Presentations/i })).toBeVisible();
   await expect(page.locator('.project-card').first()).toBeVisible();
 });
+
+test('blog index loads and the navigation highlights it', async ({ page }) => {
+  await page.goto('/blog/');
+  await expect(page.getByRole('heading', { level: 1, name: /Blog/i })).toBeVisible();
+  await expect(page.locator('.site-nav a.active')).toContainText(/Blog/i);
+});
