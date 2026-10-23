@@ -23,3 +23,11 @@ test('blog index loads and the navigation highlights it', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: /Blog/i })).toBeVisible();
   await expect(page.locator('.site-nav a.active')).toContainText(/Blog/i);
 });
+
+test('Arazzo deck is served as the validated standalone page, not wrapped in the Reveal layout', async ({ page }) => {
+  await page.goto('/slides/arazzo/');
+  await expect(page.locator('#stage')).toHaveCount(1);
+  await expect(page.locator('.reveal')).toHaveCount(0);
+  await expect(page.locator('#stage > section.slide')).toHaveCount(24);
+  await expect(page.locator('#stage section.slide.active h1')).toContainText(/Arazzo/);
+});
