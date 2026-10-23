@@ -81,7 +81,10 @@ test('arazzo deck: no tooling talk before the Microcks hypothesis, Microcks slid
 test('arazzo deck: standalone page, no layout, assets resolved relative to /slides/arazzo/', () => {
   const src = read('_decks/010-arazzo.html');
   const fm = yaml.load(src.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
-  assert.equal(fm.layout, null, 'published as is, without the Reveal layout');
+  // Jekyll : avec un default `layout: deck` sur la collection, `layout: null` est ignoré ; seul `none` désactive le layout.
+  assert.equal(fm.layout, 'none', 'published as is, without the Reveal layout');
+  const defaults = yaml.load(read('_config.yml')).defaults.find((d) => d.scope.type === 'decks');
+  assert.equal(defaults.values.layout, 'deck', 'if this default disappears, revisit this test');
   assert.equal(fm.slug, 'arazzo');
   for (const key of ['title', 'date', 'description', 'thumbnail']) assert.ok(fm[key], `front matter: ${key}`);
   assert.ok(fs.existsSync(path.join(root, fm.thumbnail.replace(/^\//, ''))), 'thumbnail exists');

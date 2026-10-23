@@ -55,7 +55,7 @@ par `relative_url` (`{{ '/assets/img/…' | relative_url }}`) pour rester dans c
 ## Présentation HTML autonome
 
 Un deck déjà écrit en HTML autonome (sa propre mise en page, son JavaScript) peut être publié **tel quel** dans la même
-galerie : `_decks/NNN-slug.html`, avec le front matter habituel plus `layout: null`, et le HTML entouré de
+galerie : `_decks/NNN-slug.html`, avec le front matter habituel plus `layout: none` (pas `null`, ignoré à cause du layout par défaut des decks), et le HTML entouré de
 `{% raw %}` … `{% endraw %}` pour que Liquid n'y touche pas. Ses images vont dans `assets/img/decks/<slug>/` et sont
 référencées en relatif depuis `/slides/<slug>/` (`../../assets/img/decks/<slug>/…`), pour fonctionner aussi dans
 l'aperçu de PR. Exemple : `_decks/010-arazzo.html`.
