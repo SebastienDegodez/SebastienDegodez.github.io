@@ -300,12 +300,44 @@ layout: none
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
     }
+    /* ── Hors scène : retour au site, conseil d'orientation (mobile) ─────────── */
+    /* La scène de 1920 px ne doit pas élargir la page sur mobile (Chrome agrandit la zone d'affichage sinon). */
+    body:not(.speaker-mode) { position: fixed; inset: 0; }
+    .site-back {
+      position: fixed; top: 12px; left: 12px; z-index: 50;
+      display: inline-flex; align-items: center; gap: 0.4em;
+      padding: 0.35em 0.8em; font-size: 14px; font-weight: 700;
+      color: var(--color-dimmed); background: var(--glass-bg-strong);
+      border: 1px solid var(--glass-border); border-radius: var(--radius);
+      opacity: 0; transition: opacity var(--motion-medium);
+    }
+    .site-back:hover, .site-back:focus-visible { color: var(--color-highlight); text-decoration: none; }
+    body.ui-visible .site-back, .site-back:focus-visible { opacity: 0.9; }
+    @media (hover: none) { .site-back { opacity: 0.75; } }
+    .rotate-hint {
+      position: fixed; inset: 0; z-index: 60; display: none;
+      flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+      padding: 2rem; text-align: center; background: var(--color-background);
+      font-size: 18px; line-height: 1.5;
+    }
+    .rotate-hint .ic { width: 64px; height: 64px; color: var(--color-highlight); }
+    .rotate-hint p { max-width: 22em; color: var(--color-dimmed); }
+    .rotate-hint strong { display: block; margin-bottom: 0.3rem; font-size: 22px; color: var(--color-foreground); }
+    .rotate-hint button {
+      font: inherit; font-weight: 700; font-size: 16px; padding: 0.6em 1.2em; cursor: pointer;
+      color: var(--color-highlight); background: transparent;
+      border: 1px solid var(--color-highlight); border-radius: var(--radius);
+    }
+    @media (orientation: portrait) and (max-width: 900px) {
+      body:not(.rotate-dismissed):not(.speaker-mode) .rotate-hint { display: flex; }
+    }
+
     @media print {
       html, body { overflow: visible; background: none; }
       .stage { position: static; transform: none; width: 1920px; height: auto; }
       .slide { position: relative; opacity: 1; visibility: visible; transform: none; width: 1920px; height: 1080px; page-break-after: always; }
       .reveal { opacity: 1; transform: none; }
-      .foot { display: none; }
+      .foot, .site-back, .rotate-hint { display: none !important; }
       @page { size: 1920px 1080px; margin: 0; }
     }
   </style>
@@ -1013,6 +1045,14 @@ C'est le cas d'usage principal de dependsOn d'étape selon la spec : coordonner 
   </div>
 </div>
 
+<a class="site-back" href="../../presentations-catalog.html"><span aria-hidden="true">←</span> Présentations</a>
+
+<div class="rotate-hint" id="rotate-hint" role="dialog" aria-labelledby="rotate-title">
+  <svg class="ic" aria-hidden="true"><use href="#i-arrow-right-arrow-left"/></svg>
+  <p><strong id="rotate-title">Tournez votre téléphone</strong>Cette présentation est en 16:9 : elle se lit en paysage. Glissez vers la gauche ou la droite pour changer de diapo.</p>
+  <button type="button" id="rotate-dismiss">Continuer en portrait</button>
+</div>
+
 <div class="zoom" id="zoom" role="dialog" aria-label="Capture agrandie"><img src="../../assets/img/decks/arazzo/microcks-arazzo-workflow.png" alt="Capture agrandie" /></div>
 
 <script>
@@ -1156,6 +1196,24 @@ C'est le cas d'usage principal de dependsOn d'étape selon la spec : coordonner 
     else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); if (!document.fullscreenElement) { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); } else { document.exitFullscreen(); } }
     else if (e.key === 'z' || e.key === 'Z') { var f = slides[current].querySelector('[data-zoom]'); if (f) { e.preventDefault(); f.click(); } }
   });
+
+  /* ───────────── Tactile : glisser pour changer de diapo ───────────── */
+  var touchX = null, touchY = null;
+  stage.addEventListener('touchstart', function (e) { if (e.touches.length === 1) { touchX = e.touches[0].clientX; touchY = e.touches[0].clientY; } }, { passive: true });
+  stage.addEventListener('touchend', function (e) {
+    if (touchX === null || zoom.classList.contains('open')) { touchX = null; return; }
+    var dx = e.changedTouches[0].clientX - touchX, dy = e.changedTouches[0].clientY - touchY;
+    touchX = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  /* ───────────── Lien retour : visible quand la souris bouge, discret en projection ───────────── */
+  var uiTimer;
+  window.addEventListener('mousemove', function () {
+    document.body.classList.add('ui-visible');
+    clearTimeout(uiTimer); uiTimer = setTimeout(function () { document.body.classList.remove('ui-visible'); }, 2000);
+  });
+  document.getElementById('rotate-dismiss').addEventListener('click', function () { document.body.classList.add('rotate-dismissed'); });
 
   var wheelLock = false;
   window.addEventListener('wheel', function (e) {

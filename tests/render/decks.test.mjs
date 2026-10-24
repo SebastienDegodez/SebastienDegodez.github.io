@@ -96,3 +96,17 @@ test('arazzo deck: standalone page, no layout, assets resolved relative to /slid
   }
   assert.doesNotMatch(body, /(?:src|href|data-full)="\/(?!\/)/, 'no absolute internal path (would escape the PR preview)');
 });
+
+// Deck Arazzo hors scène : retour vers le site, lecture sur téléphone. Le contenu des diapos ne change pas.
+test('arazzo deck: back link to the site, portrait hint and swipe navigation for phones', () => {
+  const body = read('_decks/010-arazzo.html');
+  const back = body.match(/<a class="site-back" href="([^"]+)"/);
+  assert.ok(back, 'a link back to the site');
+  assert.equal(back[1], '../../presentations-catalog.html', 'relative, so it also works in PR previews');
+  assert.ok(body.indexOf('class="site-back"') > body.indexOf('id="counter"'), 'outside the scaled stage (after its last element)');
+  assert.match(body, /@media \(orientation: portrait\) and \(max-width: 900px\)[\s\S]*?\.rotate-hint \{ display: flex; \}/, 'portrait hint on phones only');
+  assert.match(body, /id="rotate-dismiss"[\s\S]*rotate-dismissed/, 'the hint can be dismissed');
+  assert.match(body, /addEventListener\('touchend'[\s\S]*?go\(dx < 0 \? 1 : -1\)/, 'swipe changes slide');
+  assert.match(body, /body:not\(\.speaker-mode\) \{ position: fixed; inset: 0; \}/, 'the 1920px stage must not widen the mobile page');
+  assert.match(body, /@media print \{[\s\S]*?\.site-back, \.rotate-hint \{ display: none !important; \}/, 'not printed in the PDF export');
+});
