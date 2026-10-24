@@ -1,0 +1,118 @@
+name: PR Preview
+
+# Aperçu hébergé de chaque Pull Request :
+#   https://sebastiendegodez.github.io/pr-preview/pr-<numéro>/
+# Le site est construit avec --baseurl pour vivre dans ce sous-dossier de la branche gh-pages.
+# Un commentaire unique sur la PR donne le lien ; l'aperçu est supprimé au merge ou à la fermeture.
+# Prérequis : GitHub Pages servi depuis la branche gh-pages, dont la racine porte le site de main
+# (deploy-pages.yml, ou l'amorçage ci-dessous la première fois).
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    # Les PR venant d'un fork n'ont pas le droit d'écrire sur gh-pages.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      PREVIEW_DIR: pr-preview/pr-${{ github.event.number }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 2 # commit de merge de la PR et sa base : liste des fichiers modifiés
+
+      - name: Build site under /pr-preview/pr-${{ github.event.number }}
+        if: github.event.action != 'closed'
+        run: |
+          docker run --rm -v "$PWD":/srv/jekyll jekyll/jekyll:4 \
+            jekyll build --source /srv/jekyll --destination /srv/jekyll/_site \
+            --baseurl "/pr-preview/pr-${{ github.event.number }}"
+
+      # Amorçage : tant que deploy-pages.yml n'a jamais tourné sur main, la racine de gh-pages est vide.
+      # On y publie alors le site de main, pour servir Pages depuis gh-pages sans attendre de merge
+      # (le site de production reste en ligne, les aperçus vivent dans pr-preview/).
+      - name: Is the production site already on gh-pages?
+        id: prod
+        if: github.event.action != 'closed'
+        run: |
+          if git fetch -q --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:index.html 2>/dev/null; then
+            echo "missing=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build main for the gh-pages root (first time only)
+        if: steps.prod.outputs.missing == 'true'
+        run: |
+          git fetch -q --depth=1 origin main
+          git worktree add -q main-site FETCH_HEAD
+          docker run --rm -v "$PWD/main-site":/srv/jekyll jekyll/jekyll:4 \
+            jekyll build --source /srv/jekyll --destination /srv/jekyll/_site
+          sudo touch main-site/_site/.nojekyll
+
+      - name: Publish main at the gh-pages root (first time only)
+        if: steps.prod.outputs.missing == 'true'
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: main-site/_site
+          clean: true
+          clean-exclude: pr-preview/
+
+      # Ouverture et chaque push : le sous-dossier de la PR est remplacé par le nouveau build.
+      - name: Deploy preview
+        if: github.event.action != 'closed'
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: _site
+          target-folder: ${{ env.PREVIEW_DIR }}
+          clean: true
+          force: false
+          commit-message: "Aperçu de la PR #${{ github.event.number }}"
+
+      # Merge ou fermeture : un dossier vide remplace le sous-dossier, qui disparaît de gh-pages.
+      - name: Prepare empty folder
+        if: github.event.action == 'closed'
+        run: mkdir -p empty-preview
+
+      - name: Remove preview
+        if: github.event.action == 'closed'
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: empty-preview
+          target-folder: ${{ env.PREVIEW_DIR }}
+          clean: true
+          force: false
+          commit-message: "Suppression de l'aperçu de la PR #${{ github.event.number }}"
+
+      - name: Write preview comment
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          if [ "${{ github.event.action }}" = "closed" ]; then
+            bash scripts/pr-preview-comment.sh removed "${{ github.event.number }}" "${{ github.event.pull_request.merged }}" > preview-comment.md
+          else
+            url="https://${OWNER,,}.github.io/${PREVIEW_DIR}/"
+            bash scripts/pr-preview-comment.sh deployed "$url" \
+              "${{ github.event.pull_request.head.sha }}" $(git diff --name-only HEAD^1 HEAD) > preview-comment.md
+          fi
+
+      # Un seul commentaire par PR (repéré par son header), mis à jour à chaque push puis à la fermeture.
+      - name: Post or update the single preview comment
+        uses: marocchino/sticky-pull-request-comment@v3.0.5
+        with:
+          header: pr-preview
+          path: preview-comment.md

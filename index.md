@@ -59,7 +59,7 @@ title: Accueil
         </div>
         {% endif %}
         {% if card.link %}
-        <a class="bento-card__link" href="{{ card.link.href }}"{% if card.link.external %} target="_blank" rel="noopener"{% endif %}><i class="{{ card.link.icon }}" aria-hidden="true"></i> {{ card.link.text }}</a>
+        <a class="bento-card__link" href="{{ card.link.href | relative_url }}"{% if card.link.external %} target="_blank" rel="noopener"{% endif %}><i class="{{ card.link.icon }}" aria-hidden="true"></i> {{ card.link.text }}</a>
         {% endif %}
       </div>
       {% endfor %}
