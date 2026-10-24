@@ -108,5 +108,6 @@ test('arazzo deck: back link to the site, portrait hint and swipe navigation for
   assert.match(body, /id="rotate-dismiss"[\s\S]*rotate-dismissed/, 'the hint can be dismissed');
   assert.match(body, /addEventListener\('touchend'[\s\S]*?go\(dx < 0 \? 1 : -1\)/, 'swipe changes slide');
   assert.match(body, /body:not\(\.speaker-mode\) \{ position: fixed; inset: 0; \}/, 'the 1920px stage must not widen the mobile page');
+  assert.ok(!body.includes('Sébastien Degodez') && body.includes('DEGODEZ Sébastien'), 'name written « DEGODEZ Sébastien », like the rest of the site');
   assert.match(body, /@media print \{[\s\S]*?\.site-back, \.rotate-hint \{ display: none !important; \}/, 'not printed in the PDF export');
 });
