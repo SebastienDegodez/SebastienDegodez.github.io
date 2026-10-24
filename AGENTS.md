@@ -33,7 +33,8 @@ _data/author.yml                Identité sur les diapos de titre et de fin
 _data/nav.yml                   Menu (l'état actif est calculé dans _layouts/default.html)
 _includes/                      head-extra (Open Graph), share-linkedin, decks-gallery, date-fr
 design-tokens.css               Source des couleurs, polices, effet verre — le site ET les décks la lisent
-assets/css/                     tech-glass (base), blog, decks (galerie), reveal-tech-glass (thème des slides)
+assets/css/                     tech-glass (base), blog, decks (galerie), site (composants des pages, ex-<style> du layout),
+                                reveal-tech-glass (thème des slides)
 assets/js/share-linkedin.js     Bouton de partage LinkedIn
 docs/NNN-*.md                   Guides : 010 blog, 020 présentations
 tests/                          site-regression (structure), render/ (rendu Liquid + DOM), e2e/ (Playwright)

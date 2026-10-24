@@ -38,6 +38,20 @@ test('layout keeps navigation shell and design tokens', () => {
   assert.match(layout, /\{\{\s*content\s*\}\}/i, 'Layout should render page content');
 });
 
+// Le CSS des composants vit dans assets/css/site.css (plus de <style> de 580 lignes dans le layout),
+// chargé en dernier pour garder l'ordre de cascade d'origine.
+test('layout loads component styles from assets/css/site.css, last in the cascade', () => {
+  const layout = read('_layouts/default.html');
+  assert.doesNotMatch(layout, /<style[\s>]/i, 'no inline <style> block in the layout');
+  const sheets = [...layout.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.match(sheets.at(-1), /\/assets\/css\/site\.css/, 'site.css comes after tech-glass, design-tokens, blog and decks');
+  assert.match(sheets.at(-1), /relative_url/, 'internal link goes through relative_url (PR previews)');
+  const css = read('assets/css/site.css');
+  for (const sel of ['.hero', '.page-header', '.bento-card', '.project-card', '.talk-card', '.mentoring-card', '.tag--orange']) {
+    assert.ok(css.includes(sel + ' ') || css.includes(sel + '{') || css.includes(sel + ','), `site.css must define ${sel}`);
+  }
+});
+
 test('presentations catalog page keeps data-driven loop', () => {
   const page = read('presentations.md');
 
