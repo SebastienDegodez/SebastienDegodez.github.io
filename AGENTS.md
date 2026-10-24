@@ -9,9 +9,9 @@ Ce fichier dit **comment réussir une modification de ce site sans rien casser**
    (workflow `Sync Presentations`, chaque nuit) **supprime et recrée** `presentations/` depuis `skraft-plugin` et
    `meetup-coding-with-ai`. Pour changer un deck synchronisé : modifier sa source ou la liste `ENTRIES` du script.
    Exception admise : aligner `_data/presentations.yml` sur un changement de `ENTRIES`, dans le même commit.
-2. **Ne pas supprimer ce qu'on ne comprend pas.** Les scripts Ruby de la racine (`fix_*.rb`, `patch_*.rb`,
-   `update_filters.rb`, `list_tags.rb`) sont des migrations ponctuelles déjà appliquées à `brag.md` / `_data/brag.json`,
-   sans aucune référence. On les garde tant que le propriétaire n'a pas décidé de les archiver.
+2. **Ne pas supprimer ce qu'on ne comprend pas.** Demander au propriétaire avant. Les anciens scripts de migration
+   Ruby de la racine (`fix_*.rb`, `patch_*.rb`…) ont été supprimés à sa demande : déjà appliqués, sans référence.
+   Une migration ponctuelle ne se commite pas à la racine (Jekyll publierait le fichier sur le site).
 3. **`_data/brag.json` garde l'historique.** On ajoute une entrée (nouveau rôle, nouveau projet), on ne réécrit pas le passé.
    Rôles : Tech Lead (juin 2023 → juin 2026), puis Staff Engineer (depuis juin 2026).
 4. **Ne pas inventer de contenu.** Réalisations, chiffres, dates, texte de slides : venant du propriétaire, ou absents.
