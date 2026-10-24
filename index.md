@@ -65,8 +65,8 @@ title: Accueil
       {% endfor %}
 
       <!-- Brag Document CTA -->
-      <div class="bento-card" style="background: rgba(2, 136, 209, 0.12); border-color: rgba(2, 136, 209, 0.35);">
-        <div class="bento-card__icon" style="background: rgba(2,136,209,0.2); color: var(--color-primary);">
+      <div class="bento-card bento-card--accent">
+        <div class="bento-card__icon">
           <i class="fa-solid fa-trophy" aria-hidden="true"></i>
         </div>
         <div class="bento-card__label">Réalisations détaillées</div>
@@ -74,7 +74,7 @@ title: Accueil
         <div class="bento-card__body">
 Projets majeurs, contributions open source, talks & publications, mentoring — détaillés par impact et par thème.
         </div>
-        <a class="bento-card__link" href="{% link brag.md %}" style="color: var(--color-highlight);"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Consulter le Brag Document</a>
+        <a class="bento-card__link" href="{% link brag.md %}"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Consulter le Brag Document</a>
       </div>
 
     </div>

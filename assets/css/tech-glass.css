@@ -48,7 +48,12 @@ body {
   font-size: 18px;
   line-height: 1.65;
   letter-spacing: 0.2px;
+  /* Pied de page toujours en bas, même sur une page courte (404, blog vide). */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+body > footer { margin-top: auto; }
 a {
   color: var(--color-highlight);
   text-decoration: none;
