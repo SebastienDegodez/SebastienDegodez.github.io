@@ -279,3 +279,18 @@ test('workflows only use actions running on Node 24', () => {
     }
   }
 });
+
+// Brag : la barre de filtres collante se pose SOUS le menu fixe (sinon elle masque la navigation, surtout sur mobile).
+test('brag filters stick below the fixed navigation and stay on the Tech Glass palette', () => {
+  const brag = read('brag.md');
+  const theme = read('assets/css/tech-glass.css');
+  assert.match(theme, /--nav-height:\s*[\d.]+rem/, 'tech-glass.css must expose the fixed nav height');
+  const wrapper = brag.match(/\.filters-wrapper\s*\{([\s\S]*?)\}/)[1];
+  assert.match(wrapper, /top:\s*calc\(var\(--nav-height\)/, 'sticky filters must start below the nav');
+  const z = Number(wrapper.match(/z-index:\s*(\d+)/)[1]);
+  const navZ = Number(theme.match(/\.site-nav\s*\{[\s\S]*?z-index:\s*(\d+)/)[1]);
+  assert.ok(z < navZ, `filters (z-index ${z}) must stay under the nav (${navZ})`);
+  assert.match(brag, /@media \(max-width: 768px\)[\s\S]*?\.brag-filters\s*\{[\s\S]*?flex-wrap:\s*nowrap/, 'mobile: one scrollable row per filter type');
+  assert.match(brag, /\.filter-btn\s*\{[\s\S]*?font-family:\s*inherit/, 'buttons use the site font');
+  for (const legacy of ['36, 181, 255', '76, 175, 80', '#81c784']) assert.ok(!brag.includes(legacy), `colour outside the palette: ${legacy}`);
+});
