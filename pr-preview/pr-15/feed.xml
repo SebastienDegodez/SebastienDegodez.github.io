@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog — Sébastien Degodez</title>
+    <title>Blog — DEGODEZ Sébastien</title>
     <link>https://sebastiendegodez.github.io/pr-preview/pr-15/blog/</link>
     <atom:link href="https://sebastiendegodez.github.io/pr-preview/pr-15/feed.xml" rel="self" type="application/rss+xml" />
     <description>Ingénierie logicielle, .NET, skraft, Microcks et assistants de code.</description>

@@ -203,6 +203,14 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
 });
 
+// Le nom s'écrit « DEGODEZ Sébastien » partout (titre d'onglet, pied de page, Open Graph, RSS, diapos).
+test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
+  const files = ['index.md', '_layouts/default.html', '_layouts/deck.html', '_includes/head-extra.html', '_data/author.yml', 'feed.xml', '_config.yml'];
+  for (const f of files) assert.ok(!read(f).includes('Sébastien Degodez'), `${f}: name in the old order`);
+  assert.match(read('_layouts/default.html'), /<title>\{\{ page\.title \}\} — DEGODEZ Sébastien<\/title>/);
+  assert.match(read('_data/author.yml'), /^name: DEGODEZ Sébastien$/m);
+});
+
 test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
   const deploy = yaml.load(read('.github/workflows/deploy-pages.yml'));
   const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
