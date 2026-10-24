@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Presentations
+title: Présentations
 permalink: /presentations-catalog.html
 ---
 
@@ -10,10 +10,10 @@ permalink: /presentations-catalog.html
 
 <p class="page-header__eyebrow">Knowledge Hub</p>
 
-# Presentations
+# Présentations
 {: .page-header__title}
 
-Catalogues publies depuis mes autres projets. Cette page est alimentee par un script de synchronisation local.
+Catalogues publiés depuis mes autres projets. Cette page est alimentée par un script de synchronisation local.
 {: .page-header__subtitle}
 
   </div>
@@ -24,10 +24,10 @@ Catalogues publies depuis mes autres projets. Cette page est alimentee par un sc
 <section class="section" aria-labelledby="presentations-title">
   <div class="section__header" markdown="1">
 
-## Bibliotheque de slides
+## Bibliothèque de slides
 {: #presentations-title .section__title}
 
-Chaque carte pointe vers la version publiee sur ce site et affiche la derniere mise a jour du fichier source.
+Chaque carte pointe vers la version publiée sur ce site et affiche la dernière mise à jour du fichier source.
 {: .section__subtitle}
 
   </div>
@@ -38,20 +38,20 @@ Chaque carte pointe vers la version publiee sur ce site et affiche la derniere m
       <div>
         <h3 class="project-card__name">{{ presentation.title }}</h3>
         <div class="project-card__desc">
-          Projet source: <strong>{{ presentation.project }}</strong><br/>
-          Fichier source: <code>{{ presentation.source_path }}</code>
+          Projet source : <strong>{{ presentation.project }}</strong><br/>
+          Fichier source : <code>{{ presentation.source_path }}</code>
         </div>
         <div class="project-card__tags">
           <span class="tag">{{ presentation.source_repository }}</span>
           {% if presentation.visibility == "private" %}
-          <span class="tag tag--orange">source privee</span>
+          <span class="tag tag--orange">source privée</span>
           {% else %}
           <span class="tag tag--green">source publique</span>
           {% endif %}
         </div>
       </div>
       <div class="project-card__side">
-        <div class="project-card__date">Maj source: {{ presentation.updated_at }}</div>
+        <div class="project-card__date">Mise à jour : {{ presentation.updated_at }}</div>
         <a class="project-card__link" href="{{ presentation.url | relative_url }}" target="_blank" rel="noopener">
           <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Ouvrir
         </a>

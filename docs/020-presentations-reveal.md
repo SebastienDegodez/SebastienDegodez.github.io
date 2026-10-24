@@ -1,6 +1,6 @@
 # Créer une présentation (Reveal.js)
 
-Deux familles de présentations cohabitent sur la page [Presentations](../presentations.md) :
+Deux familles de présentations cohabitent sur la page [Présentations](../presentations.md) :
 
 | | Nouvelles présentations | Présentations synchronisées |
 |---|---|---|
