@@ -21,7 +21,7 @@ defaults:
       type: blog
     values:
       layout: post
-      author: Sébastien Degodez
+      author: DEGODEZ Sébastien
   - scope:
       path: ""
       type: decks

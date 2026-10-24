@@ -8,7 +8,7 @@ title: Accueil
   <div class="hero__bg" role="presentation" aria-hidden="true"></div>
   <div class="hero__content">
 
-<img class="hero__avatar" src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png" alt="Photo de Sébastien Degodez" />
+<img class="hero__avatar" src="https://raw.githubusercontent.com/SebastienDegodez/slide-marp/refs/heads/main/presentation/images/me.png" alt="Photo de DEGODEZ Sébastien" />
 
 <h1>DEGODEZ Sébastien</h1>
 
