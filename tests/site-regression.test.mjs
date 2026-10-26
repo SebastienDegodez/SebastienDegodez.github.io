@@ -279,3 +279,14 @@ test('workflows only use actions running on Node 24', () => {
     }
   }
 });
+
+// 404 : même thème, même menu et même comportement mobile que le reste du site (viewport via le layout).
+test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
+  const src = read('404.html');
+  const fm = yaml.load(src.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  assert.equal(fm.layout, 'default', '404 must use the default layout (theme, nav, viewport)');
+  assert.equal(fm.permalink, '/404.html', 'GitHub Pages serves /404.html');
+  assert.match(read('_layouts/default.html'), /name="viewport"/);
+  assert.match(src, /indexOf\('\/md-copilot'\) === 0[\s\S]*learning-path-copilot/, 'old /md-copilot links must still redirect');
+  assert.doesNotMatch(src, /href="\/(?!\/)/, 'internal links go through relative_url');
+});
