@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title }} — Sébastien Degodez</title>
+  <title>{{ page.title }} — DEGODEZ Sébastien</title>
   <link rel="preconnect" href="https://fonts.bunny.net" />
   <link
     href="https://fonts.bunny.net/css?family=Lato:400,700,900|Fira+Code:400,700&display=swap"
@@ -191,11 +191,29 @@
       box-shadow: var(--glass-shadow-hover);
       transform: translateY(-2px);
     }
+    /* Carte d'appel (Brag Document) : même verre, accent vert du thème. */
+    .bento-card--accent {
+      background: rgba(78, 213, 138, 0.1);
+      border-color: rgba(139, 229, 177, 0.4);
+    }
+    .bento-card--accent .bento-card__icon {
+      background: rgba(78, 213, 138, 0.2);
+      color: var(--color-primary);
+    }
     .bento-card--wide {
       grid-column: span 2;
     }
     @media (max-width: 600px) {
-      .bento-card--wide { grid-column: span 1; }
+      /* Carte d'appel (Brag Document) : même verre, accent vert du thème. */
+    .bento-card--accent {
+      background: rgba(78, 213, 138, 0.1);
+      border-color: rgba(139, 229, 177, 0.4);
+    }
+    .bento-card--accent .bento-card__icon {
+      background: rgba(78, 213, 138, 0.2);
+      color: var(--color-primary);
+    }
+    .bento-card--wide { grid-column: span 1; }
     }
     .bento-card__icon {
       font-size: 1.5rem;
@@ -402,6 +420,10 @@
       line-height: 1.7;
       text-align: justify;
       margin-bottom: 0.8rem;
+    }
+    @media (max-width: 600px) {
+      /* Texte justifié sur colonne étroite = « rivières » de blancs : aligné à gauche sur mobile. */
+      .project-card__main p { text-align: left; }
     }
     .project-card__main p:last-of-type {
       margin-bottom: 0;
@@ -625,7 +647,7 @@
         {% else %}
         {% assign nav_active = false %}
         {% if item.label == 'Accueil' and page.url == '/' %}{% assign nav_active = true %}{% endif %}
-        {% if item.label == 'Presentations' and page.url contains 'presentations' %}{% assign nav_active = true %}{% endif %}
+        {% if item.label == 'Présentations' and page.url contains 'presentations' %}{% assign nav_active = true %}{% endif %}
         {% if item.label == 'Blog' and page.url contains '/blog' %}{% assign nav_active = true %}{% endif %}
         {% if item.label == 'Brag Document' and page.url contains 'brag' %}{% assign nav_active = true %}{% endif %}
         <a href="{{ item.url | relative_url }}"{% if nav_active %} class="active" aria-current="page"{% endif %}>
@@ -659,7 +681,7 @@
        ============================================================ -->
   <footer>
     <p>
-      © 2025 Sébastien Degodez —
+      © {{ site.time | date: '%Y' }} DEGODEZ Sébastien —
       <a href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
         <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
       </a>

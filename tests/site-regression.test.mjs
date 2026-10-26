@@ -130,6 +130,27 @@ function deckFiles() {
   return fs.readdirSync(path.join(root, '_decks')).filter((name) => name.endsWith('.md')).sort();
 }
 
+// Cohérence visible : libellés accentués, aucune couleur d'un ancien thème, année du pied de page à jour.
+test('visible consistency: accented labels, Tech Glass colours only, footer year not hard-coded', () => {
+  const nav = yaml.load(read('_data/nav.yml'));
+  const layout = read('_layouts/default.html');
+  assert.ok(nav.some((i) => i.label === 'Présentations'), 'menu label with its accent');
+  for (const i of nav.filter((x) => !x.dropdown)) {
+    if (i.label === 'Accueil') continue;
+    assert.ok(layout.includes(`item.label == '${i.label}'`), `active state must know the menu label « ${i.label} »`);
+  }
+  const catalog = read('presentations.md');
+  for (const word of ['publies', 'alimentee', 'Bibliotheque', 'publiee', 'derniere', 'mise a jour', 'privee', '# Presentations']) {
+    assert.ok(!catalog.includes(word), `missing accent in presentations.md: ${word}`);
+  }
+  const home = read('index.md');
+  assert.ok(!/rgba\(\s*2\s*,\s*136\s*,\s*209/.test(home + layout), 'blue from the previous theme');
+  assert.doesNotMatch(home, /class="bento-card[^"]*"\s+style=/, 'home cards are styled by classes, not inline styles');
+  assert.doesNotMatch(layout, /©\s*20\d\d/, 'footer year must come from site.time');
+  assert.match(layout, /@media \(max-width: 600px\)\s*\{[^}]*\.project-card__main p\s*\{\s*text-align:\s*left/, 'no justified text on mobile');
+  assert.match(read('assets/css/tech-glass.css'), /body > footer\s*\{\s*margin-top:\s*auto/, 'footer sticks to the bottom of short pages');
+});
+
 test('decks collection is configured apart from the generated presentations folder', () => {
   const config = yaml.load(read('_config.yml'));
   assert.equal(config.collections?.decks?.output, true, 'Collection "decks" must output pages');
@@ -180,6 +201,14 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(page, /include decks-gallery\.html/, 'Catalog must include the decks gallery');
   assert.match(page, /for presentation in site\.data\.presentations/i, 'Synced catalog loop must stay');
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
+});
+
+// Le nom s'écrit « DEGODEZ Sébastien » partout (titre d'onglet, pied de page, Open Graph, RSS, diapos).
+test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
+  const files = ['index.md', '_layouts/default.html', '_layouts/deck.html', '_includes/head-extra.html', '_data/author.yml', 'feed.xml', '_config.yml'];
+  for (const f of files) assert.ok(!read(f).includes('Sébastien Degodez'), `${f}: name in the old order`);
+  assert.match(read('_layouts/default.html'), /<title>\{\{ page\.title \}\} — DEGODEZ Sébastien<\/title>/);
+  assert.match(read('_data/author.yml'), /^name: DEGODEZ Sébastien$/m);
 });
 
 test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
