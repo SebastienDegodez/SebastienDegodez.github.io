@@ -1,0 +1,49 @@
+name: Deploy Pages
+
+# Construit le site (Jekyll) et le publie à la racine de la branche gh-pages.
+# GitHub Pages sert cette branche (Settings → Pages → Deploy from a branch : gh-pages / root).
+# Le dossier pr-preview/ (aperçus de Pull Request, voir pr-preview.yml) n'est jamais effacé.
+
+on:
+  push:
+    branches:
+      - main
+  # La synchronisation nocturne pousse sur main avec GITHUB_TOKEN, ce qui ne déclenche pas « push » :
+  # on redéploie donc après chaque synchronisation réussie.
+  workflow_run:
+    workflows: ["Sync Presentations"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Un seul déploiement à la fois sur gh-pages (partagé avec pr-preview.yml).
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Build site in Jekyll container
+        run: |
+          docker run --rm -v "$PWD":/srv/jekyll jekyll/jekyll:4 \
+            jekyll build --source /srv/jekyll --destination /srv/jekyll/_site
+          # Le site est déjà construit : GitHub Pages ne doit pas relancer Jekyll sur gh-pages.
+          sudo touch _site/.nojekyll
+
+      - name: Publish to gh-pages (keep PR previews)
+        uses: JamesIves/github-pages-deploy-action@v4.9.0
+        with:
+          branch: gh-pages
+          folder: _site
+          clean: true
+          clean-exclude: pr-preview/
