@@ -16,8 +16,9 @@ title: Brag Document
 }
 .filters-wrapper {
   position: sticky;
-  top: 1rem;
-  z-index: 100;
+  /* Sous le menu fixe (--nav-height, tech-glass.css), jamais par-dessus. */
+  top: calc(var(--nav-height) + 0.75rem);
+  z-index: 90;
   max-width: 1100px;
   margin: 0 auto 2rem auto;
   box-sizing: border-box;
@@ -57,7 +58,8 @@ title: Brag Document
   border-radius: 12px;
   cursor: pointer;
   transition: all var(--motion-fast);
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: 700;
   font-size: 0.75rem;
   display: inline-flex;
   align-items: center;
@@ -112,12 +114,12 @@ title: Brag Document
   margin: 3rem 0 1.5rem 0;
   padding-left: 1.2rem;
   border-left: 5px solid var(--color-primary);
-  text-shadow: 0 2px 10px rgba(36, 181, 255, 0.2);
+  text-shadow: 0 2px 10px rgba(78, 213, 138, 0.2);
 }
 /* ── Ongoing / En cours ──────────────────────────── */
 .project-card--ongoing {
-  border: 1px solid rgba(76, 175, 80, 0.4);
-  box-shadow: 0 0 20px rgba(76, 175, 80, 0.12), inset 0 0 30px rgba(76, 175, 80, 0.04);
+  border: 1px solid rgba(78, 213, 138, 0.4);
+  box-shadow: 0 0 20px rgba(78, 213, 138, 0.12), inset 0 0 30px rgba(78, 213, 138, 0.04);
 }
 .badge-ongoing {
   display: inline-flex;
@@ -127,14 +129,34 @@ title: Brag Document
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: #81c784;
-  background: rgba(76, 175, 80, 0.15);
-  border: 1px solid rgba(76, 175, 80, 0.35);
+  color: var(--color-highlight);
+  background: rgba(78, 213, 138, 0.15);
+  border: 1px solid rgba(78, 213, 138, 0.35);
   border-radius: 20px;
   padding: 0.15rem 0.65rem;
   vertical-align: middle;
   margin-left: 0.5rem;
   animation: ongoing-pulse 2.5s ease-in-out infinite;
+}
+/* Mobile : une ligne de filtres par type, défilement horizontal, pour ne pas masquer la page. */
+@media (max-width: 768px) {
+  .filters-wrapper {
+    top: var(--nav-height); /* collée au menu, sans jour entre les deux */
+    margin: 0 0 1.5rem;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    padding: 0.6rem 1rem;
+    gap: 0.4rem;
+  }
+  .brag-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .brag-filters::-webkit-scrollbar { display: none; }
+  .brag-filters span,
+  .filter-btn { flex-shrink: 0; white-space: nowrap; }
 }
 @keyframes ongoing-pulse {
   0%, 100% { opacity: 1; }
@@ -401,7 +423,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const firstActive = document.querySelector('.project-card:not(.filtered-out), .talk-card:not(.filtered-out)');
         if (firstActive) {
           const wrapper = document.querySelector('.filters-wrapper');
-          const offset = (wrapper ? wrapper.offsetHeight : 100) + 20; // espace pour la barre sticky
+          // espace pour la barre sticky, elle-même posée sous le menu fixe
+          const offset = (wrapper ? parseFloat(getComputedStyle(wrapper).top) + wrapper.offsetHeight : 100) + 20;
           
           // Vérifie si on a un year-separator juste au-dessus 
           let target = firstActive;
