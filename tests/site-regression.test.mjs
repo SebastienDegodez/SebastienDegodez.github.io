@@ -142,6 +142,12 @@ test('decks collection is configured apart from the generated presentations fold
   assert.ok(!fs.existsSync(path.join(root, 'presentations', '_decks')), 'Do not store decks inside presentations/');
 });
 
+// Pas de script de migration à la racine : Jekyll publie tout fichier non exclu, y compris un .rb.
+test('no one-off migration script left at the repository root', () => {
+  const scripts = fs.readdirSync(root).filter((f) => /\.(rb|py)$/.test(f));
+  assert.deepEqual(scripts, [], `published as-is by Jekyll: ${scripts.join(', ')}`);
+});
+
 test('deck files follow the NNN-slug naming and carry required front matter', () => {
   const files = deckFiles();
   assert.ok(files.length > 0, 'At least the deck template should exist in _decks/');
