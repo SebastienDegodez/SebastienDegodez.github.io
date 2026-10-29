@@ -1,6 +1,6 @@
 # Créer une présentation (Reveal.js)
 
-Deux familles de présentations cohabitent sur la page [Presentations](../presentations.md) :
+Deux familles de présentations cohabitent sur la page [Présentations](../presentations.md) :
 
 | | Nouvelles présentations | Présentations synchronisées |
 |---|---|---|
@@ -51,6 +51,14 @@ Puis ouvrir `http://localhost:4000/slides/<slug>/`.
 direct de chaque présentation modifiée (`…/pr-preview/pr-<numéro>/slides/<slug>/`) ; il est mis à jour à chaque push,
 et l'aperçu est supprimé au merge ou à la fermeture. Dans un deck, les liens internes passent
 par `relative_url` (`{{ '/assets/img/…' | relative_url }}`) pour rester dans cet aperçu.
+
+## Présentation HTML autonome
+
+Un deck déjà écrit en HTML autonome (sa propre mise en page, son JavaScript) peut être publié **tel quel** dans la même
+galerie : `_decks/NNN-slug.html`, avec le front matter habituel plus `layout: none` (pas `null`, ignoré à cause du layout par défaut des decks), et le HTML entouré de
+`{% raw %}` … `{% endraw %}` pour que Liquid n'y touche pas. Ses images vont dans `assets/img/decks/<slug>/` et sont
+référencées en relatif depuis `/slides/<slug>/` (`../../assets/img/decks/<slug>/…`), pour fonctionner aussi dans
+l'aperçu de PR. Exemple : `_decks/010-arazzo.html`.
 
 ## Export PDF
 
