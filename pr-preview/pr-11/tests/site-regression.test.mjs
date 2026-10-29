@@ -38,6 +38,20 @@ test('layout keeps navigation shell and design tokens', () => {
   assert.match(layout, /\{\{\s*content\s*\}\}/i, 'Layout should render page content');
 });
 
+// Le CSS des composants vit dans assets/css/site.css (plus de <style> de 580 lignes dans le layout),
+// chargé en dernier pour garder l'ordre de cascade d'origine.
+test('layout loads component styles from assets/css/site.css, last in the cascade', () => {
+  const layout = read('_layouts/default.html');
+  assert.doesNotMatch(layout, /<style[\s>]/i, 'no inline <style> block in the layout');
+  const sheets = [...layout.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.match(sheets.at(-1), /\/assets\/css\/site\.css/, 'site.css comes after tech-glass, design-tokens, blog and decks');
+  assert.match(sheets.at(-1), /relative_url/, 'internal link goes through relative_url (PR previews)');
+  const css = read('assets/css/site.css');
+  for (const sel of ['.hero', '.page-header', '.bento-card', '.project-card', '.talk-card', '.mentoring-card', '.tag--orange']) {
+    assert.ok(css.includes(sel + ' ') || css.includes(sel + '{') || css.includes(sel + ','), `site.css must define ${sel}`);
+  }
+});
+
 test('presentations catalog page keeps data-driven loop', () => {
   const page = read('presentations.md');
 
@@ -80,6 +94,21 @@ function frontMatter(file) {
 function blogFiles() {
   return fs.readdirSync(path.join(root, '_blog')).filter((name) => name.endsWith('.md')).sort();
 }
+
+// Brag : la barre de filtres collante se pose SOUS le menu fixe (sinon elle masque la navigation, surtout sur mobile).
+test('brag filters stick below the fixed navigation and stay on the Tech Glass palette', () => {
+  const brag = read('brag.md');
+  const theme = read('assets/css/tech-glass.css');
+  assert.match(theme, /--nav-height:\s*[\d.]+rem/, 'tech-glass.css must expose the fixed nav height');
+  const wrapper = brag.match(/\.filters-wrapper\s*\{([\s\S]*?)\}/)[1];
+  assert.match(wrapper, /top:\s*calc\(var\(--nav-height\)/, 'sticky filters must start below the nav');
+  const z = Number(wrapper.match(/z-index:\s*(\d+)/)[1]);
+  const navZ = Number(theme.match(/\.site-nav\s*\{[\s\S]*?z-index:\s*(\d+)/)[1]);
+  assert.ok(z < navZ, `filters (z-index ${z}) must stay under the nav (${navZ})`);
+  assert.match(brag, /@media \(max-width: 768px\)[\s\S]*?\.brag-filters\s*\{[\s\S]*?flex-wrap:\s*nowrap/, 'mobile: one scrollable row per filter type');
+  assert.match(brag, /\.filter-btn\s*\{[\s\S]*?font-family:\s*inherit/, 'buttons use the site font');
+  for (const legacy of ['36, 181, 255', '76, 175, 80', '#81c784']) assert.ok(!brag.includes(legacy), `colour outside the palette: ${legacy}`);
+});
 
 test('blog collection is configured and wired into the navigation', () => {
   const config = yaml.load(read('_config.yml'));
@@ -130,6 +159,27 @@ function deckFiles() {
   return fs.readdirSync(path.join(root, '_decks')).filter((name) => name.endsWith('.md')).sort();
 }
 
+// Cohérence visible : libellés accentués, aucune couleur d'un ancien thème, année du pied de page à jour.
+test('visible consistency: accented labels, Tech Glass colours only, footer year not hard-coded', () => {
+  const nav = yaml.load(read('_data/nav.yml'));
+  const layout = read('_layouts/default.html');
+  assert.ok(nav.some((i) => i.label === 'Présentations'), 'menu label with its accent');
+  for (const i of nav.filter((x) => !x.dropdown)) {
+    if (i.label === 'Accueil') continue;
+    assert.ok(layout.includes(`item.label == '${i.label}'`), `active state must know the menu label « ${i.label} »`);
+  }
+  const catalog = read('presentations.md');
+  for (const word of ['publies', 'alimentee', 'Bibliotheque', 'publiee', 'derniere', 'mise a jour', 'privee', '# Presentations']) {
+    assert.ok(!catalog.includes(word), `missing accent in presentations.md: ${word}`);
+  }
+  const home = read('index.md');
+  assert.ok(!/rgba\(\s*2\s*,\s*136\s*,\s*209/.test(home + layout), 'blue from the previous theme');
+  assert.doesNotMatch(home, /class="bento-card[^"]*"\s+style=/, 'home cards are styled by classes, not inline styles');
+  assert.doesNotMatch(layout, /©\s*20\d\d/, 'footer year must come from site.time');
+  assert.match(read('assets/css/site.css'), /@media \(max-width: 600px\)\s*\{[^}]*\.project-card__main p\s*\{\s*text-align:\s*left/, 'no justified text on mobile');
+  assert.match(read('assets/css/tech-glass.css'), /body > footer\s*\{\s*margin-top:\s*auto/, 'footer sticks to the bottom of short pages');
+});
+
 test('decks collection is configured apart from the generated presentations folder', () => {
   const config = yaml.load(read('_config.yml'));
   assert.equal(config.collections?.decks?.output, true, 'Collection "decks" must output pages');
@@ -140,6 +190,12 @@ test('decks collection is configured apart from the generated presentations fold
   );
   // presentations/ est vidé par scripts/sync-presentations.sh : aucune source de deck ne doit y vivre.
   assert.ok(!fs.existsSync(path.join(root, 'presentations', '_decks')), 'Do not store decks inside presentations/');
+});
+
+// Pas de script de migration à la racine : Jekyll publie tout fichier non exclu, y compris un .rb.
+test('no one-off migration script left at the repository root', () => {
+  const scripts = fs.readdirSync(root).filter((f) => /\.(rb|py)$/.test(f));
+  assert.deepEqual(scripts, [], `published as-is by Jekyll: ${scripts.join(', ')}`);
 });
 
 test('deck files follow the NNN-slug naming and carry required front matter', () => {
@@ -180,6 +236,14 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(page, /include decks-gallery\.html/, 'Catalog must include the decks gallery');
   assert.match(page, /for presentation in site\.data\.presentations/i, 'Synced catalog loop must stay');
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
+});
+
+// Le nom s'écrit « DEGODEZ Sébastien » partout (titre d'onglet, pied de page, Open Graph, RSS, diapos).
+test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
+  const files = ['index.md', '_layouts/default.html', '_layouts/deck.html', '_includes/head-extra.html', '_data/author.yml', 'feed.xml', '_config.yml'];
+  for (const f of files) assert.ok(!read(f).includes('Sébastien Degodez'), `${f}: name in the old order`);
+  assert.match(read('_layouts/default.html'), /<title>\{\{ page\.title \}\} — DEGODEZ Sébastien<\/title>/);
+  assert.match(read('_data/author.yml'), /^name: DEGODEZ Sébastien$/m);
 });
 
 test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
@@ -278,4 +342,14 @@ test('workflows only use actions running on Node 24', () => {
       assert.ok(maj > minMaj || (maj === minMaj && minor >= minMinor), `${file}: ${action}@v${version} runs Node 20`);
     }
   }
+});
+// 404 : même thème, même menu et même comportement mobile que le reste du site (viewport via le layout).
+test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
+  const src = read('404.html');
+  const fm = yaml.load(src.match(/^---\r?\n([\s\S]*?)\r?\n---/)[1]);
+  assert.equal(fm.layout, 'default', '404 must use the default layout (theme, nav, viewport)');
+  assert.equal(fm.permalink, '/404.html', 'GitHub Pages serves /404.html');
+  assert.match(read('_layouts/default.html'), /name="viewport"/);
+  assert.match(src, /indexOf\('\/md-copilot'\) === 0[\s\S]*learning-path-copilot/, 'old /md-copilot links must still redirect');
+  assert.doesNotMatch(src, /href="\/(?!\/)/, 'internal links go through relative_url');
 });

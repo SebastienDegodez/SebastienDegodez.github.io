@@ -19,7 +19,7 @@ test('deck: generated title slide, one slide per ---, generated end slide', asyn
   const s = await slidesOf(page);
   assert.equal(s.length, 5, 'titre + 3 contenus + fin');
   assert.ok(s[0].classList.contains('slide-title'));
-  assert.match(s[0].textContent, /Meetup interne AXA[\s\S]*Sébastien Degodez[\s\S]*Staff Engineer[\s\S]*5 novembre 2026/);
+  assert.match(s[0].textContent, /Meetup interne AXA[\s\S]*DEGODEZ Sébastien[\s\S]*Staff Engineer[\s\S]*5 novembre 2026/);
   assert.equal(s[1].textContent.trim(), 'Intro');
   assert.ok(s[3].querySelector('aside.notes'), 'speaker notes stay in their slide');
   assert.ok(s[4].classList.contains('slide-end'));
