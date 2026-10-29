@@ -52,7 +52,6 @@ direct de chaque présentation modifiée (`…/pr-preview/pr-<numéro>/slides/<s
 et l'aperçu est supprimé au merge ou à la fermeture. Dans un deck, les liens internes passent
 par `relative_url` (`{{ '/assets/img/…' | relative_url }}`) pour rester dans cet aperçu.
 
-<<<<<<< HEAD
 ## Présentation HTML autonome
 
 Un deck déjà écrit en HTML autonome (sa propre mise en page, son JavaScript) peut être publié **tel quel** dans la même
@@ -61,8 +60,6 @@ galerie : `_decks/NNN-slug.html`, avec le front matter habituel plus `layout: no
 référencées en relatif depuis `/slides/<slug>/` (`../../assets/img/decks/<slug>/…`), pour fonctionner aussi dans
 l'aperçu de PR. Exemple : `_decks/010-arazzo.html`.
 
-=======
->>>>>>> origin/main
 ## Export PDF
 
 Ouvrir `/slides/<slug>/?print-pdf` dans Chrome, puis Imprimer → Enregistrer au format PDF (marges : aucune, fonds activés).

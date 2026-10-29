@@ -176,7 +176,7 @@ test('visible consistency: accented labels, Tech Glass colours only, footer year
   assert.ok(!/rgba\(\s*2\s*,\s*136\s*,\s*209/.test(home + layout), 'blue from the previous theme');
   assert.doesNotMatch(home, /class="bento-card[^"]*"\s+style=/, 'home cards are styled by classes, not inline styles');
   assert.doesNotMatch(layout, /©\s*20\d\d/, 'footer year must come from site.time');
-  assert.match(layout, /@media \(max-width: 600px\)\s*\{[^}]*\.project-card__main p\s*\{\s*text-align:\s*left/, 'no justified text on mobile');
+  assert.match(read('assets/css/site.css'), /@media \(max-width: 600px\)\s*\{[^}]*\.project-card__main p\s*\{\s*text-align:\s*left/, 'no justified text on mobile');
   assert.match(read('assets/css/tech-glass.css'), /body > footer\s*\{\s*margin-top:\s*auto/, 'footer sticks to the bottom of short pages');
 });
 
@@ -238,7 +238,6 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
 });
 
-<<<<<<< HEAD
 // Le nom s'écrit « DEGODEZ Sébastien » partout (titre d'onglet, pied de page, Open Graph, RSS, diapos).
 test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
   const files = ['index.md', '_layouts/default.html', '_layouts/deck.html', '_includes/head-extra.html', '_data/author.yml', 'feed.xml', '_config.yml'];
@@ -247,8 +246,6 @@ test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
   assert.match(read('_data/author.yml'), /^name: DEGODEZ Sébastien$/m);
 });
 
-=======
->>>>>>> origin/main
 test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
   const deploy = yaml.load(read('.github/workflows/deploy-pages.yml'));
   const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
@@ -346,8 +343,6 @@ test('workflows only use actions running on Node 24', () => {
     }
   }
 });
-<<<<<<< HEAD
-
 // 404 : même thème, même menu et même comportement mobile que le reste du site (viewport via le layout).
 test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
   const src = read('404.html');
@@ -358,5 +353,3 @@ test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
   assert.match(src, /indexOf\('\/md-copilot'\) === 0[\s\S]*learning-path-copilot/, 'old /md-copilot links must still redirect');
   assert.doesNotMatch(src, /href="\/(?!\/)/, 'internal links go through relative_url');
 });
-=======
->>>>>>> origin/main

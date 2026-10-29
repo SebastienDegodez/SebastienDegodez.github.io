@@ -436,6 +436,9 @@
   color: var(--color-highlight);
 }
 @media (max-width: 600px) {
+  .project-card__main p {
+    text-align: left;
+  }
   .project-card {
     grid-template-columns: 1fr;
   }
