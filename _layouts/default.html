@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{ page.title }} — Sébastien Degodez</title>
+  <title>{{ page.title }} — DEGODEZ Sébastien</title>
   <link rel="preconnect" href="https://fonts.bunny.net" />
   <link
     href="https://fonts.bunny.net/css?family=Lato:400,700,900|Fira+Code:400,700&display=swap"
@@ -46,7 +46,7 @@
         {% else %}
         {% assign nav_active = false %}
         {% if item.label == 'Accueil' and page.url == '/' %}{% assign nav_active = true %}{% endif %}
-        {% if item.label == 'Presentations' and page.url contains 'presentations' %}{% assign nav_active = true %}{% endif %}
+        {% if item.label == 'Présentations' and page.url contains 'presentations' %}{% assign nav_active = true %}{% endif %}
         {% if item.label == 'Blog' and page.url contains '/blog' %}{% assign nav_active = true %}{% endif %}
         {% if item.label == 'Brag Document' and page.url contains 'brag' %}{% assign nav_active = true %}{% endif %}
         <a href="{{ item.url | relative_url }}"{% if nav_active %} class="active" aria-current="page"{% endif %}>
@@ -80,7 +80,7 @@
        ============================================================ -->
   <footer>
     <p>
-      © 2025 Sébastien Degodez —
+      © {{ site.time | date: '%Y' }} DEGODEZ Sébastien —
       <a href="https://github.com/SebastienDegodez" target="_blank" rel="noopener">
         <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
       </a>
