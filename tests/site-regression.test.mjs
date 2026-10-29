@@ -38,6 +38,20 @@ test('layout keeps navigation shell and design tokens', () => {
   assert.match(layout, /\{\{\s*content\s*\}\}/i, 'Layout should render page content');
 });
 
+// Le CSS des composants vit dans assets/css/site.css (plus de <style> de 580 lignes dans le layout),
+// chargé en dernier pour garder l'ordre de cascade d'origine.
+test('layout loads component styles from assets/css/site.css, last in the cascade', () => {
+  const layout = read('_layouts/default.html');
+  assert.doesNotMatch(layout, /<style[\s>]/i, 'no inline <style> block in the layout');
+  const sheets = [...layout.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.match(sheets.at(-1), /\/assets\/css\/site\.css/, 'site.css comes after tech-glass, design-tokens, blog and decks');
+  assert.match(sheets.at(-1), /relative_url/, 'internal link goes through relative_url (PR previews)');
+  const css = read('assets/css/site.css');
+  for (const sel of ['.hero', '.page-header', '.bento-card', '.project-card', '.talk-card', '.mentoring-card', '.tag--orange']) {
+    assert.ok(css.includes(sel + ' ') || css.includes(sel + '{') || css.includes(sel + ','), `site.css must define ${sel}`);
+  }
+});
+
 test('presentations catalog page keeps data-driven loop', () => {
   const page = read('presentations.md');
 
@@ -178,6 +192,12 @@ test('decks collection is configured apart from the generated presentations fold
   assert.ok(!fs.existsSync(path.join(root, 'presentations', '_decks')), 'Do not store decks inside presentations/');
 });
 
+// Pas de script de migration à la racine : Jekyll publie tout fichier non exclu, y compris un .rb.
+test('no one-off migration script left at the repository root', () => {
+  const scripts = fs.readdirSync(root).filter((f) => /\.(rb|py)$/.test(f));
+  assert.deepEqual(scripts, [], `published as-is by Jekyll: ${scripts.join(', ')}`);
+});
+
 test('deck files follow the NNN-slug naming and carry required front matter', () => {
   const files = deckFiles();
   assert.ok(files.length > 0, 'At least the deck template should exist in _decks/');
@@ -218,6 +238,7 @@ test('presentations catalog shows the Reveal gallery without losing the synced c
   assert.match(read('_includes/decks-gallery.html'), /site\.decks/, 'Gallery must read the decks collection');
 });
 
+<<<<<<< HEAD
 // Le nom s'écrit « DEGODEZ Sébastien » partout (titre d'onglet, pied de page, Open Graph, RSS, diapos).
 test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
   const files = ['index.md', '_layouts/default.html', '_layouts/deck.html', '_includes/head-extra.html', '_data/author.yml', 'feed.xml', '_config.yml'];
@@ -226,6 +247,8 @@ test('name is written « DEGODEZ Sébastien » everywhere on the site', () => {
   assert.match(read('_data/author.yml'), /^name: DEGODEZ Sébastien$/m);
 });
 
+=======
+>>>>>>> origin/main
 test('hosted PR previews: main deploy keeps pr-preview/, previews are built under their own baseurl', () => {
   const deploy = yaml.load(read('.github/workflows/deploy-pages.yml'));
   const preview = yaml.load(read('.github/workflows/pr-preview.yml'));
@@ -323,6 +346,7 @@ test('workflows only use actions running on Node 24', () => {
     }
   }
 });
+<<<<<<< HEAD
 
 // 404 : même thème, même menu et même comportement mobile que le reste du site (viewport via le layout).
 test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
@@ -334,3 +358,5 @@ test('404 page uses the site layout and keeps the /md-copilot redirect', () => {
   assert.match(src, /indexOf\('\/md-copilot'\) === 0[\s\S]*learning-path-copilot/, 'old /md-copilot links must still redirect');
   assert.doesNotMatch(src, /href="\/(?!\/)/, 'internal links go through relative_url');
 });
+=======
+>>>>>>> origin/main

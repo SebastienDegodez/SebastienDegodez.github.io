@@ -51,7 +51,11 @@ Chaque carte pointe vers la version publiée sur ce site et affiche la dernière
         </div>
       </div>
       <div class="project-card__side">
+<<<<<<< HEAD
         <div class="project-card__date">Mise à jour : {{ presentation.updated_at }}</div>
+=======
+        <div class="project-card__date">Maj source: {{ presentation.updated_at }}</div>
+>>>>>>> origin/main
         <a class="project-card__link" href="{{ presentation.url | relative_url }}" target="_blank" rel="noopener">
           <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Ouvrir
         </a>
